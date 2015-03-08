@@ -6,9 +6,8 @@ script:
 env:
   global:
     secure: AVVJWU+38QcV5HmdkzYbyUyKsuXk4iBeuCE5ANRFltFtmulqLZDXHGeEv5VBhH22e67lYPNgFclaSZ0k6WT08aeZVeVKw8YgEay3YuHoWJvslfV8BbNN94i9Yk3fval9RAI4bZ5/kEbNLplLImKea7CZwHMuoIqYLySUbMLXLwI=
-
 deploy:
   provider: npm
   email: i59naga@icloud.com
   api_key:
-    secure: YLkE2zPY6KrUY6WmOgbuz1ILj5USQb4JnZ/3FDugLo9rGsgfP6jRJDG4U4vCn89s8Y5THOsELWEciNhtzw1SsbRClLSg/fg1XOC2BgeYKhwj1kYTY8mfIfFZA0//h4/kZS+6/rgEFRQaVFBfq5FsTCNdUxQ5FKPNsaAerm/pTCw=
+    secure: O/ogmeSYzThLwNbIsrnw0d+YRW5Z4+sEbaINSmZstA0CQ3P7LdvejajF/HvlgW4ccJX9v4VOqunlbBva/Dxg3qeHBQ1ma+LO7x8aRdNOwm1HWRcB72DKowniu32JOMzh2/txBrALYAStD92lm0xbrOUNCu5c9FFfkh3qnNbOkSU=

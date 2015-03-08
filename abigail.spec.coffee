@@ -14,7 +14,7 @@ describe 'abigail',->
         '--execute'
       ]
 
-      setTimeout (-> child.kill()),2000
+      setTimeout (-> child.kill()),3000
       child= childProcess.exec args.join(' '),(error,stdout,stderr)->
         expect(stdout).toMatch /this === coffee\(script\);/g
 
