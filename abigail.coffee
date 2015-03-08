@@ -11,7 +11,7 @@ Abigail= class Abigail
       maid.close() for maid in maids
 
   parse: (argv)->
-    args= minimist argv
+    args= require('minimist') argv
 
     tasks= []
     for arg in args._
