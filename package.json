@@ -1,0 +1,37 @@
+{
+  "name": "abigail",
+  "bin" : "abigail",
+  "main": "abigail",
+  "description": "Minimal task runner",
+  "version": "0.0.1",
+
+  "scripts": {
+    "start": "node ./ *.coffee:compile",
+    "build": "coffee -p test/viaAvigail.coffee",
+    "compile": "coffee -pb test/viaAvigail.coffee",
+
+    "test": "jasminetea . --verbose --cover --report --timeout 3000"
+  },
+
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "chokidar": "^1.0.0-rc4",
+    "coffee-script": "^1.8.0",
+    "minimist": "^1.1.0",
+    "node-module-all": "0.0.8"
+  },
+  "devDependencies": {
+    "jasminetea": "^0.1.20"
+  },
+  
+  "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/59naga/abigail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/59naga/abigail/issues"
+  },
+  "homepage": "https://github.com/59naga/abigail"
+}

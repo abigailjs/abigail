@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- '0.10'
+script:
+- npm test
+env:
+  global:
+    secure: AVVJWU+38QcV5HmdkzYbyUyKsuXk4iBeuCE5ANRFltFtmulqLZDXHGeEv5VBhH22e67lYPNgFclaSZ0k6WT08aeZVeVKw8YgEay3YuHoWJvslfV8BbNN94i9Yk3fval9RAI4bZ5/kEbNLplLImKea7CZwHMuoIqYLySUbMLXLwI=
+
+deploy:
+  provider: npm
+  email: i59naga@icloud.com
+  api_key:
+    secure: L0RdiYMLyD4PM/UIRRQKUJzFmSSElCQKTaPMzSfYmwJJFrzG//HO5JlqqU1lZZApL6HBa2Np5eL5zkWWIx6hGZE41+oNlMB9IgaVJjJkBEwejQSS3uIBonL7Qlm+sRKLr6I0nVD/cVrUR9HlL/7T4OZ6BoQB0JAWQlghkTCW8uU=

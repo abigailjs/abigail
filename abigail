@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+var abigail;
+// Avoid conflicts with another version
+if(typeof require('module')._extensions['.coffee']==='undefined'){
+  require('coffee-script/register');
+}
+abigail= require('./abigail.coffee');
+
+if(module.parent===null){
+  abigail.cli(process.argv.slice(2));
+}
+
+module.exports= abigail;
