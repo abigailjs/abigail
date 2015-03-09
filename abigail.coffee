@@ -53,18 +53,18 @@ Abigail= class Abigail
 
   _log: Date.now()
   log: (args...)->
-    suffix= 'ms '
+    suffix= ' ms'
     diff= Date.now()-@_log ? 0
     if diff>1000
       diff= ~~(diff/1000)
       suffix= 'sec'
-    if diff>1000
-      diff= ~~(diff/1000)
-      suffix= 'min'
-    if diff>1000
-      diff= ~~(diff/1000)
-      suffix= 'hr '
-    console.log ([chalk.gray(('    +'+diff+suffix).slice(-8)),@icon].concat args)...
+      if diff>60
+        diff= ~~(diff/60)
+        suffix= 'min'
+        if diff>60
+          diff= ~~(diff/60)
+          suffix= ' hr'
+    console.log ([chalk.gray(('     +'+diff+suffix).slice(-8)),@icon].concat args)...
     @_log= Date.now()
 
   Maid: class Maid extends Abigail
