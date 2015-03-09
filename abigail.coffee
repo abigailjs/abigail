@@ -13,6 +13,11 @@ Abigail= class Abigail
   parse: (argv)->
     args= require('minimist') argv
 
+    try
+      scripts= require(path.join process.cwd(),'package').scripts
+    catch
+      scripts= {}
+
     tasks= []
     for arg in args._
       [glob,raw]= arg.split ':'
@@ -21,7 +26,7 @@ Abigail= class Abigail
       task.glob= glob#.replace /@/g,'*'#
       task.raw= raw?.replace /(^'|'$)/g,''
       task.script= "npm run #{raw}"
-      task.script= task.raw if require(path.join process.cwd(),'package.json').scripts[raw] is undefined
+      task.script= task.raw if scripts[raw] is undefined
       tasks.push task
 
     options= {}

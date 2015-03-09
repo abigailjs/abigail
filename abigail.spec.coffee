@@ -14,9 +14,25 @@ describe 'abigail',->
         '--execute'
       ]
 
-      setTimeout (-> child.kill()),3000
+      setTimeout (-> child.kill()),2000
       child= childProcess.exec args.join(' '),(error,stdout,stderr)->
         expect(stdout).toMatch /this === coffee\(script\);/g
+
+        done()
+
+    it 'without package.json',(done)->
+      args= [
+        'node'
+        require.resolve './'
+        '*:compile'
+        '--execute'
+      ]
+      options=
+        cwd: path.resolve process.cwd(),'../'
+
+      setTimeout (-> child.kill()),2000
+      child= childProcess.exec args.join(' '),options,(error,stdout,stderr)->
+        expect(error.toString()).toMatch /Command failed/g
 
         done()
 
