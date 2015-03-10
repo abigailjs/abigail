@@ -1,7 +1,10 @@
-Abigail= class Abigail
+class Abigail
   cli: (argv)->
-    [tasks,options]= @parse argv
+    [tasks,options,scripts]= @parse argv
     @help() if tasks.length is 0 or '-v' in argv
+
+    @log "Using #{chalk.bgRed('./package.json')}" if Object.keys(scripts).length
+    @log ';;',"Not found #{chalk.bgRed('./package.json')}" if Object.keys(scripts).length is 0
 
     maids= []
     for task in tasks
@@ -14,9 +17,9 @@ Abigail= class Abigail
     args= require('minimist') argv
 
     try
-      scripts= require(path.join process.cwd(),'package').scripts
+      scripts= require(require('path').join process.cwd(),'package').scripts
     catch
-      scripts= {}
+      scripts?= {}
 
     tasks= []
     for arg in args._
@@ -33,7 +36,7 @@ Abigail= class Abigail
     options.execute= yes if args.execute or args.e
     options.ignored= @getIgnored() if args.ignore or args.i
 
-    [tasks,options]
+    [tasks,options,scripts]
 
   getIgnored: ->
     home= process.env.HOME or process.env.HOMEPATH or process.env.USERPROFILE
@@ -104,13 +107,14 @@ Abigail= class Abigail
       @busy= yes
 
       [bin,args...]= @script.split /\s+/
-      child= childProcess.exec @script,cwd:process.cwd(),(error,stdout,stderr)=>
-        throw error if error?
-
+      child= childProcess.spawn bin,args,{cwd:process.cwd(),stdio:'inherit'}
+      child.on 'error',(code)=>
+        @log ';;',"Broken #{chalk.cyan(@script)}, Exit code #{code}."
         @busy= no
-
-        process.stdout.write stdout
-        process.stderr.write stderr
+      child.on 'exit',(code)=>
+        @log "Finished #{chalk.cyan(@script)}, Exit code #{code}."
+        @busy= no
+      child
 
     close: ->
       return if @watch is undefined
@@ -161,6 +165,6 @@ Abigail= class Abigail
   chalk
 }= require('node-module-all') builtinLibs:true,change:'camelCase'
 
-Abigail.prototype.icon= chalk.magenta("@"+chalk.underline(' ')+"@")
+Abigail::icon= chalk.magenta("@"+chalk.underline(' ')+"@")
 
 module.exports= new Abigail

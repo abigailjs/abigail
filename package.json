@@ -3,14 +3,14 @@
   "bin" : "abigail",
   "main": "abigail",
   "description": "Minimal task runner",
-  "version": "0.0.3",
+  "version": "0.0.4",
 
   "scripts": {
     "start": "node ./ *.coffee:compile",
-    "build": "coffee -p test/viaAvigail.coffee",
+    "build": "coffee -o src -c test",
     "compile": "coffee -pb test/viaAvigail.coffee",
 
-    "test": "jasminetea . --verbose --cover --repot --timeout 3000"
+    "test": "jasminetea . --verbose --cover --repot --timeout 5000"
   },
 
   "dependencies": {
