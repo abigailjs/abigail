@@ -13,7 +13,6 @@ npm install abigail --global
 ```bash
 abigail glob:script glob:script ...
 ```
-__[Can re-use your npm script.][1]__
 
 ### `-e` `--execute`
 Execute script after ready.
@@ -22,9 +21,7 @@ Using `~/.gitignore`&`./.gitignore`, Exclude from the glob.
 
 ## Example
 
-### Upon detecting a change at `lib/**/*.js`
-to Execute `npm run test`.
-
+### `lib/**/*.js:test`
 ```bash
 abigail lib/**/*.js:test
 #  +79 ms @ @ Using ./package.json
@@ -33,6 +30,7 @@ abigail lib/**/*.js:test
 # ...
 #   +6sec @ @ Finish npm run test Exit code 0.
 ```
+Upon detecting a change at `lib/**/*.js` to Execute `npm run test`.
 
 ./package.json
 ```json
@@ -46,7 +44,9 @@ abigail lib/**/*.js:test
 }
 ```
 
-### Execute script, and then watching.
+[Can re-use your npm script.][1]
+
+### `lib/**/*.coffee:compile --execute`
 ```bash
 abigail lib/**/*.coffee:compile -e
 #  +79 ms @ @ Using ./package.json
@@ -55,6 +55,7 @@ abigail lib/**/*.coffee:compile -e
 # ...
 #  +331ms @ @ Finish npm run compile Exit code 0.
 ```
+Execute script, and then watching.
 
 ./package.json
 ```json
@@ -68,7 +69,7 @@ abigail lib/**/*.coffee:compile -e
 }
 ```
 
-### Can use raw script
+### `*.html:'chrome-cli reload'`
 ```bash
 abigail *.html:'chrome-cli reload'
 #  +89 ms @ @ Using ./package.json
@@ -77,7 +78,7 @@ abigail *.html:'chrome-cli reload'
 #   +0 ms @ @ Execute chrome-cli reload
 #  +87 ms @ @ Finished chrome-cli reload, Exit code 0.
 ```
-
+Can use raw script.
 Use [chrome-cli][2], Like a LiveReload.
 
 ## TODO
