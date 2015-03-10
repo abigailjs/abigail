@@ -27,8 +27,9 @@ abigail lib/**/*.js:test
 #  +79 ms @ @ Using ./package.json
 #  +83 ms @ @ Start watching lib/**/*.js for npm run test
 #   +2sec @ @ File lib/hoge.js has been changed.
+#   +0 ms @ @ Execute npm run test
 # ...
-#   +6sec @ @ Finish npm run test Exit code 0.
+#   +6sec @ @ Finished npm run test Exit code 0.
 ```
 Upon detecting a change at `lib/**/*.js` to Execute `npm run test`.
 
@@ -53,7 +54,7 @@ abigail lib/**/*.coffee:compile -e
 #  +83 ms @ @ Start watching lib/**/*.coffee for npm run compile
 #   +0 ms @ @ Execute npm run compile
 # ...
-#  +331ms @ @ Finish npm run compile Exit code 0.
+#  +331ms @ @ Finished npm run compile Exit code 0.
 ```
 Execute script, and then watching.
 
