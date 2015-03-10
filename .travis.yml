@@ -3,9 +3,11 @@ node_js:
 - '0.10'
 script:
 - npm test
+
 env:
   global:
     secure: AVVJWU+38QcV5HmdkzYbyUyKsuXk4iBeuCE5ANRFltFtmulqLZDXHGeEv5VBhH22e67lYPNgFclaSZ0k6WT08aeZVeVKw8YgEay3YuHoWJvslfV8BbNN94i9Yk3fval9RAI4bZ5/kEbNLplLImKea7CZwHMuoIqYLySUbMLXLwI=
+
 deploy:
   provider: npm
   email: i59naga@icloud.com
