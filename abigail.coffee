@@ -165,6 +165,6 @@ class Abigail
   chalk
 }= require('node-module-all') builtinLibs:true,change:'camelCase'
 
-Abigail::icon= chalk.magenta("@"+chalk.underline(' ')+"@")
+Abigail::icon= chalk.magenta '@'+chalk.underline(' ')+'@'
 
 module.exports= new Abigail

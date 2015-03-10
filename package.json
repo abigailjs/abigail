@@ -16,12 +16,11 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "chokidar": "^1.0.0-rc4",
-    "coffee-script": "^1.8.0",
+    "coffee-script": "^1.9.1",
     "minimist": "^1.1.0",
     "node-module-all": "0.0.8"
   },
   "devDependencies": {
-    "jade": "^1.9.2",
     "jasminetea": "^0.1.21"
   },
   

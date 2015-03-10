@@ -6,7 +6,7 @@ script:
 
 env:
   global:
-    secure: AVVJWU+38QcV5HmdkzYbyUyKsuXk4iBeuCE5ANRFltFtmulqLZDXHGeEv5VBhH22e67lYPNgFclaSZ0k6WT08aeZVeVKw8YgEay3YuHoWJvslfV8BbNN94i9Yk3fval9RAI4bZ5/kEbNLplLImKea7CZwHMuoIqYLySUbMLXLwI=
+    secure: UbIpGPLxe+plgOOQJgpdjpYumBjBUq9pNwW7TNFnkTLhgaBBlCUMh3UfaHfAz+PA8GqKDQYMbahEgdk5LqP5lD5i9tMK0CModeAwtEuy8Mm4pwOQwPw2tWr+8FsI0/vqL6XOkhwNhJdiMNp17DZJHIlbk3AlFoF2iBiplrnRfOE=
 
 deploy:
   provider: npm
