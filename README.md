@@ -1,6 +1,4 @@
-# Abigail [![NPM version][npm-image]][npm] [![Build Status][travis-image]][travis] [![Coverage Status][coveralls-image]][coveralls]
-
-<!--![abigail][.svg] -->
+# ![abigail][.svg] Abigail [![NPM version][npm-image]][npm] [![Build Status][travis-image]][travis] [![Coverage Status][coveralls-image]][coveralls]
 
 > Minimal task runner.
 
@@ -87,7 +85,7 @@ License
 =========================
 MIT by 59naga
 
-[.svg]: https://cdn.rawgit.com/59naga/abigail/master/.svg?
+[.svg]: https://cdn.rawgit.com/59naga/abigail/master/.svg
 
 [npm-image]: https://badge.fury.io/js/abigail.svg
 [npm]: https://npmjs.org/package/abigail
