@@ -13,9 +13,12 @@ npm install abigail --global
 ```bash
 abigail glob:script glob:script ...
 ```
+* Pass `glob` to [chokidar][1]. React to changes(add,change,unlink) in the glob, And execute a `script`. 
+* Can reuse your [npm script][2]. by ./package.json. (e.g. `abigail *.js:test`->`npm run test`)
+* Execute raw-script if undefined a npm script. (e.g. `abigail *.md:'echo beep'` -> `echo beep`)
 
 ### `-e` `--execute`
-Execute script after ready.
+Execute script after chokidar ready.
 ### `-i` `--ignore`
 Using `~/.gitignore`&`./.gitignore`, Exclude from the glob.
 
@@ -31,7 +34,6 @@ abigail lib/**/*.js:test
 # ...
 #   +6sec @ @ Finished npm run test Exit code 0.
 ```
-Upon detecting a change at `lib/**/*.js` to Execute `npm run test`.
 
 ./package.json
 ```json
@@ -45,8 +47,6 @@ Upon detecting a change at `lib/**/*.js` to Execute `npm run test`.
 }
 ```
 
-[Can re-use your npm script.][1]
-
 ### `lib/**/*.coffee:compile --execute`
 ```bash
 abigail lib/**/*.coffee:compile -e
@@ -56,7 +56,6 @@ abigail lib/**/*.coffee:compile -e
 # ...
 #  +331ms @ @ Finished npm run compile Exit code 0.
 ```
-Execute script, and then watching.
 
 ./package.json
 ```json
@@ -79,8 +78,7 @@ abigail *.html:'chrome-cli reload'
 #   +0 ms @ @ Execute chrome-cli reload
 #  +87 ms @ @ Finished chrome-cli reload, Exit code 0.
 ```
-Can use raw script.
-Use [chrome-cli][2], Like a LiveReload.
+Use [chrome-cli][3], Like a LiveReload.
 
 ## TODO
 * TEST
@@ -98,5 +96,6 @@ MIT by 59naga
 [coveralls-image]: https://coveralls.io/repos/59naga/abigail/badge.svg?branch=master
 [coveralls]: https://coveralls.io/r/59naga/abigail?branch=master
 
-[1]: http://lostechies.com/derickbailey/2012/04/24/executing-a-project-specific-nodenpm-package-a-la-bundle-exec/
-[2]: https://github.com/prasmussen/chrome-cli
+[1]: https://github.com/paulmillr/chokidar#getting-started
+[2]: http://blog.ibangspacebar.com/npm-scripts/
+[3]: https://github.com/prasmussen/chrome-cli
