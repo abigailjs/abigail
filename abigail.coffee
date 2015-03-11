@@ -108,8 +108,8 @@ class Abigail
 
       [bin,args...]= @script.split /\s+/
       child= childProcess.spawn bin,args,{cwd:process.cwd(),stdio:'inherit'}
-      child.on 'error',(code)=>
-        @log ';;',"Broken #{chalk.cyan(@script)}, Exit code #{code}."
+      child.on 'error',(error)=>
+        @log ';;',"Broken #{chalk.cyan(@script)}, Due to #{error}."
         @busy= no
       child.on 'exit',(code)=>
         @log "Finished #{chalk.cyan(@script)}, Exit code #{code}."

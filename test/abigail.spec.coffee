@@ -1,20 +1,48 @@
-abigail= require './'
+abigail= require '../'
 path= require 'path'
 childProcess= require 'child_process'
 
 argv= (str)-> str.split ' '
+verboseChildProcess= (args,options={},timeout=1000)->
+  manager= new (require('events').EventEmitter)
+
+  setTimeout ->
+    child.kill()
+  ,timeout
+  [bin,args...]= args
+  options.cwd?= process.cwd()
+
+  console.log ''
+
+  error= stdout= stderr= ''
+  child= require('child_process').spawn bin,args,options
+  child.on 'error',(error)->
+    error+= error.stack.toString()
+    console.error 'Error:',error.stack.toString()
+
+  child.stdout.on 'data',(buffer)->
+    stdout+= buffer.toString()
+    process.stdout.write buffer
+
+  child.stderr.on 'data',(buffer)->
+    stderr+= buffer.toString()
+    process.stderr.write buffer
+
+  child.on 'exit',(code)->
+    manager.emit 'exit',code,error,stdout,stderr
+
+  manager
 
 describe 'abigail',->
   it 'Execute before Watching',(done)->
     args= [
       'node'
-      require.resolve './'
-      '*:compile'
+      require.resolve '../'
+      'hoge:compile'
       '--execute'
     ]
 
-    setTimeout (-> child.kill()),3000
-    child= childProcess.exec args.join(' '),(error,stdout,stderr)->
+    verboseChildProcess(args).on 'exit',(code,error,stdout,stderr)->
       expect(stdout).toMatch /this === coffee\(script\);/g
 
       done()
@@ -22,17 +50,16 @@ describe 'abigail',->
   it 'Not using package.json',(done)->
     args= [
       'node'
-      require.resolve './'
-      '*:compile'
+      require.resolve '../'
+      '*.jade:compile'
       '--execute'
     ]
     options=
       cwd: path.resolve process.cwd(),'../'
 
-    setTimeout (-> child.kill()),3000
-    child= childProcess.exec args.join(' '),options,(error,stdout,stderr)->
-      expect(stdout).toMatch /Not found/g
-      expect(error.toString()).toMatch /Command failed/g
+    verboseChildProcess(args,options).on 'exit',(code,error,stdout,stderr)->
+      expect(stdout).toMatch /Not found .\/package.json/g
+      expect(stdout).toMatch /Broken compile/g
 
       done()
 
