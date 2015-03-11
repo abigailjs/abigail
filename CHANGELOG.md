@@ -1,8 +1,8 @@
 v0.0.5 / Mar 11 2015
 =========================
- * [`a3eb475`][0] :bug: Fix undefined `scirpts` at package.json
+ * [`a3eb475`][5] :bug: Fix undefined `scirpts` at package.json
 
-[5]: https://github.com/59naga/abigail/commit/
+[5]: https://github.com/59naga/abigail/commit/ca5ce59fe2a6d4de32a1cabe8ad9cb80684ea608
 
 v0.0.4 / Mar 09 2015
 =========================

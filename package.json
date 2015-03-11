@@ -10,7 +10,7 @@
     "build": "coffee -o src -c test",
     "compile": "coffee -pb test/viaAvigail.coffee",
 
-    "test": "jasminetea test --verbose --cover --report --timeout 2000 --debug"
+    "test": "jasminetea test --verbose --cover --report --timeout 3000 --debug"
   },
 
   "dependencies": {
