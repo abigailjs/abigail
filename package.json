@@ -3,7 +3,7 @@
   "bin" : "abigail",
   "main": "abigail",
   "description": "Minimal task runner",
-  "version": "0.0.4",
+  "version": "0.0.5",
 
   "scripts": {
     "start": "node ./ *.coffee:compile",

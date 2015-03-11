@@ -8,7 +8,7 @@ class Abigail
 
     maids= []
     for task in tasks
-      maids.push new @Maid task,options
+      maids.push new Maid task,options
 
     process.on 'exit',->
       maid.close() for maid in maids
@@ -19,6 +19,7 @@ class Abigail
     try
       scripts= require(require('path').join process.cwd(),'package').scripts
     catch
+    finally
       scripts?= {}
 
     tasks= []
@@ -29,7 +30,7 @@ class Abigail
       task.glob= glob#.replace /@/g,'*'#
       task.raw= raw?.replace /(^'|'$)/g,''
       task.script= "npm run #{raw}"
-      task.script= task.raw if scripts[raw] is undefined
+      task.script= task.raw if scripts?[raw] is undefined
       tasks.push task
 
     options= {}
@@ -70,61 +71,6 @@ class Abigail
     console.log ([chalk.gray(('     +'+diff+suffix).slice(-8)),@icon].concat args)...
     @_log= Date.now()
 
-  Maid: class Maid extends Abigail
-    constructor: (task,@options)->
-      @glob= task.glob
-      @raw= task.raw
-      @script= task.script
-
-      @busy= yes
-
-      @watch= chokidar.watch @glob,@options
-      @watch.on 'ready',=>
-        @log "Start watching #{chalk.underline(@glob)} for #{chalk.cyan(@script)}"
-        @busy= no
-
-        @task() if @options.execute
-
-      @count= 0
-      @watch.on 'add',(dir)=>
-        @count++
-
-        @log 'File',chalk.underline(dir),'has been added.' if not @busy
-        @task()
-      @watch.on 'unlink',(file)=>
-        @count--
-        @log 'File',chalk.underline(file),'has been deleted.' if not @busy
-        @task()
-      @watch.on 'change',(file,stats)=>
-        @log 'File',chalk.underline(file),'has been changed.' if not @busy
-        @task()
-      @watch.on 'error',=> @log ';;','error',arguments
-
-    task: ->
-      return if @busy
-
-      @log "Execute #{chalk.cyan(@script)}"
-      @busy= yes
-
-      [bin,args...]= @script.split /\s+/
-      child= childProcess.spawn bin,args,{cwd:process.cwd(),stdio:'inherit'}
-      child.on 'error',(error)=>
-        @log ';;',"Broken #{chalk.cyan(@script)}, Due to #{error}."
-        @busy= no
-      child.on 'exit',(code)=>
-        @log "Finished #{chalk.cyan(@script)}, Exit code #{code}."
-        @busy= no
-      child
-
-    close: ->
-      return if @watch is undefined
-
-      @log "Stop #{chalk.cyan(@script)}"
-      @busy= yes
-
-      @watch.close()
-      delete @watch
-
   help: ->
     # TODO markup
 
@@ -154,6 +100,61 @@ class Abigail
     console.log "  "
 
     process.exit 0
+
+class Maid extends Abigail
+  constructor: (task,@options)->
+    @glob= task.glob
+    @raw= task.raw
+    @script= task.script
+
+    @busy= yes
+
+    @watch= chokidar.watch @glob,@options
+    @watch.on 'ready',=>
+      @log "Start watching #{chalk.underline(@glob)} for #{chalk.cyan(@script)}"
+      @busy= no
+
+      @task() if @options.execute
+
+    @count= 0
+    @watch.on 'add',(dir)=>
+      @count++
+
+      @log 'File',chalk.underline(dir),'has been added.' if not @busy
+      @task()
+    @watch.on 'unlink',(file)=>
+      @count--
+      @log 'File',chalk.underline(file),'has been deleted.' if not @busy
+      @task()
+    @watch.on 'change',(file,stats)=>
+      @log 'File',chalk.underline(file),'has been changed.' if not @busy
+      @task()
+    @watch.on 'error',=> @log ';;','error',arguments
+
+  task: ->
+    return if @busy
+
+    @log "Execute #{chalk.cyan(@script)}"
+    @busy= yes
+
+    [bin,args...]= @script.split /\s+/
+    child= childProcess.spawn bin,args,{cwd:process.cwd(),stdio:'inherit'}
+    child.on 'error',(error)=>
+      @log ';;',"Broken #{chalk.cyan(@script)}, Due to #{error}."
+      @busy= no
+    child.on 'exit',(code)=>
+      @log "Finished #{chalk.cyan(@script)}, Exit code #{code}."
+      @busy= no
+    child
+
+  close: ->
+    return if @watch is undefined
+
+    @log "Stop #{chalk.cyan(@script)}"
+    @busy= yes
+
+    @watch.close()
+    delete @watch
 
 {
   fs
