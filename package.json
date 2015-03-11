@@ -10,7 +10,7 @@
     "build": "coffee -o src -c test",
     "compile": "coffee -pb test/viaAvigail.coffee",
 
-    "test": "jasminetea . --verbose --cover --report --timeout 20000 --debug"
+    "test": "jasminetea . --verbose --cover --report --timeout 10000 --debug"
   },
 
   "dependencies": {
@@ -21,7 +21,7 @@
     "node-module-all": "0.0.8"
   },
   "devDependencies": {
-    "jasminetea": "^0.1.21"
+    "jasminetea": "^0.1.22"
   },
   
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
