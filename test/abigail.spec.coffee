@@ -41,6 +41,8 @@ describe 'abigail',->
       'hoge:compile'
       '--execute'
     ]
+    options=
+      cwd: __dirname
 
     verboseChildProcess(args).on 'exit',(code,error,stdout,stderr)->
       expect(stdout).toMatch /this === coffee\(script\);/g
@@ -55,7 +57,7 @@ describe 'abigail',->
       '--execute'
     ]
     options=
-      cwd: path.resolve process.cwd(),'../'
+      cwd: path.resolve __dirname
 
     verboseChildProcess(args,options).on 'exit',(code,error,stdout,stderr)->
       expect(stdout).toMatch /Not found .\/package.json/g
