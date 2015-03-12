@@ -1,6 +1,7 @@
-v0.0.5 / Mar 11 2015
+v0.0.6 / Mar 11 2015
 =========================
  * [`a3eb475`][5] :bug: Fix undefined `scirpts` at package.json
+ * [`unknown`][0] :bug: Hotix `Cannot find module '../package'`
 
 [5]: https://github.com/59naga/abigail/commit/ca5ce59fe2a6d4de32a1cabe8ad9cb80684ea608
 

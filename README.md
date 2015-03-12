@@ -1,6 +1,6 @@
 # ![abigail][.svg] Abigail [![NPM version][npm-image]][npm] [![Build Status][travis-image]][travis] [![Coverage Status][coveralls-image]][coveralls]
 
-> Minimal task runner.
+> the minimal task runner.
 
 ## Installation
 ```bash

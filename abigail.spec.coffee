@@ -1,4 +1,4 @@
-abigail= require '../'
+abigail= require './'
 path= require 'path'
 childProcess= require 'child_process'
 
@@ -37,7 +37,7 @@ describe 'abigail',->
   it 'Execute before Watching',(done)->
     args= [
       'node'
-      require.resolve '../'
+      require.resolve './'
       'hoge:compile'
       '--execute'
     ]
@@ -52,12 +52,12 @@ describe 'abigail',->
   it 'Not using package.json',(done)->
     args= [
       'node'
-      require.resolve '../'
+      require.resolve './'
       '*.jade:compile'
       '--execute'
     ]
     options=
-      cwd: path.resolve __dirname
+      cwd: path.resolve __dirname,'fixtures'
 
     verboseChildProcess(args,options).on 'exit',(code,error,stdout,stderr)->
       expect(stdout).toMatch /Not found .\/package.json/g

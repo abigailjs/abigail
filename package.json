@@ -2,15 +2,15 @@
   "name": "abigail",
   "bin" : "abigail",
   "main": "abigail",
-  "description": "Minimal task runner",
-  "version": "0.0.5",
+  "description": "the minimal task runner",
+  "version": "0.0.6",
 
   "scripts": {
     "start": "node ./ *.coffee:compile",
-    "build": "coffee -o src -c test",
-    "compile": "coffee -pb test/viaAvigail.coffee",
+    "build": "coffee -o src -c fixtures",
+    "compile": "coffee -pb fixtures/viaAvigail.coffee",
 
-    "test": "jasminetea test --verbose --cover --report --timeout 3000 --debug"
+    "test": "jasminetea . --verbose --cover --report --timeout 3000 --debug"
   },
 
   "dependencies": {
@@ -23,6 +23,10 @@
   "devDependencies": {
     "jasminetea": "^0.1.22"
   },
+  
+  "keywords": [
+    "cli"
+  ],
   
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
   "license": "MIT",
