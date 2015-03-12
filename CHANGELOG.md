@@ -1,9 +1,16 @@
+v0.0.7 / Mar 13 2015
+=========================
+ * [`c4100e0`][7] :white_check_mark: Add test
+
+[7]: https://github.com/59naga/abigail/commit/c4100e002a89899ddb135766837ddd29290e4e5e
+
 v0.0.6 / Mar 11 2015
 =========================
  * [`a3eb475`][5] :bug: Fix undefined `scirpts` at package.json
- * [`unknown`][0] :bug: Hotix `Cannot find module '../package'`
+ * [`f45b83e`][6] :bug: Hotix `Cannot find module '../package'`
 
 [5]: https://github.com/59naga/abigail/commit/ca5ce59fe2a6d4de32a1cabe8ad9cb80684ea608
+[6]: https://github.com/59naga/abigail/commit/f45b83e525d18045c7e6f4d4bf3966b54e1489f8
 
 v0.0.4 / Mar 09 2015
 =========================
