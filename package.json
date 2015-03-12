@@ -3,10 +3,12 @@
   "bin" : "abigail",
   "main": "abigail",
   "description": "the minimal task runner",
-  "version": "0.0.6",
+  "version": "0.0.7",
 
   "scripts": {
-    "start": "node ./ *.coffee:compile",
+    "start": "jasminetea . --watch --verbose --cover --report --timeout 3000 --debug",
+
+    "hoge": "node ./ *.coffee:compile",
     "build": "coffee -o src -c fixtures",
     "compile": "coffee -pb fixtures/viaAvigail.coffee",
 
@@ -21,7 +23,7 @@
     "node-module-all": "0.0.8"
   },
   "devDependencies": {
-    "jasminetea": "^0.1.22"
+    "jasminetea": "^0.1.23"
   },
   
   "keywords": [

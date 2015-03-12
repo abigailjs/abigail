@@ -13,6 +13,8 @@ class Abigail
     process.on 'exit',->
       maid.close() for maid in maids
 
+    maids
+
   parse: (argv)->
     args= require('minimist') argv
 
@@ -41,7 +43,7 @@ class Abigail
 
   getIgnored: ->
     home= process.env.HOME or process.env.HOMEPATH or process.env.USERPROFILE
-
+    
     paths= []
     try
       homeIgnore= fs.readFileSync(path.join home,'.gitignore').toString()
@@ -72,8 +74,6 @@ class Abigail
     @_log= Date.now()
 
   help: ->
-    # TODO markup
-
     console.log "  "
     console.log "  #{@icon} Abigail v#{require('./package').version}"
     console.log "  "
