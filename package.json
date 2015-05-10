@@ -3,30 +3,31 @@
   "bin" : "abigail",
   "main": "abigail",
   "description": "the minimal task runner",
-  "version": "0.0.7",
+  "version": "0.0.8-beta.0",
 
   "scripts": {
-    "start": "jasminetea . --watch --verbose --cover --report --timeout 3000 --debug",
+    "postinstall": "coffee -o lib -c src",
 
-    "hoge": "node ./ *.coffee:compile",
-    "build": "coffee -o src -c fixtures",
-    "compile": "coffee -pb fixtures/viaAvigail.coffee",
+    "hoge": "node abigail *.coffee:compile",
+    "build": "echo noop",
 
-    "test": "jasminetea . --verbose --cover --report --timeout 3000 --debug"
+    "start": "jasminetea test --watch --verbose --cover --report --timeout 3000 --debug",
+    "compile": "coffee -pb test/fixtures/viaAvigail.coffee",
+    "test": "jasminetea test --verbose --cover --report --timeout 3000"
   },
 
   "dependencies": {
     "chalk": "^1.0.0",
-    "chokidar": "^1.0.0-rc4",
     "coffee-script": "^1.9.1",
-    "minimist": "^1.1.0",
-    "node-module-all": "0.0.8"
+    "glob-watcher": "^2.0.0",
+    "minimist": "^1.1.0"
   },
   "devDependencies": {
     "jasminetea": "^0.1.23"
   },
   
   "keywords": [
+    "watcher",
     "cli"
   ],
   

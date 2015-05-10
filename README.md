@@ -17,8 +17,6 @@ abigail glob:script glob:script ...
 
 ### `-e` `--execute`
 Execute script after chokidar ready.
-### `-i` `--ignore`
-Using `~/.gitignore`&`./.gitignore`, Exclude from the glob.
 
 ## Example
 
@@ -77,9 +75,6 @@ abigail *.html:'chrome-cli reload'
 #  +87 ms @ @ Finished chrome-cli reload, Exit code 0.
 ```
 Use [chrome-cli][3], Like a LiveReload.
-
-## TODO
-* TEST
 
 License
 =========================

@@ -1,20 +1,25 @@
-abigail= require './'
+# Dependencies
+abigail= require '../'
+pkg= require '../package'
 path= require 'path'
-childProcess= require 'child_process'
 
+argv= (str)-> str.split ' '
+spawn= require './spawn-verbose'
+
+# Spec
 describe 'abigail',->
   describe 'Usage',->
     it 'Execute before Watching',(done)->
       args= [
         'node'
-        require.resolve './'
+        require.resolve '../'
         'hoge:compile'
         '--execute'
       ]
       options=
         cwd: __dirname
 
-      verboseChildProcess(args).on 'exit',(code,error,stdout,stderr)->
+      spawn(args).on 'exit',(code,error,stdout,stderr)->
         expect(stdout).toMatch /this === coffee\(script\);/g
 
         done()
@@ -22,42 +27,41 @@ describe 'abigail',->
     it 'Not using package.json',(done)->
       args= [
         'node'
-        require.resolve './'
+        require.resolve '../'
         '*.jade:compile'
         '--execute'
       ]
       options=
         cwd: path.resolve __dirname,'fixtures'
 
-      verboseChildProcess(args,options).on 'exit',(code,error,stdout,stderr)->
+      spawn(args,options).on 'exit',(code,error,stdout,stderr)->
         expect(stdout).toMatch /Not found .\/package.json/g
         expect(stdout).toMatch /Broken compile/g
 
         done()
 
   describe 'class Abigail',->
-    abigail= require './'
     properties= Object.keys abigail.__proto__
 
     it 'cli is CLI entry point',->
-      maids= abigail.cli ["*:echo 'beep'"]
+      maids= abigail.cli ["*:echo 'beep'"],off
       expect(maids.length).toEqual 1
 
     it 'parse is task generator',->
-      [tasks,options,scripts]= abigail.parse ["*:'echo beep'",'-e','-i']
+      [tasks,options,scripts]= abigail.parse ["*:'echo beep'",'-e','-i'],off
       expect(tasks).toEqual [glob:'*',raw:'echo beep',script:'echo beep']
       expect(Object.keys options).toEqual ['execute','ignored']
-      expect(scripts).toEqual require('./package').scripts
+      expect(scripts).toEqual pkg.scripts
 
     it 'getIgnored is return marged gitignore',->
-      ignored= abigail.getIgnored()
+      ignored= abigail.getIgnored(off)
       expect(ignored instanceof Array).toBeTruthy()
 
     it '_log is Date.now()',->
       expect(typeof abigail._log).toEqual 'number'
 
     it 'log is console.log wrapper',->
-      expect(typeof abigail.log()).toEqual 'number'
+      expect(typeof abigail.log).toEqual 'function'
 
     xit 'help is Output usage',->
       abigail.help()
@@ -65,17 +69,6 @@ describe 'abigail',->
     it 'icon is @_@',->
       chalk= require 'chalk'
       expect(abigail.icon).toEqual chalk.magenta '@'+chalk.underline(' ')+'@'
-
-    it "... #{properties.length} properties is defined",->
-      expect(properties).toEqual [
-        'cli'
-        'parse'
-        'getIgnored'
-        '_log'
-        'log'
-        'help'
-        'icon'
-      ]
 
   describe '.parse',->
     it 'single',->
@@ -104,34 +97,3 @@ describe 'abigail',->
         {glob:'*',raw:'piyo',script:'piyo'}
         {glob:'*.coffee',raw:'compile',script:'compile'}
       ]
-
-argv= (str)-> str.split ' '
-verboseChildProcess= (args,options={},timeout=1000)->
-  manager= new (require('events').EventEmitter)
-
-  setTimeout ->
-    child.kill()
-  ,timeout
-  [bin,args...]= args
-  options.cwd?= process.cwd()
-
-  console.log ''
-
-  error= stdout= stderr= ''
-  child= require('child_process').spawn bin,args,options
-  child.on 'error',(error)->
-    error+= error.stack.toString()
-    console.error 'Error:',error.stack.toString()
-
-  child.stdout.on 'data',(buffer)->
-    stdout+= buffer.toString()
-    process.stdout.write buffer
-
-  child.stderr.on 'data',(buffer)->
-    stderr+= buffer.toString()
-    process.stderr.write buffer
-
-  child.on 'exit',(code)->
-    manager.emit 'exit',code,error,stdout,stderr
-
-  manager
