@@ -11,12 +11,12 @@ npm install abigail --global
 ```bash
 abigail glob:script glob:script ...
 ```
-* Pass `glob` to [chokidar][1]. React to changes(add,change,unlink) in the glob, And execute a `script`. 
+* Pass `glob` to [gaze][1]. React to changes(add,change,unlink) in the glob, And execute a `script`. 
 * Can reuse your [npm script][2]. by ./package.json. (e.g. `abigail *.js:test`->`npm run test`)
 * Execute raw-script if undefined a npm script. (e.g. `abigail *.md:'echo beep'` -> `echo beep`)
 
 ### `-e` `--execute`
-Execute script after chokidar ready.
+Execute script after gaze ready.
 
 ## Example
 
@@ -76,6 +76,9 @@ abigail *.html:'chrome-cli reload'
 ```
 Use [chrome-cli][3], Like a LiveReload.
 
+## Similar
+> * [onchange](https://github.com/Qard/onchange) Use glob patterns to watch file sets and run a command when anything is added, changed or deleted.
+
 License
 =========================
 MIT by 59naga
@@ -89,6 +92,6 @@ MIT by 59naga
 [coveralls-image]: https://coveralls.io/repos/59naga/abigail/badge.svg?branch=master
 [coveralls]: https://coveralls.io/r/59naga/abigail?branch=master
 
-[1]: https://github.com/paulmillr/chokidar#getting-started
+[1]: https://github.com/shama/gaze
 [2]: http://blog.ibangspacebar.com/npm-scripts/
 [3]: https://github.com/prasmussen/chrome-cli
