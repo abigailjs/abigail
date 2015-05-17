@@ -1,7 +1,9 @@
 # Dependencies
+path= require 'path'
+spawn= (require 'child_process').spawn
+
 watch= require 'glob-watcher'
 chalk= require 'chalk'
-spawn= (require 'child_process').spawn
 
 class Maid extends require './utility'
   constructor: (task,@options)->
@@ -28,10 +30,10 @@ class Maid extends require './utility'
       @task()
     @watch.on 'unlink',(file)=>
       @count--
-      @log 'File',chalk.underline(file.path),'has been deleted.' if not @busy
+      @log 'File',chalk.underline(path.relative process.cwd(),file.path),'has been deleted.' if not @busy
       @task()
     @watch.on 'change',(file)=>
-      @log 'File',chalk.underline(file.path),'has been changed.' if not @busy
+      @log 'File',chalk.underline(path.relative process.cwd(),file.path),'has been changed.' if not @busy
       @task()
     @watch.on 'error',=> @log ';;','error',arguments
 
