@@ -3,7 +3,7 @@
   "bin" : "abigail",
   "main": "abigail",
   "description": "the minimal task runner",
-  "version": "0.0.8-beta.0",
+  "version": "0.0.8-beta.1",
 
   "scripts": {
     "postinstall": "coffee -o lib -c src",
