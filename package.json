@@ -5,9 +5,9 @@
   "version": "0.1.0-alpha.0",
 
   "scripts": {
-    "default": "jasminetea test --watch --verbose --timeout 3000",
+    "default": "jasminetea test --verbose --timeout 3000",
 
-    "start": "$(opc package scripts.default)",
+    "start": "$(opc package scripts.default) --watch",
     "test": "$(opc package scripts.default) --cover --report",
     
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",

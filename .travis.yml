@@ -8,8 +8,6 @@ cache:
 language: node_js
 node_js:
   - '0.10'
-before_script:
-  - npm install jasminetea@0.1.30-rc.3 --global
 
 # COVERALLS_REPO_TOKEN
 env:
