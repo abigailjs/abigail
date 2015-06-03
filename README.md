@@ -22,9 +22,12 @@ $ abigail test test/**,src/**
 #  +82 ms @ @ Watch test/** and src/** for npm run test
 # +131 ms @ @ Execute npm run test
 # ...
-#   +6sec @ @ Finish $ npm run test Exit code 0.
+#   +7 ms @ @ Finish npm run test, Exit code 0.
+#
 #  +14sec @ @ File test/cli.spec.coffee changed
+#   +1 ms @ @ Execute npm run test
 # ...
+#   +7 ms @ @ Finish npm run test, Exit code 0.
 ```
 
 ## Script prefix `_`
@@ -36,7 +39,9 @@ $ abigail _test test/**,src/**
 #  +47 ms @ @ Use ./package.json
 #  +50 ms @ @ Watch test/** and src/** for npm run test.
 #  +14sec @ @ File test/cli.spec.coffee changed
+#   +1 ms @ @ Execute npm run test
 # ...
+#   +7 ms @ @ Finish npm run test, Exit code 0.
 ```
 
 ## Watch prefix `_`
@@ -49,6 +54,7 @@ $ abigail test **,_node_modules/**
 #  +46 ms @ @ Watch ** and !node_modules/** for npm run test.
 # +898 ms @ @ Execute npm run test
 # ...
+#   +7 ms @ @ Finish npm run test, Exit code 0.
 ```
 
 ## Raw script
