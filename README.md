@@ -22,7 +22,7 @@ $ abigail test test/**,src/**
 #  +82 ms @ @ Watch test/** and src/** for npm run test
 # +131 ms @ @ Execute npm run test
 # ...
-#   +6sec @ @ Finished $ npm run test Exit code 0.
+#   +6sec @ @ Finish $ npm run test Exit code 0.
 #  +14sec @ @ File test/cli.spec.coffee changed
 # ...
 ```
