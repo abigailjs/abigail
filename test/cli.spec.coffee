@@ -1,5 +1,8 @@
 # Dependencies
 Abigail= (require '../src').Abigail
+Task= (require '../src/task').Task
+
+path= require 'path'
 
 # Fixture
 $abigail= (args)->
@@ -67,3 +70,11 @@ describe 'CLI',->
       expect(arg.script).toBe 'raw script'
       expect(arg.globs[0]).toBe 'src/**'
       expect(arg.lazy).toBe false
+
+it 'class Task',->
+  task= new Task 'foo',['bar','!baz'],null,true
+
+  expect(task.script).toBe 'foo'
+  expect(task.globs[0]).toEqual path.join process.cwd(),'bar'
+  expect(task.globs[1]).toEqual '!'+path.join process.cwd(),'baz'
+  expect(task.lazy).toBe false

@@ -32,9 +32,9 @@ $ abigail test test/**,src/**
 Can lazy execution if prefix `_` for <script-name>.
 
 ```bash
-$ abigail _test test/**/*.es6,src/**/*.es6 
-#  +79 ms @ @ Use ./package.json
-#  +83 ms @ @ Watch test/**/*.es6 and src/**/*.es6 for npm run test
+$ abigail _test test/**,src/**
+#  +47 ms @ @ Use ./package.json
+#  +50 ms @ @ Watch test/** and src/** for npm run test.
 #  +14sec @ @ File test/cli.spec.coffee changed
 ```
 

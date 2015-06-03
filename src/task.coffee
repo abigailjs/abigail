@@ -8,10 +8,21 @@ path= require 'path'
 spawn= (require 'child_process').spawn
 
 class Task extends Utility
-  constructor: (@script,@globs=[],@lazy)->
+  constructor: (@script,@globs=[],@lazy=false,debug=false)->
     @process= null
 
     @log "Watch #{@whereabouts(@globs)} for #{@strong(@script)}."
+
+    @globs=
+      for glob in @globs
+        blacklist= glob[0] is '!'
+        glob= glob.slice 1 if blacklist
+
+        globAbsolute= path.resolve process.cwd(),glob
+        globAbsolute= '!'+globAbsolute if blacklist
+        globAbsolute
+
+    return if debug
 
     gaze @globs,(error,watcher)=>
       throw error if error?
