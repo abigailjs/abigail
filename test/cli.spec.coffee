@@ -71,6 +71,14 @@ describe 'CLI',->
       expect(arg.globs[0]).toBe 'src/**'
       expect(arg.lazy).toBe false
 
+    it '$ abigail "_raw script" src/**',->
+      cli= $abigail '"_raw script" src/**'
+
+      arg= cli.args[0]
+      expect(arg.script).toBe 'raw script'
+      expect(arg.globs[0]).toBe 'src/**'
+      expect(arg.lazy).toBe true
+
 describe 'class Task',->
   it '$ abigail foo bar,!baz',->
     task= new Task 'foo',['bar','!baz'],null,true
