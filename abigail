@@ -1,15 +1,2 @@
 #!/usr/bin/env node
-
-var abigail;
-if(require('module')._extensions['.coffee']==null){
-  abigail= require('./lib');
-}
-else{
-  abigail= require('./src');
-}
-
-if(module.parent===null){
-  abigail.cli(process.argv.slice(2));
-}
-
-module.exports= abigail;
+require('./').parse(process.argv);

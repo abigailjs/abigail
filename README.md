@@ -1,87 +1,73 @@
-# ![abigail][.svg] Abigail [![NPM version][npm-image]][npm] [![Build Status][travis-image]][travis] [![Coverage Status][coveralls-image]][coveralls]
+# ![][.svg] Abigail [![NPM version][npm-image]][npm] [![Build Status][travis-image]][travis] [![Coverage Status][coveralls-image]][coveralls]
 
-> the minimal task runner.
+> the Minimal task runner. Enhance your npm-scripts.
 
 ## Installation
 ```bash
-npm install abigail --global
+$ npm install abigail --global
 ```
 
-## Usage
+# CLI
 ```bash
-abigail glob:script glob:script ...
+$ abigail <script-name> <watch> [<script-name> <watch>...]
 ```
-* Pass `glob` to [gaze][1]. React to changes(add,change,unlink) in the glob, And execute a `script`. 
-* Can reuse your [npm script][2]. by ./package.json. (e.g. `abigail *.js:test`->`npm run test`)
-* Execute raw-script if undefined a npm script. (e.g. `abigail *.md:'echo beep'` -> `echo beep`)
 
-### `-e` `--execute`
-Execute script after gaze ready.
+## Multi globs
 
-## Example
+Can specify the watch separated by commas.
 
-### `lib/**/*.js:test`
 ```bash
-abigail lib/**/*.js:test
-#  +79 ms @ @ Using ./package.json
-#  +83 ms @ @ Start watching lib/**/*.js for npm run test
-#   +2sec @ @ File lib/hoge.js has been changed.
-#   +0 ms @ @ Execute npm run test
+$ abigail test test/**,src/**
+#  +79 ms @ @ Use ./package.json
+#  +82 ms @ @ Watch test/** and src/** for npm run test
+# +131 ms @ @ Execute npm run test
 # ...
-#   +6sec @ @ Finished npm run test Exit code 0.
-```
-
-./package.json
-```json
-{
-  "scripts":{
-    "test":"mocha"
-  },
-  "devDependencies": {
-    "mocha": "^2.2.1"
-  }
-}
-```
-
-### `lib/**/*.coffee:compile --execute`
-```bash
-abigail lib/**/*.coffee:compile -e
-#  +79 ms @ @ Using ./package.json
-#  +83 ms @ @ Start watching lib/**/*.coffee for npm run compile
-#   +0 ms @ @ Execute npm run compile
+#   +6sec @ @ Finished $ npm run test Exit code 0.
+#  +14sec @ @ File test/cli.spec.coffee changed
 # ...
-#  +331ms @ @ Finished npm run compile Exit code 0.
 ```
 
-./package.json
-```json
-{
-  "scripts":{
-    "compile":"coffee -o src -c lib"
-  },
-  "devDependencies": {
-    "coffee-script": "^1.8.0"
-  }
-}
-```
+## Script Prefix `_`
 
-### `*.html:'chrome-cli reload'`
+Can lazy execution if prefix `_` for <script-name>.
+
 ```bash
-abigail *.html:'chrome-cli reload'
-#  +89 ms @ @ Using ./package.json
-# +107 ms @ @ Start watching *.html for chrome-cli reload
-#   +1sec @ @ File README.html has been changed.
-#   +0 ms @ @ Execute chrome-cli reload
-#  +87 ms @ @ Finished chrome-cli reload, Exit code 0.
+$ abigail _test test/**/*.es6,src/**/*.es6 
+#  +79 ms @ @ Use ./package.json
+#  +83 ms @ @ Watch test/**/*.es6 and src/**/*.es6 for npm run test
+#  +14sec @ @ File test/cli.spec.coffee changed
 ```
-Use [chrome-cli][3], Like a LiveReload.
 
-## Similar
-> * [onchange](https://github.com/Qard/onchange) Use glob patterns to watch file sets and run a command when anything is added, changed or deleted.
+## Watch Prefix `_`
+
+Can omit a file from watch if prefix `_` for <watch>.
+
+```bash
+$ abigail test **,_node_modules/**
+#  +43 ms @ @ Use ./package.json
+#  +46 ms @ @ Watch ** and !node_modules/** for npm run test.
+# +898 ms @ @ Execute npm run test
+# ...
+```
+
+## Raw script
+
+Can use raw script if undefined npm-scripts.
+
+```bash
+$ abigail "echo foo" test/**
+#   +47 ms @ @ Use ./package.json
+#   +49 ms @ @ Watch test/cli.spec.coffee for echo foo
+#  +126 ms @ @ Execute echo foo
+# foo
+#    +7 ms @ @ Finish echo foo, Exit code 0.
+```
 
 License
 =========================
-MIT by 59naga
+[MIT][License]
+
+[License]: http://59naga.mit-license.org/
 
 [.svg]: https://cdn.rawgit.com/59naga/abigail/master/.svg
 
@@ -91,7 +77,3 @@ MIT by 59naga
 [travis]: https://travis-ci.org/59naga/abigail
 [coveralls-image]: https://coveralls.io/repos/59naga/abigail/badge.svg?branch=master
 [coveralls]: https://coveralls.io/r/59naga/abigail?branch=master
-
-[1]: https://github.com/shama/gaze
-[2]: http://blog.ibangspacebar.com/npm-scripts/
-[3]: https://github.com/prasmussen/chrome-cli

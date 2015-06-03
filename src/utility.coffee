@@ -1,8 +1,9 @@
 # Dependencies
 chalk= require 'chalk'
-fs= require 'fs'
-path= require 'path'
+
 pkg= require '../package'
+path= require 'path'
+fs= require 'fs'
 
 class Utility
   icon: chalk.magenta '@'+chalk.underline(' ')+'@'
@@ -23,6 +24,15 @@ class Utility
     console.log ([chalk.gray(('     +'+diff+suffix).slice(-8)),@icon].concat args)...
     @_log= Date.now()
 
+  strong: (arg)->
+    chalk.cyan arg
+
+  whereabouts: (args,conjunctive=' and ')->
+    args= [args] if typeof args is 'string'
+    args= [chalk.red('undefined')] if args[0] is undefined
+
+    (chalk.underline arg for arg in args).join(conjunctive)
+
   getIgnored: (stdout=yes)->
     home= process.env.HOME or process.env.HOMEPATH or process.env.USERPROFILE
     
@@ -42,30 +52,38 @@ class Utility
     paths
   
   help: ->
-    console.log "  "
-    console.log "  #{@icon} Abigail v#{pkg.version}"
-    console.log "  "
-    console.log "  Usage:"
-    console.log "    abigail #{chalk.underline('glob')}:#{chalk.cyan('script')} #{chalk.underline('glob')}:#{chalk.cyan('script')} ..."
-    console.log "  "
-    console.log "  Options:"
-    console.log "    -e --execute : Execute #{chalk.cyan('script')} after ready"
-    console.log "  "
-    console.log "  Example:"
-    console.log "    $ #{chalk.inverse('abigail *.coffee:compile')}"
-    console.log "      > #{@icon} Start watching #{chalk.underline('*.coffee')} for #{chalk.cyan('npm run compile')}"
-    console.log "  "
-    console.log "    $ #{chalk.inverse('abigail *.coffee:compile --execute')}"
-    console.log "      > #{@icon} Start watching  #{chalk.underline('*.coffee')} for #{chalk.cyan('npm run compile')}"
-    console.log "      > #{@icon} Execute #{chalk.cyan('npm run compile')}"
-    console.log "  "
-    console.log "    $ #{chalk.inverse('abigail *.md:\'echo cool\'')}"
-    console.log "      > #{@icon} Start watching #{chalk.underline('*.md')} for #{chalk.cyan('echo cool')}"
-    console.log "  "
-    console.log "    $ #{chalk.inverse('abigail **/*.jade:\'$(npm bin)/jade test/viaAvigail.jade -o .\'')}"
-    console.log "      > #{@icon} Start watching #{chalk.underline('**/*.jade')} for #{chalk.cyan('$(npm bin)/jade test/viaAvigail.jade -o .')}"
-    console.log "  "
+    log= console.log
+    
+    log ""
+    log "  #{@icon} Abigail v#{pkg.version}"
+    log "  "
+    log "  Usage:"
+    log "    $ abigail #{@strong('script')} #{@whereabouts('globs')} [#{@strong('script')} #{@whereabouts('globs')}] ..."
+    log "  "
+    log "  Example:"
+    log "    $ #{chalk.inverse('abigail compile "*.coffee"')}"
+    log "      > #{@icon} Watch #{@whereabouts('*.coffee')} for #{@strong('npm run compile')}"
+    log "      > #{@icon} Execute #{@strong('npm run compile')}"
+    log "      > ..."
+    log "  "
+    log "    $ #{chalk.inverse('abigail test test/**/*.es6,src/**/*.es6')}"
+    log "      > #{@icon} Watch #{@whereabouts(['test/**/*.es6','src/**/*.es6'])} for #{@strong('npm run test')}"
+    log "      > #{@icon} Execute #{@strong('npm run test')}"
+    log "      > ..."
+    log "  "
+    log "    $ #{chalk.inverse('abigail \'echo cool\' "*.md"')}"
+    log "      > #{@icon} Watch #{@whereabouts('*.md')} for #{@strong('echo cool')}"
+    log "      > #{@icon} Execute #{@strong('echo cool')}"
+    log "      > ..."
+    log ""
 
     process.exit 0
 
-module.exports= Utility
+  version: ->
+    log= console.log
+    
+    log "v#{pkg.version}"
+    
+    process.exit 0
+
+module.exports.Utility= Utility

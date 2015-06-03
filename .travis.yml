@@ -1,11 +1,24 @@
+# Quick boot options
+sudo: false
+cache:
+  directories:
+    - node_modules
+
+# Language options
 language: node_js
 node_js:
-- '0.10'
+  - '0.10'
+before_script:
+  - npm install jasminetea@0.1.30-rc.3 --global
 
+# COVERALLS_REPO_TOKEN
 env:
   global:
     secure: UbIpGPLxe+plgOOQJgpdjpYumBjBUq9pNwW7TNFnkTLhgaBBlCUMh3UfaHfAz+PA8GqKDQYMbahEgdk5LqP5lD5i9tMK0CModeAwtEuy8Mm4pwOQwPw2tWr+8FsI0/vqL6XOkhwNhJdiMNp17DZJHIlbk3AlFoF2iBiplrnRfOE=
 
+# Npm publish options
+before_deploy:
+  - npm install coffee-script --global
 deploy:
   provider: npm
   email: i59naga@icloud.com

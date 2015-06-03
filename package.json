@@ -1,34 +1,34 @@
 {
   "name": "abigail",
   "bin" : "abigail",
-  "main": "abigail",
-  "description": "the minimal task runner",
-  "version": "0.0.8-beta.2",
+  "description": "the Minimal task runner. Enhance your npm-scripts.",
+  "version": "0.1.0-alpha.0",
 
   "scripts": {
-    "postinstall": "coffee -o lib -c src",
+    "default": "jasminetea test --watch --verbose --timeout 3000",
 
-    "hoge": "node abigail *.coffee:compile",
-    "build": "echo noop",
-
-    "start": "jasminetea test --watch --verbose --cover --report --timeout 3000 --debug",
-    "compile": "coffee -pb test/fixtures/viaAvigail.coffee",
-    "test": "jasminetea test --verbose --cover --report --timeout 3000"
+    "start": "$(opc package scripts.default)",
+    "test": "$(opc package scripts.default) --cover --report",
+    
+    "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
+    "compile": "coffee --bare --compile index.coffee",
+    "postcompile": "coffee --output lib --bare --compile src"
   },
 
   "dependencies": {
     "chalk": "^1.0.0",
-    "coffee-script": "^1.9.1",
-    "glob-watcher": "^2.0.0",
+    "gaze": "^0.5.1",
     "minimist": "^1.1.0"
   },
   "devDependencies": {
-    "jasminetea": "^0.1.23"
+    "jasminetea": "^0.2.0-beta.3",
+    "object-parser-cli": "0.0.1-alpha.0"
   },
   
   "keywords": [
-    "watcher",
-    "cli"
+    "npm-scripts",
+    "cli",
+    "watch"
   ],
   
   "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
