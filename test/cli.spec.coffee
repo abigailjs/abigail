@@ -71,10 +71,20 @@ describe 'CLI',->
       expect(arg.globs[0]).toBe 'src/**'
       expect(arg.lazy).toBe false
 
-it 'class Task',->
-  task= new Task 'foo',['bar','!baz'],null,true
+describe 'class Task',->
+  it '$ abigail foo bar,!baz',->
+    task= new Task 'foo',['bar','!baz'],null,true
 
-  expect(task.script).toBe 'foo'
-  expect(task.globs[0]).toEqual path.join process.cwd(),'bar'
-  expect(task.globs[1]).toEqual '!'+path.join process.cwd(),'baz'
-  expect(task.lazy).toBe false
+    expect(task.script).toBe 'foo'
+    expect(task.globs[0]).toEqual path.join process.cwd(),'bar'
+    expect(task.globs[1]).toEqual '!'+path.join process.cwd(),'baz'
+    expect(task.lazy).toBe false
+
+describe 'Irregular',->
+  it '$ abigail "The quick brown fox jumps over the lazy dog"',->
+    cli= $abigail '"The quick brown fox jumps over the lazy dog"'
+
+    arg= cli.args[0]
+    expect(arg.script).toBe 'The quick brown fox jumps over the lazy dog'
+    expect(arg.globs[0]).toBe undefined
+    expect(arg.lazy).toBe false

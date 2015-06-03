@@ -11,7 +11,7 @@ class Task extends Utility
   constructor: (@script,@globs=[],@lazy=false,debug=false)->
     @process= null
 
-    @log "Watch #{@whereabouts(@globs)} for #{@strong(@script)}."
+    @log "Watch #{@whereabouts(@globs)} for #{@strong(@script)}." unless debug
 
     @globs=
       for glob in @globs

@@ -34,6 +34,7 @@ class Abigail extends Utility
 
         script= if @scripts[name]? then 'npm run '+name else name
         globs= @_[i++]?.split ','
+        globs?= []
         globs= (glob.replace /^_/,'!' for glob in globs)
 
         {script,globs,lazy}
