@@ -27,9 +27,9 @@ $ abigail test test/**,src/**
 # ...
 ```
 
-## Script Prefix `_`
+## Script prefix `_`
 
-Can lazy execution if prefix `_` for <script-name>.
+Can lazy execution if prefix `_` for `<script-name>`.
 
 ```bash
 $ abigail _test test/**,src/**
@@ -38,9 +38,9 @@ $ abigail _test test/**,src/**
 #  +14sec @ @ File test/cli.spec.coffee changed
 ```
 
-## Watch Prefix `_`
+## Watch prefix `_`
 
-Can omit a file from watch if prefix `_` for <watch>.
+Can omit a file from watch if prefix `_` for `<watch>`.
 
 ```bash
 $ abigail test **,_node_modules/**
