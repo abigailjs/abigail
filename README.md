@@ -12,7 +12,7 @@ $ npm install abigail --global
 $ abigail <script-name> <watch> [<script-name> <watch>...]
 ```
 
-## Multi globs
+## Multi glob
 
 Can specify the watch separated by commas.
 
