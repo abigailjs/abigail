@@ -2,17 +2,14 @@
 Utility= (require './utility').Utility
 
 gaze= require 'gaze'
-chalk= require 'chalk'
 Promise= require 'bluebird'
 
 path= require 'path'
 spawn= (require 'child_process').spawn
 
 class Task extends Utility
-  constructor: (@scripts=[],@globs=[],@lazy=false,debug=false)->
-    @busy= null
-
-    @log "Watch #{@whereabouts(@globs)} for #{@strong(@scripts)}." unless debug
+  constructor: (@scripts=[],@globs=[],test=false)->
+    @busy= no
 
     @globs=
       for glob in @globs
@@ -23,10 +20,13 @@ class Task extends Utility
         globAbsolute= '!'+globAbsolute if blacklist
         globAbsolute
 
-    return if debug
+    return if test
 
     gaze @globs,(error,watcher)=>
       throw error if error?
+
+      unless @noWatch
+        @log "Watch #{@whereabouts(@globs)} for #{@strong(@scripts)}."
 
       @execute @scripts unless @scripts[0].lazy
 
@@ -47,6 +47,7 @@ class Task extends Utility
       @log "Begin #{@strong(scripts)} ..."
 
     codes= []
+
     queues= Promise.resolve()
     for script,i in scripts
       do (script,i)=>
@@ -57,10 +58,16 @@ class Task extends Utility
             @spawn script
             .then (code)->
               codes.push code
-
+    
     queues.then =>
+
+      @busy= no
+
       if scripts.length>1
         @log "End #{@strong(scripts)}. Exit code #{@strong(codes)}."
+
+      if @noWatch
+        process.exit ~~(1 in codes)
 
   spawn: (script)->
     [bin,args...]= script.split /\s+/

@@ -3,7 +3,6 @@ chalk= require 'chalk'
 
 pkg= require '../package'
 path= require 'path'
-fs= require 'fs'
 
 class Utility
   icon: chalk.magenta '@'+chalk.underline(' ')+'@'
@@ -24,6 +23,9 @@ class Utility
     console.log ([chalk.gray(('     +'+diff+suffix).slice(-8)),@icon].concat args)...
     @_log= Date.now()
 
+  npm: (arg)->
+    chalk.bgRed arg
+
   strong: (args,conjunctive=', ')->
     args= [args] unless args instanceof Array
     args= (arg?.raw ? arg for arg in args)
@@ -36,24 +38,6 @@ class Utility
 
     (chalk.underline arg for arg in args).join(conjunctive)
 
-  getIgnored: (stdout=yes)->
-    home= process.env.HOME or process.env.HOMEPATH or process.env.USERPROFILE
-    
-    paths= []
-    try
-      homeIgnore= fs.readFileSync(path.join home,'.gitignore').toString()
-      paths= paths.concat homeIgnore.trim().split '\n'
-
-      cwdIgnore= fs.readFileSync(path.join process.cwd(),'.gitignore').toString()
-      paths= paths.concat cwdIgnore.trim().split '\n'
-    catch
-
-    if stdout
-      @log "Using #{chalk.gray('./.gitignore')} and #{chalk.gray('~/.gitignore')}"
-
-    paths= (path= '!'+path for path in paths)
-    paths
-  
   help: ->
     log= console.log
     

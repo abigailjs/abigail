@@ -2,7 +2,6 @@
 Utility= (require './utility').Utility
 Task= (require './task').Task
 
-chalk= require 'chalk'
 minimist= require 'minimist'
 
 path= require 'path'
@@ -18,11 +17,11 @@ class Abigail extends Utility
 
     try
       @scripts= (require path.join process.cwd(),'package').scripts
-      @log "Use #{chalk.bgRed('./package.json')}" unless @test
+      @log "Use #{@npm('./package.json')}" unless @test
 
     catch
       @scripts= {}
-      @log "Missing #{chalk.bgRed('./package.json')}" unless @test
+      @log "Missing #{@npm('./package.json')}" unless @test
 
     i= 0
     @args=
@@ -48,7 +47,11 @@ class Abigail extends Utility
     return if @test
     
     @tasks= []
-    @tasks.push new Task scripts,globs for {scripts,globs} in @args
+    @tasks.push new Task scripts,globs,@test for {scripts,globs} in @args
+
+    singleArgument= @tasks.length is 1 and @tasks[0].globs[0] is undefined
+    if singleArgument
+      @tasks[0].noWatch= on
 
 module.exports= new Abigail
 module.exports.Abigail= Abigail
