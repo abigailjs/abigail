@@ -17,32 +17,13 @@ class Abigail extends Utility
 
     try
       @scripts= (require path.join process.cwd(),'package').scripts
-      @log "Use #{@npm('./package.json')}" unless @test
+      @log "Use #{@json('./package.json')}"
 
     catch
       @scripts= {}
-      @log "Missing #{@npm('./package.json')}" unless @test
+      @log "Missing #{@json('./package.json')}"
 
-    i= 0
-    @args=
-      while @_[i]?
-        names= @_[i++].split ','
-
-        scripts=
-          for name in names
-            lazy= name[0] is '_'
-            name= name.slice 1 if lazy
-
-            script= new String(if @scripts[name]? then 'npm run '+name else name)
-            script.lazy= lazy
-            script.raw= name
-            script
-
-        globs= @_[i++]?.split ','
-        globs?= []
-        globs= (glob.replace /^_/,'!' for glob in globs)
-
-        {scripts,globs}
+    @args= @toArgs @_
 
     return if @test
     
@@ -52,6 +33,37 @@ class Abigail extends Utility
     singleArgument= @tasks.length is 1 and @tasks[0].globs[0] is undefined
     if singleArgument
       @tasks[0].noWatch= on
+
+  toArgs: (minimistArgv)->
+    i= 0
+    
+    while minimistArgv[i]?
+      names= minimistArgv[i++].split ','
+
+      scripts=
+        for name in names
+          lazy= name[0] is '_'
+          name= name.slice 1 if lazy
+
+          script=
+            if @scripts[name]?
+              new String 'npm run '+name
+            else
+              new String name
+
+          script.lazy= lazy
+          script.raw= name
+
+          script
+
+      globs= minimistArgv[i++]?.split ','
+      globs?= []
+
+      globs= 
+        for glob in globs
+          glob.replace /^_/,'!'
+
+      {scripts,globs}
 
 module.exports= new Abigail
 module.exports.Abigail= Abigail

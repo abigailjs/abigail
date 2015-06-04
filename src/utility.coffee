@@ -4,13 +4,92 @@ chalk= require 'chalk'
 pkg= require '../package'
 path= require 'path'
 
+# Public
 class Utility
-  icon: chalk.magenta '@'+chalk.underline(' ')+'@'
-
-  _log: Date.now()
   log: (args...)->
+    elapsed= chalk.gray ('     +'+@getElapsed()).slice -8
+    output= [elapsed,@icon].concat args
+    
+    return output if @test
+
+    console.log output...
+
+  json: (arg)->
+    chalk.bgRed arg
+
+  strong: (args,conjunctive=', ')->
+    args= [args] unless args instanceof Array
+    args= (arg?.raw ? arg for arg in args)
+
+    (chalk.underline arg for arg in args).join conjunctive
+
+  whereabouts: (args,conjunctive=' and ')->
+    args= [args] unless args instanceof Array
+    args= [chalk.red('undefined')] if args[0] is undefined
+
+    (chalk.underline arg for arg in args).join conjunctive
+
+  help: ->
+    text= ""
+    
+    text+= "\n  #{@icon} Abigail v#{pkg.version}"
+    text+= "\n  "
+    text+= "\n  Usage:"
+    text+= "\n    $ abigail #{@strong('scripts')} #{@whereabouts('globs')} [#{@strong('scripts')} #{@whereabouts('globs')}] ..."
+    text+= "\n  "
+    text+= "\n  Example:"
+    text+= "\n    $ #{chalk.inverse('abigail compile "*.coffee"')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts('*.coffee')} for #{@strong('npm run compile')}"
+    text+= "\n      > #{@icon} Run #{@strong('compile')}"
+    text+= "\n      > ..."
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail test test/**,src/**')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
+    text+= "\n      > #{@icon} Run #{@strong('test')}"
+    text+= "\n      > ..."
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail test,lint test/**,src/**')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
+    text+= "\n      > #{@icon} Begin #{@strong(['test','lint'])} ..."
+    text+= "\n      > #{@icon} Run #{@strong('test')}"
+    text+= "\n      > ..."
+    text+= "\n      > #{@icon} Run #{@strong('lint')}"
+    text+= "\n      > ..."
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail \'echo cool\' "*.md"')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts('*.md')} for #{@strong('echo cool')}"
+    text+= "\n      > #{@icon} Run #{@strong('echo cool')}"
+    text+= "\n      > ..."
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail _test test/**,src/**')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail _test test/**,_src/**')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','!src/**'])} for #{@strong('test')}"
+    text+= "\n"
+
+    @output text
+
+  version: ->
+    @output "v#{pkg.version}"
+
+  output: (text)->
+    return text if @test
+
+    console.log text
+    process.exit 0
+
+  # Private
+  icon: chalk.magenta '@'+chalk.underline(' ')+'@'
+  sweat: chalk.magenta ';'
+
+  elapsed: Date.now()
+  getElapsed: ->
     suffix= ' ms'
-    diff= Date.now()-@_log ? 0
+
+    diff= Date.now()-@elapsed ? 0
+    @elapsed= Date.now()
+
     if diff>1000
       diff= ~~(diff/1000)
       suffix= 'sec'
@@ -20,71 +99,7 @@ class Utility
         if diff>60
           diff= ~~(diff/60)
           suffix= ' hr'
-    console.log ([chalk.gray(('     +'+diff+suffix).slice(-8)),@icon].concat args)...
-    @_log= Date.now()
 
-  npm: (arg)->
-    chalk.bgRed arg
-
-  strong: (args,conjunctive=', ')->
-    args= [args] unless args instanceof Array
-    args= (arg?.raw ? arg for arg in args)
-
-    (chalk.underline arg for arg in args).join(conjunctive)
-
-  whereabouts: (args,conjunctive=' and ')->
-    args= [args] if typeof args is 'string'
-    args= [chalk.red('undefined')] if args[0] is undefined
-
-    (chalk.underline arg for arg in args).join(conjunctive)
-
-  help: ->
-    log= console.log
-    
-    log ""
-    log "  #{@icon} Abigail v#{pkg.version}"
-    log "  "
-    log "  Usage:"
-    log "    $ abigail #{@strong('scripts')} #{@whereabouts('globs')} [#{@strong('scripts')} #{@whereabouts('globs')}] ..."
-    log "  "
-    log "  Example:"
-    log "    $ #{chalk.inverse('abigail compile "*.coffee"')}"
-    log "      > #{@icon} Watch #{@whereabouts('*.coffee')} for #{@strong('npm run compile')}"
-    log "      > #{@icon} Run #{@strong('compile')}"
-    log "      > ..."
-    log "  "
-    log "    $ #{chalk.inverse('abigail test test/**,src/**')}"
-    log "      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
-    log "      > #{@icon} Run #{@strong('test')}"
-    log "      > ..."
-    log "  "
-    log "    $ #{chalk.inverse('abigail test,lint test/**,src/**')}"
-    log "      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
-    log "      > #{@icon} Begin #{@strong(['test','lint'])} ..."
-    log "      > #{@icon} Run #{@strong('test')}"
-    log "      > ..."
-    log "      > #{@icon} Run #{@strong('lint')}"
-    log "      > ..."
-    log "  "
-    log "    $ #{chalk.inverse('abigail \'echo cool\' "*.md"')}"
-    log "      > #{@icon} Watch #{@whereabouts('*.md')} for #{@strong('echo cool')}"
-    log "      > #{@icon} Run #{@strong('echo cool')}"
-    log "      > ..."
-    log "  "
-    log "    $ #{chalk.inverse('abigail _test test/**,src/**')}"
-    log "      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
-    log "  "
-    log "    $ #{chalk.inverse('abigail _test test/**,_src/**')}"
-    log "      > #{@icon} Watch #{@whereabouts(['test/**','!src/**'])} for #{@strong('test')}"
-    log ""
-
-    process.exit 0
-
-  version: ->
-    log= console.log
-    
-    log "v#{pkg.version}"
-    
-    process.exit 0
+    diff+suffix
 
 module.exports.Utility= Utility

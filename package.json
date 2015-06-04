@@ -2,7 +2,7 @@
   "name": "abigail",
   "bin" : "abigail",
   "description": "the Minimal task runner. Enhance your npm-scripts.",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0-beta.0",
 
   "scripts": {
     "default": "jasminetea test --verbose --timeout 3000",
@@ -14,6 +14,11 @@
     "compile": "coffee --bare --compile index.coffee",
     "postcompile": "coffee --output lib --bare --compile src"
   },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
+  },
 
   "dependencies": {
     "bluebird": "^2.9.27",
@@ -22,6 +27,7 @@
     "minimist": "^1.1.0"
   },
   "devDependencies": {
+    "ghooks": "^0.3.2",
     "jasminetea": "^0.2.0-beta.3",
     "object-parser-cli": "0.0.1-alpha.0"
   },

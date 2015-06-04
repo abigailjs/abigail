@@ -1,8 +1,5 @@
-# TODO: More test. More More test.
-
 # Dependencies
 Abigail= (require '../src').Abigail
-Task= (require '../src/task').Task
 
 path= require 'path'
 
@@ -20,48 +17,47 @@ $abigail= (args)->
 
 # Specs
 describe 'CLI',->
-  describe 'Task',->
-    describe 'Multi glob',->
-      it '$ abigail test src/**,test/**',->
-        cli= $abigail 'test src/**,test/**'
+  describe 'Multi glob',->
+    it '$ abigail test src/**,test/**',->
+      cli= $abigail 'test src/**,test/**'
 
-        arg= cli.args[0]
-        expect(arg.scripts[0]).toEqual 'npm run test'
-        expect(arg.scripts[0].lazy).toBe false
-        expect(arg.globs[0]).toEqual 'src/**'
-        expect(arg.globs[1]).toBe 'test/**'
+      arg= cli.args[0]
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual 'src/**'
+      expect(arg.globs[1]).toBe 'test/**'
 
-    describe 'Multi script',->
-      it '$ abigail cover,lint,beep src/**,test/**',->
-        cli= $abigail 'test,compile,_beep src/**,test/**'
+  describe 'Multi script',->
+    it '$ abigail cover,lint,beep src/**,test/**',->
+      cli= $abigail 'test,compile,_beep src/**,test/**'
 
-        arg= cli.args[0]
-        expect(arg.scripts[0]).toEqual 'npm run test'
-        expect(arg.scripts[0].lazy).toBe false
-        expect(arg.scripts[1]).toEqual 'npm run compile'
-        expect(arg.scripts[1].lazy).toBe false
-        expect(arg.scripts[2]).toEqual 'beep'
-        expect(arg.scripts[2].lazy).toBe true
-        expect(arg.globs[0]).toEqual 'src/**'
-        expect(arg.globs[1]).toBe 'test/**'
+      arg= cli.args[0]
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.scripts[1]).toEqual 'npm run compile'
+      expect(arg.scripts[1].lazy).toBe false
+      expect(arg.scripts[2]).toEqual 'beep'
+      expect(arg.scripts[2].lazy).toBe true
+      expect(arg.globs[0]).toEqual 'src/**'
+      expect(arg.globs[1]).toBe 'test/**'
 
-    describe 'Multi task',->
-      it '$ abigail _test src/**,test/** _compile,foo bar,baz',->
-        cli= $abigail '_test src/**,test/** _compile,foo bar,baz'
+  describe 'Multi task',->
+    it '$ abigail _test src/**,test/** _compile,foo bar,baz',->
+      cli= $abigail '_test src/**,test/** _compile,foo bar,baz'
 
-        arg= cli.args[0]
-        expect(arg.scripts[0]).toEqual 'npm run test'
-        expect(arg.scripts[0].lazy).toBe true
-        expect(arg.globs[0]).toEqual 'src/**'
-        expect(arg.globs[1]).toBe 'test/**'
+      arg= cli.args[0]
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe true
+      expect(arg.globs[0]).toEqual 'src/**'
+      expect(arg.globs[1]).toBe 'test/**'
 
-        arg= cli.args[1]
-        expect(arg.scripts[0]).toEqual 'npm run compile'
-        expect(arg.scripts[0].lazy).toBe true
-        expect(arg.scripts[1]).toEqual 'foo'
-        expect(arg.scripts[1].lazy).toBe false
-        expect(arg.globs[0]).toEqual 'bar'
-        expect(arg.globs[1]).toBe 'baz'
+      arg= cli.args[1]
+      expect(arg.scripts[0]).toEqual 'npm run compile'
+      expect(arg.scripts[0].lazy).toBe true
+      expect(arg.scripts[1]).toEqual 'foo'
+      expect(arg.scripts[1].lazy).toBe false
+      expect(arg.globs[0]).toEqual 'bar'
+      expect(arg.globs[1]).toBe 'baz'
 
   describe 'Lazy script',->
     it '$ abigail _test test/**',->
