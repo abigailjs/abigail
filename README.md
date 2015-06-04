@@ -18,17 +18,18 @@ Can specify the `<script>` separated by `,`.
 Script executes sequentially.
 
 ```bash
-$ abigail test,lint test/**,src/**
+$ abigail test,lint
 # +141 ms @ @ Use ./package.json
-# +142 ms @ @ Watch test/** and src/** for test, lint.
-# +128 ms @ @ Run test, lint
+#  +71 ms @ @ Watch test/** for test, lint.
+#   +0 ms @ @ Begin test, lint ...
+#   +2 ms @ @ Run test
 # ...
-#   +3sec @ @ Done test, lint. Exit code 0, 0.
-#
-#  +14sec @ @ File test/cli.spec.coffee changed
-# +128 ms @ @ Run test, lint
+#   +3sec @ @ Done test. Exit code 0.
+#   +2 ms @ @ Run lint
 # ...
-#   +3sec @ @ Done test, lint. Exit code 0, 0.
+#   +3sec @ @ Done test. Exit code 0.
+#   +1 ms @ @ End test, lint. Exit code 0, 0.
+$
 ```
 
 ## Multi glob
@@ -36,49 +37,85 @@ $ abigail test,lint test/**,src/**
 Can specify the `<watch>` separated by `,`.
 
 ```bash
-$ abigail test test/**,src/**
+$ abigail test *,src/**,test/**
 #  +79 ms @ @ Use ./package.json
-#  +82 ms @ @ Watch test/** and src/** for test
+#  +82 ms @ @ Watch * and src/** and test/** for test
 # +131 ms @ @ Run test
 # ...
 #   +7 ms @ @ Done test. Exit code 0.
 #
-#  +14sec @ @ File test/cli.spec.coffee changed
+#  +14sec @ @ File package.json add
+#   +1 ms @ @ Run test
+# ...
+#   +7 ms @ @ Done test. Exit code 0.
+#
+#  +14sec @ @ File src/index.coffee changed
+#   +1 ms @ @ Run test
+# ...
+#   +7 ms @ @ Done test. Exit code 0.
+#
+#  +14sec @ @ File test/api.spec.coffee deleted
 #   +1 ms @ @ Run test
 # ...
 #   +7 ms @ @ Done test. Exit code 0.
 ```
 
-## Script prefix `_`
+## Sequential scripts & Multi glob
 
-Can lazy execution if prefix `_` for `<script-name>`.
+Can combine them.
+
+```bash
+$ abigail test,lint test/**,src/**
+# +141 ms @ @ Use ./package.json
+#  +71 ms @ @ Watch test/** and src/** for test, lint.
+#   +0 ms @ @ Begin test, lint ...
+#
+#   +2 ms @ @ Run test
+# ...
+#   +3sec @ @ Done test. Exit code 0.
+#   +2 ms @ @ Run lint
+# ...
+#   +3sec @ @ Done lint. Exit code 0.
+#
+#   +1 ms @ @ End test, lint. Exit code 0, 0.
+#
+#  +14sec @ @ File src/index.coffee changed
+#   +0 ms @ @ Begin test, lint ...
+# ...
+```
+
+# Options
+
+## Lazy: prefix `_` of `<script>`
+
+Can lazy execution if `<script>` has prefix `_`.
 
 ```bash
 $ abigail _test test/**,src/**
 #  +47 ms @ @ Use ./package.json
 #  +50 ms @ @ Watch test/** and src/** for test.
+#
 #  +14sec @ @ File test/cli.spec.coffee changed
 #   +1 ms @ @ Run test
 # ...
-#   +7 ms @ @ Done test. Exit code 0.
 ```
 
-## Watch prefix `_`
+## Exclude: prefix `_` of `<watch>`
 
-Can omit a file from watch if prefix `_` for `<watch>`.
+Can omit a file from watch if `<watch>` has prefix `_`.
 
 ```bash
-$ abigail test **,_node_modules/**
+$ abigail test *,_node_modules/**
 #  +43 ms @ @ Use ./package.json
+#
 #  +46 ms @ @ Watch ** and !node_modules/** for test.
 # +898 ms @ @ Run test
 # ...
-#   +7 ms @ @ Done test. Exit code 0.
 ```
 
 ## Raw script
 
-Can use raw script if undefined npm-scripts.
+Can use raw script if undefined in npm-scripts.
 
 ```bash
 $ abigail "echo foo" test/**

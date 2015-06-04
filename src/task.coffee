@@ -53,8 +53,6 @@ class Task extends Utility
       do (script,i)=>
         queues=
           queues.then =>
-            console.log '' if i>0 # margin-top
-
             @spawn script
             .then (code)->
               codes.push code
