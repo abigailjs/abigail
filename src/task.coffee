@@ -8,11 +8,11 @@ path= require 'path'
 spawn= (require 'child_process').spawn
 
 class Task extends Utility
-  constructor: (@scripts=[],@globs=[],test=false)->
+  constructor: (@scripts=[],globs=[],test=false)->
     @busy= no
 
     @globs=
-      for glob in @globs
+      for glob in globs
         blacklist= glob[0] is '!'
         glob= glob.slice 1 if blacklist
 
@@ -26,7 +26,7 @@ class Task extends Utility
       throw error if error?
 
       unless @noWatch
-        @log "Watch #{@whereabouts(@globs)} for #{@strong(@scripts)}."
+        @log "Watch #{@whereabouts(globs)} for #{@strong(@scripts)}."
 
       @execute @scripts unless @scripts[0].lazy
 
