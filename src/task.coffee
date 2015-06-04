@@ -3,15 +3,16 @@ Utility= (require './utility').Utility
 
 gaze= require 'gaze'
 chalk= require 'chalk'
+Promise= require 'bluebird'
 
 path= require 'path'
 spawn= (require 'child_process').spawn
 
 class Task extends Utility
-  constructor: (@script,@globs=[],@lazy=false,debug=false)->
-    @process= null
+  constructor: (@scripts=[],@globs=[],@lazy=false,debug=false)->
+    @busy= null
 
-    @log "Watch #{@whereabouts(@globs)} for #{@strong(@script)}." unless debug
+    @log "Watch #{@whereabouts(@globs)} for #{@strong(@scripts)}." unless debug
 
     @globs=
       for glob in @globs
@@ -27,29 +28,54 @@ class Task extends Utility
     gaze @globs,(error,watcher)=>
       throw error if error?
 
-      @execute() unless @lazy
+      @execute @scripts unless @scripts[0].lazy
 
       watcher.on 'all',(event,filepath)=>
-        return if @process
+        return if @busy
 
         name= path.relative process.cwd(),filepath
         @log 'File',@whereabouts(name),event
-        @execute()
 
-  execute: ->
-    return if @process
+        @execute @scripts
 
-    @log "Execute #{@strong(@script)}"
+  execute: (scripts)->
+    return if @busy
 
-    [bin,args...]= @script.split /\s+/
+    @busy= yes
 
-    @process= spawn bin,args,{cwd:process.cwd(),stdio:'inherit'}
-    @process.on 'error',(error)=>
-      @log ';;',"Failing #{@strong(@script)}, Due to #{error}."
-      @process= null
-    @process.on 'exit',(code)=>
-      @log "Finish #{@strong(@script)}, Exit code #{code}."
-      @process= null
-    @process
+    if scripts.length>1
+      @log "Begin #{@strong(scripts)} ..."
+
+    codes= []
+    queues= Promise.resolve()
+    for script,i in scripts
+      do (script,i)=>
+        queues=
+          queues.then =>
+            console.log '' if i>0 # margin-top
+
+            @spawn script
+            .then (code)->
+              codes.push code
+
+    queues.then =>
+      if scripts.length>1
+        @log "End #{@strong(scripts)}. Exit code #{@strong(codes)}."
+
+  spawn: (script)->
+    [bin,args...]= script.split /\s+/
+
+    @log "Run #{@strong(script)}"
+
+    new Promise (resolve)=>
+      child= spawn bin,args,{cwd:process.cwd(),stdio:'inherit'}
+
+      child.on 'error',(error)=>
+        @log ';;',"Failing #{@strong(script)}, Due to #{error}."
+        resolve 1
+
+      child.on 'exit',(code)=>
+        @log "Done #{@strong(script)}. Exit code #{@strong(code)}."
+        resolve code
 
 module.exports.Task= Task

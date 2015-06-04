@@ -9,25 +9,44 @@ $ npm install abigail --global
 
 # CLI
 ```bash
-$ abigail <script-name> <watch> [<script-name> <watch>...]
+$ abigail <script> <watch> [<script> <watch>...]
 ```
 
 ## Multi glob
 
-Can specify the watch separated by commas.
+Can specify the `<watch>` separated by `,`.
 
 ```bash
 $ abigail test test/**,src/**
 #  +79 ms @ @ Use ./package.json
-#  +82 ms @ @ Watch test/** and src/** for npm run test
-# +131 ms @ @ Execute npm run test
+#  +82 ms @ @ Watch test/** and src/** for test
+# +131 ms @ @ Run test
 # ...
-#   +7 ms @ @ Finish npm run test, Exit code 0.
+#   +7 ms @ @ Done test. Exit code 0.
 #
 #  +14sec @ @ File test/cli.spec.coffee changed
-#   +1 ms @ @ Execute npm run test
+#   +1 ms @ @ Run test
 # ...
-#   +7 ms @ @ Finish npm run test, Exit code 0.
+#   +7 ms @ @ Done test. Exit code 0.
+```
+
+## Sequential scripts
+
+Can specify the `<script>` separated by `,`.
+Script executes sequentially.
+
+```bash
+$ abigail test,lint test/**,src/**
+# +141 ms @ @ Use ./package.json
+# +142 ms @ @ Watch test/** and src/** for test, lint.
+# +128 ms @ @ Run test, lint
+# ...
+#   +3sec @ @ Done test, lint. Exit code 0, 0.
+#
+#  +14sec @ @ File test/cli.spec.coffee changed
+# +128 ms @ @ Run test, lint
+# ...
+#   +3sec @ @ Done test, lint. Exit code 0, 0.
 ```
 
 ## Script prefix `_`
@@ -37,11 +56,11 @@ Can lazy execution if prefix `_` for `<script-name>`.
 ```bash
 $ abigail _test test/**,src/**
 #  +47 ms @ @ Use ./package.json
-#  +50 ms @ @ Watch test/** and src/** for npm run test.
+#  +50 ms @ @ Watch test/** and src/** for test.
 #  +14sec @ @ File test/cli.spec.coffee changed
-#   +1 ms @ @ Execute npm run test
+#   +1 ms @ @ Run test
 # ...
-#   +7 ms @ @ Finish npm run test, Exit code 0.
+#   +7 ms @ @ Done test. Exit code 0.
 ```
 
 ## Watch prefix `_`
@@ -51,10 +70,10 @@ Can omit a file from watch if prefix `_` for `<watch>`.
 ```bash
 $ abigail test **,_node_modules/**
 #  +43 ms @ @ Use ./package.json
-#  +46 ms @ @ Watch ** and !node_modules/** for npm run test.
-# +898 ms @ @ Execute npm run test
+#  +46 ms @ @ Watch ** and !node_modules/** for test.
+# +898 ms @ @ Run test
 # ...
-#   +7 ms @ @ Finish npm run test, Exit code 0.
+#   +7 ms @ @ Done test. Exit code 0.
 ```
 
 ## Raw script
@@ -65,9 +84,9 @@ Can use raw script if undefined npm-scripts.
 $ abigail "echo foo" test/**
 #   +47 ms @ @ Use ./package.json
 #   +49 ms @ @ Watch test/cli.spec.coffee for echo foo
-#  +126 ms @ @ Execute echo foo
+#  +126 ms @ @ Run echo foo
 # foo
-#    +7 ms @ @ Finish echo foo, Exit code 0.
+#    +7 ms @ @ Done echo foo. Exit code 0.
 ```
 
 License

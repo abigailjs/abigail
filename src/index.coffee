@@ -27,22 +27,28 @@ class Abigail extends Utility
     i= 0
     @args=
       while @_[i]?
-        name= @_[i++]
+        names= @_[i++].split ','
 
-        lazy= name[0] is '_'
-        name= name.slice 1 if lazy
+        scripts=
+          for name in names
+            lazy= name[0] is '_'
+            name= name.slice 1 if lazy
 
-        script= if @scripts[name]? then 'npm run '+name else name
+            script= new String(if @scripts[name]? then 'npm run '+name else name)
+            script.lazy= lazy
+            script.raw= name
+            script
+
         globs= @_[i++]?.split ','
         globs?= []
         globs= (glob.replace /^_/,'!' for glob in globs)
 
-        {script,globs,lazy}
+        {scripts,globs}
 
     return if @test
     
     @tasks= []
-    @tasks.push new Task script,globs,lazy for {script,globs,lazy} in @args
+    @tasks.push new Task scripts,globs for {scripts,globs} in @args
 
 module.exports= new Abigail
 module.exports.Abigail= Abigail

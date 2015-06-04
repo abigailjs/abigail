@@ -23,76 +23,67 @@ describe 'CLI',->
       cli= $abigail 'test src/**,test/**'
 
       arg= cli.args[0]
-      expect(arg.script).toBe 'npm run test'
-      expect(arg.globs[0]).toBe 'src/**'
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual 'src/**'
       expect(arg.globs[1]).toBe 'test/**'
-      expect(arg.lazy).toBe false
 
   describe 'Multi task',->
     it '$ abigail test src/**,test/** compile src/**/*.js',->
       cli= $abigail 'test src/**,test/** compile src/**/*.js'
 
       arg= cli.args[0]
-      expect(arg.script).toBe 'npm run test'
-      expect(arg.globs[0]).toBe 'src/**'
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual 'src/**'
       expect(arg.globs[1]).toBe 'test/**'
-      expect(arg.lazy).toBe false
 
       arg= cli.args[1]
-      expect(arg.script).toBe 'npm run compile'
-      expect(arg.globs[0]).toBe 'src/**/*.js'
-      expect(arg.lazy).toBe false
+      expect(arg.scripts[0]).toEqual 'npm run compile'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual 'src/**/*.js'
 
   describe 'Lazy script',->
     it '$ abigail _test test/**',->
       cli= $abigail '_test src/**,test/**'
 
       arg= cli.args[0]
-      expect(arg.script).toBe 'npm run test'
-      expect(arg.globs[0]).toBe 'src/**'
-      expect(arg.lazy).toBe true
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe true
+      expect(arg.globs[0]).toEqual 'src/**'
 
   describe 'Exclude from watch',->
     it '$ abigail test **,_node_modules',->
       cli= $abigail 'test **,_node_modules'
 
       arg= cli.args[0]
-      expect(arg.script).toBe 'npm run test'
-      expect(arg.globs[0]).toBe '**'
+      expect(arg.scripts[0]).toEqual 'npm run test'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual '**'
       expect(arg.globs[1]).toBe '!node_modules'
-      expect(arg.lazy).toBe false
 
   describe 'Raw script',->
     it '$ abigail "raw script" src/**',->
       cli= $abigail '"raw script" src/**'
 
       arg= cli.args[0]
-      expect(arg.script).toBe 'raw script'
-      expect(arg.globs[0]).toBe 'src/**'
-      expect(arg.lazy).toBe false
+      expect(arg.scripts[0]).toEqual 'raw script'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual 'src/**'
 
     it '$ abigail "_raw script" src/**',->
       cli= $abigail '"_raw script" src/**'
 
       arg= cli.args[0]
-      expect(arg.script).toBe 'raw script'
-      expect(arg.globs[0]).toBe 'src/**'
-      expect(arg.lazy).toBe true
-
-describe 'class Task',->
-  it '$ abigail foo bar,!baz',->
-    task= new Task 'foo',['bar','!baz'],null,true
-
-    expect(task.script).toBe 'foo'
-    expect(task.globs[0]).toEqual path.join process.cwd(),'bar'
-    expect(task.globs[1]).toEqual '!'+path.join process.cwd(),'baz'
-    expect(task.lazy).toBe false
+      expect(arg.scripts[0]).toEqual 'raw script'
+      expect(arg.scripts[0].lazy).toBe true
+      expect(arg.globs[0]).toEqual 'src/**'
 
 describe 'Irregular',->
   it '$ abigail "The quick brown fox jumps over the lazy dog"',->
     cli= $abigail '"The quick brown fox jumps over the lazy dog"'
 
     arg= cli.args[0]
-    expect(arg.script).toBe 'The quick brown fox jumps over the lazy dog'
-    expect(arg.globs[0]).toBe undefined
-    expect(arg.lazy).toBe false
+    expect(arg.scripts[0]).toEqual 'The quick brown fox jumps over the lazy dog'
+    expect(arg.scripts[0].lazy).toBe false
+    expect(arg.globs[0]).toEqual undefined
