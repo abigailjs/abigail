@@ -44,7 +44,7 @@ $ abigail test *,src/**,test/**
 # ...
 #   +7 ms @ @ Done test. Exit code 0.
 #
-#  +14sec @ @ File package.json add
+#  +14sec @ @ File package.json added
 #   +1 ms @ @ Run test
 # ...
 #   +7 ms @ @ Done test. Exit code 0.
