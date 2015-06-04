@@ -12,24 +12,6 @@ $ npm install abigail --global
 $ abigail <script> <watch> [<script> <watch>...]
 ```
 
-## Multi glob
-
-Can specify the `<watch>` separated by `,`.
-
-```bash
-$ abigail test test/**,src/**
-#  +79 ms @ @ Use ./package.json
-#  +82 ms @ @ Watch test/** and src/** for test
-# +131 ms @ @ Run test
-# ...
-#   +7 ms @ @ Done test. Exit code 0.
-#
-#  +14sec @ @ File test/cli.spec.coffee changed
-#   +1 ms @ @ Run test
-# ...
-#   +7 ms @ @ Done test. Exit code 0.
-```
-
 ## Sequential scripts
 
 Can specify the `<script>` separated by `,`.
@@ -47,6 +29,24 @@ $ abigail test,lint test/**,src/**
 # +128 ms @ @ Run test, lint
 # ...
 #   +3sec @ @ Done test, lint. Exit code 0, 0.
+```
+
+## Multi glob
+
+Can specify the `<watch>` separated by `,`.
+
+```bash
+$ abigail test test/**,src/**
+#  +79 ms @ @ Use ./package.json
+#  +82 ms @ @ Watch test/** and src/** for test
+# +131 ms @ @ Run test
+# ...
+#   +7 ms @ @ Done test. Exit code 0.
+#
+#  +14sec @ @ File test/cli.spec.coffee changed
+#   +1 ms @ @ Run test
+# ...
+#   +7 ms @ @ Done test. Exit code 0.
 ```
 
 ## Script prefix `_`
