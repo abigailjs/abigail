@@ -47,7 +47,7 @@ class Abigail extends Utility
 
           script=
             if @scripts[name]?
-              new String 'npm run '+name
+              new String 'npm run '+name+' -s'
             else
               new String name
 
