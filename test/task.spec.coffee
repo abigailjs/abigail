@@ -8,7 +8,7 @@ describe 'Task',->
   task= new Task
   task.test= true
 
-  describe 'toAbsolute',->
+  describe '::toAbsolute',->
     it 'resolved **',->
       globs= task.toAbsolute ['**']
       expect(globs).toEqual [path.join process.cwd(),'**']
@@ -17,17 +17,9 @@ describe 'Task',->
       globs= task.toAbsolute ['_**']
       expect(globs).toEqual [path.join process.cwd(),'_**']
 
-  describe 'execute',->
-    it 'scripts [echo]',(done)->
-      task.execute ['echo']
-      .then (exitCodes)->
-        expect(exitCodes).toEqual [0]
+  describe '::run',->
+    it 'echo,echo,echo',(done)->
+      task.run ['echo','echo','echo']
+      .then (codes)->
+        expect(codes).toEqual [0,0,0]
         done()
-
-  describe 'spawn',->
-    it 'script echo',(done)->
-      task.spawn 'echo'
-      .then (exitCode)->
-        expect(exitCode).toEqual 0
-        done()
-

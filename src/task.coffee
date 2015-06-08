@@ -1,12 +1,11 @@
 # Dependencies
 Utility= (require './utility').Utility
+Queue= (require './queue').Queue
 
 gaze= require 'gaze'
 Promise= require 'bluebird'
-npmPath= (require 'npm-path')()
 
 path= require 'path'
-{exec,spawn}= require 'child_process'
 
 # Public
 class Task extends Utility
@@ -20,7 +19,7 @@ class Task extends Utility
         @log "Watch #{@whereabouts(globs)} for #{@strong(@scripts)}."
 
       @busy= no
-      @execute @scripts unless @scripts[0]?.lazy
+      @run @scripts unless @scripts[0]?.lazy
 
       @watcher.on 'all',(event,filepath)=>
         return if @busy
@@ -28,7 +27,7 @@ class Task extends Utility
         name= path.relative process.cwd(),filepath
         @log 'File',@whereabouts(name),event
 
-        @execute @scripts
+        @run @scripts
 
   toAbsolute: (globs)->
     for glob in globs
@@ -39,21 +38,16 @@ class Task extends Utility
       globAbsolute= '!'+globAbsolute if blacklist
       globAbsolute
 
-  execute: (scripts)->
+  run: (scripts)->
     return Promise.resolve [0] if @busy
-
     @busy= yes
 
     if scripts.length>1
       @log "Begin #{@strong(scripts)} ..."
 
-    queues= Promise.resolve []
-    for script in scripts
-      do (script)=>
-        queues= @addQueue queues,script 
-    
-    queues.then (codes)=>
-
+    queue= new Queue scripts
+    queue.test= yes if @test
+    queue.then (codes)=>
       @busy= no
 
       if scripts.length>1
@@ -63,56 +57,5 @@ class Task extends Utility
         process.exit ~~(1 in codes)
 
       codes
-
-  addQueue: (queues,script)->
-    queues= @addQueue queues,script.pre if script.pre?
-    queues=
-      queues.then (codes)=>
-        childProcess= if script.pipe then @exec script else @spawn script
-        childProcess.then (code)->
-          codes.push code
-          codes
-    queues= @addQueue queues,script.post if script.post?
-
-    queues
-
-  exec: (script)->
-    options=
-      cwd: process.cwd()
-      env: process.env
-    options.env.PATH= npmPath
-
-    @log "Run #{@strong(script)} (exec)"
-
-    new Promise (resolve)=>
-      exec script,options,(error,stdout,stderr)=>
-        if error?
-          @log @sweat+" Failing #{@strong(script)}. Due to #{error}..."
-          resolve 1
-        else
-          @log "Done #{@strong(script)}. "
-          resolve 0
-
-  spawn: (script)->
-    [bin,args...]= script.split /\s+/
-    options=
-      cwd: process.cwd()
-      env: process.env
-      stdio:'inherit'
-    options.env.PATH= npmPath
-    options.stdio= 'ignore' if @test
-
-    @log "Run #{@strong(script)} (spawn)"
-
-    new Promise (resolve)=>
-      child= spawn bin,args,options
-
-      child.on 'error',(error)=>
-        @log @sweat+" Failing #{@strong(script)}. Due to #{error}..."
-        resolve 1
-
-      child.on 'exit',(code)=>
-        @log "Done #{@strong(script)}. Exit code #{@strong(code)}."
-        resolve code
 
 module.exports.Task= Task

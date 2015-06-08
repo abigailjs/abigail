@@ -63,8 +63,8 @@ class Abigail extends Utility
         new String name
 
     script.pipe= no
-    for arg in script.toString().match /".*?"|[^\s]+/g
-      continue if arg.match /^"|"$/g
+    for arg in script.toString().match /".*?"|'.*?'|[^\s]+/g
+      continue if arg.match /^"|"$|^'|'$/g
       script.pipe= yes if arg.match(/\||>|</)?
 
     script.lazy= lazy
