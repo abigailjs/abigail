@@ -88,7 +88,7 @@ $ abigail test,lint test/**,src/**
 
 ## Package watch: Reserved word `PKG` of `<watch>`
 
-`PKG` is expanded to `*`,`src/**`,`test/**`
+`PKG` is expanded to `*`,`src/**`,`test/**`.
 
 ```bash
 $ abigail test PKG
