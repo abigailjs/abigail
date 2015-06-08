@@ -8,7 +8,9 @@
     "start": "jasminetea --timeout 3000 --watch",
     "test": "jasminetea --timeout 3000 --cover --report",
 
-    "test:fixture": "\"<this is not pipe>\" \"|\"",
+    "prefixture": "\"<this is not pipe>\" \"|\"",
+    "fixture": "\"<this is not pipe>\" \"|\"",
+    "postfixture": "\"<this is not pipe>\" \"|\"",
     
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --bare --compile index.coffee",

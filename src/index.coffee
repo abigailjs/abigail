@@ -40,27 +40,7 @@ class Abigail extends Utility
     while minimistArgv[i]?
       names= minimistArgv[i++].split ','
 
-      scripts=
-        for name in names
-          lazy= name[0] is '_'
-          name= name.slice 1 if lazy
-
-          script=
-            if @scripts[name]?
-              new String @scripts[name]
-            else
-              new String name
-
-          script.pipe= no
-          for arg in script.toString().match /".*?"|[^\s]+/g
-            continue if arg.match /^"|"$/g
-            script.pipe= yes if arg.match(/\||>|</)?
-
-          script.lazy= lazy
-          script.raw= name
-
-          script
-
+      scripts= (@toScript name for name in names)
       globs= minimistArgv[i++]?.split ','
       globs?= []
       if globs[0] is 'PKG'
@@ -71,6 +51,29 @@ class Abigail extends Utility
           glob.replace /^_/,'!'
 
       {scripts,globs}
+
+  toScript: (name,hook=on)->
+    lazy= name[0] is '_'
+    name= name.slice 1 if lazy
+
+    script=
+      if @scripts[name]?
+        new String @scripts[name]
+      else
+        new String name
+
+    script.pipe= no
+    for arg in script.toString().match /".*?"|[^\s]+/g
+      continue if arg.match /^"|"$/g
+      script.pipe= yes if arg.match(/\||>|</)?
+
+    script.lazy= lazy
+    script.raw= name
+    if script.raw isnt script.toString() and hook
+      script.pre= @toScript 'pre'+name,off if @scripts['pre'+name]?
+      script.post= @toScript 'post'+name,off if @scripts['pre'+name]?
+
+    script
 
 module.exports= new Abigail
 module.exports.Abigail= Abigail

@@ -47,24 +47,12 @@ class Task extends Utility
     if scripts.length>1
       @log "Begin #{@strong(scripts)} ..."
 
-    codes= []
-
-    queues= Promise.resolve()
-    for script,i in scripts
-      do (script,i)=>
-        queues=
-          queues.then =>
-            child=
-              if script.pipe
-                @exec script
-              else
-                @spawn script
-
-            child
-            .then (code)->
-              codes.push code
+    queues= Promise.resolve []
+    for script in scripts
+      do (script)=>
+        queues= @addQueue queues,script 
     
-    queues.then =>
+    queues.then (codes)=>
 
       @busy= no
 
@@ -75,6 +63,18 @@ class Task extends Utility
         process.exit ~~(1 in codes)
 
       codes
+
+  addQueue: (queues,script)->
+    queues= @addQueue queues,script.pre if script.pre?
+    queues=
+      queues.then (codes)=>
+        childProcess= if script.pipe then @exec script else @spawn script
+        childProcess.then (code)->
+          codes.push code
+          codes
+    queues= @addQueue queues,script.post if script.post?
+
+    queues
 
   exec: (script)->
     options=

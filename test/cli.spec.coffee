@@ -120,11 +120,11 @@ describe 'CLI',->
       expect(arg.globs[0]).toEqual 'src/**'
 
   describe 'Irregular',->
-    it '$ abigail test:fixture',->
-      cli= $abigail 'test:fixture'
+    it '$ abigail fixture',->
+      cli= $abigail 'fixture'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual pkg.scripts['test:fixture']
+      expect(arg.scripts[0]).toEqual pkg.scripts['fixture']
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual undefined
