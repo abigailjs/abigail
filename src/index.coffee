@@ -51,7 +51,11 @@ class Abigail extends Utility
             else
               new String name
 
-          script.pipe= script.match(/\||>|</)? # FIXME detect escape
+          script.pipe= no
+          for arg in script.toString().match /".*?"|[^\s]+/g
+            continue if arg.match /^"|"$/g
+            script.pipe= yes if arg.match(/\||>|</)?
+
           script.lazy= lazy
           script.raw= name
 
