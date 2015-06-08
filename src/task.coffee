@@ -3,9 +3,10 @@ Utility= (require './utility').Utility
 
 gaze= require 'gaze'
 Promise= require 'bluebird'
+npmPath= (require 'npm-path')()
 
 path= require 'path'
-spawn= (require 'child_process').spawn
+{exec,spawn}= require 'child_process'
 
 # Public
 class Task extends Utility
@@ -53,7 +54,13 @@ class Task extends Utility
       do (script,i)=>
         queues=
           queues.then =>
-            @spawn script
+            child=
+              if script.pipe
+                @exec script
+              else
+                @spawn script
+
+            child
             .then (code)->
               codes.push code
     
@@ -69,14 +76,33 @@ class Task extends Utility
 
       codes
 
+  exec: (script)->
+    options=
+      cwd: process.cwd()
+      env: process.env
+    options.env.PATH= npmPath
+
+    @log "Run #{@strong(script)} (exec)"
+
+    new Promise (resolve)=>
+      exec script,options,(error,stdout,stderr)=>
+        if error?
+          @log @sweat+" Failing #{@strong(script)}. Due to #{error}..."
+          resolve 1
+        else
+          @log "Done #{@strong(script)}. "
+          resolve 0
+
   spawn: (script)->
     [bin,args...]= script.split /\s+/
     options=
       cwd: process.cwd()
+      env: process.env
       stdio:'inherit'
+    options.env.PATH= npmPath
     options.stdio= 'ignore' if @test
 
-    @log "Run #{@strong(script)}"
+    @log "Run #{@strong(script)} (spawn)"
 
     new Promise (resolve)=>
       child= spawn bin,args,options
