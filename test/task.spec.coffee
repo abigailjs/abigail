@@ -18,7 +18,7 @@ describe 'Task',->
       expect(globs).toEqual [path.join process.cwd(),'_**']
 
   describe 'execute',->
-    fit 'scripts [echo]',(done)->
+    it 'scripts [echo]',(done)->
       task.execute ['echo']
       .then (exitCodes)->
         expect(exitCodes).toEqual [0]

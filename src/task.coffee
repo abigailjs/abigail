@@ -40,7 +40,7 @@ class Task extends Utility
       globAbsolute
 
   execute: (scripts)->
-    return if @busy
+    return Promise.resolve [0] if @busy
 
     @busy= yes
 
