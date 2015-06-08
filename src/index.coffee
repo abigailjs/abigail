@@ -47,10 +47,11 @@ class Abigail extends Utility
 
           script=
             if @scripts[name]?
-              new String 'npm run '+name+' -s'
+              new String @scripts[name]
             else
               new String name
 
+          script.pipe= script.match(/\||>|</)? # FIXME detect escape
           script.lazy= lazy
           script.raw= name
 

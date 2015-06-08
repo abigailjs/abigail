@@ -2,6 +2,7 @@
 Abigail= (require '../src').Abigail
 
 path= require 'path'
+pkg= require '../package'
 
 # Fixture
 $abigail= (args)->
@@ -22,7 +23,7 @@ describe 'CLI',->
       cli= $abigail 'test src/**,test/**'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual 'src/**'
       expect(arg.globs[1]).toBe 'test/**'
@@ -32,9 +33,9 @@ describe 'CLI',->
       cli= $abigail 'test,compile,_beep src/**,test/**'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
       expect(arg.scripts[0].lazy).toBe false
-      expect(arg.scripts[1]).toEqual 'npm run compile -s'
+      expect(arg.scripts[1]).toEqual pkg.scripts.compile
       expect(arg.scripts[1].lazy).toBe false
       expect(arg.scripts[2]).toEqual 'beep'
       expect(arg.scripts[2].lazy).toBe true
@@ -46,13 +47,13 @@ describe 'CLI',->
       cli= $abigail '_test src/**,test/** _compile,foo bar,baz'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.globs[0]).toEqual 'src/**'
       expect(arg.globs[1]).toBe 'test/**'
 
       arg= cli.args[1]
-      expect(arg.scripts[0]).toEqual 'npm run compile -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.compile
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.scripts[1]).toEqual 'foo'
       expect(arg.scripts[1].lazy).toBe false
@@ -64,7 +65,7 @@ describe 'CLI',->
       cli= $abigail 'test PKG,.jshintrc'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual '*'
       expect(arg.globs[1]).toEqual 'src/**'
@@ -75,7 +76,7 @@ describe 'CLI',->
       cli= $abigail '_test src/**,test/**'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.globs[0]).toEqual 'src/**'
 
@@ -84,7 +85,7 @@ describe 'CLI',->
       cli= $abigail 'test **,_node_modules'
 
       arg= cli.args[0]
-      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual '**'
       expect(arg.globs[1]).toBe '!node_modules'

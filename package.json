@@ -22,7 +22,8 @@
     "bluebird": "^2.9.27",
     "chalk": "^1.0.0",
     "gaze": "^0.5.1",
-    "minimist": "^1.1.0"
+    "minimist": "^1.1.0",
+    "npm-path": "^1.0.1"
   },
   "devDependencies": {
     "ghooks": "^0.3.2",
