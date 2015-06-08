@@ -5,10 +5,8 @@
   "version": "0.1.0-beta.1",
 
   "scripts": {
-    "default": "jasminetea test --verbose --timeout 3000",
-
-    "start": "$(opc package scripts.default) --watch",
-    "test": "$(opc package scripts.default) --cover --report",
+    "start": "jasminetea --timeout 3000 --watch",
+    "test": "jasminetea --timeout 3000 --cover --report",
     
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --bare --compile index.coffee",
@@ -28,8 +26,7 @@
   },
   "devDependencies": {
     "ghooks": "^0.3.2",
-    "jasminetea": "^0.2.0-beta.7",
-    "object-parser-cli": "0.0.1-alpha.0"
+    "jasminetea": "^0.2.1-alpha.2"
   },
   
   "keywords": [

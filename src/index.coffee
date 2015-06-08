@@ -58,6 +58,8 @@ class Abigail extends Utility
 
       globs= minimistArgv[i++]?.split ','
       globs?= []
+      if globs[0] is 'PKG'
+        globs= ['*','src/**','test/**']
 
       globs= 
         for glob in globs

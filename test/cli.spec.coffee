@@ -59,6 +59,17 @@ describe 'CLI',->
       expect(arg.globs[0]).toEqual 'bar'
       expect(arg.globs[1]).toBe 'baz'
 
+  describe 'Reserved word `PKG` of `<watch>`',->
+    it '$ abigail test PKG,.jshintrc',->
+      cli= $abigail 'test PKG,.jshintrc'
+
+      arg= cli.args[0]
+      expect(arg.scripts[0]).toEqual 'npm run test -s'
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual '*'
+      expect(arg.globs[1]).toEqual 'src/**'
+      expect(arg.globs[2]).toEqual 'test/**'
+
   describe 'Lazy script',->
     it '$ abigail _test test/**',->
       cli= $abigail '_test src/**,test/**'

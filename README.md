@@ -86,6 +86,18 @@ $ abigail test,lint test/**,src/**
 
 # Options
 
+## Package watch: Reserved word `PKG` of `<watch>`
+
+`PKG` is expanded to `*`,`src/**`,`test/**`
+
+```bash
+$ abigail test PKG
+# +283 ms @ @ Use ./package.json
+# +439 ms @ @ Watch * and src/** and test/** for test.
+#   +2 ms @ @ Run test
+# ...
+```
+
 ## Lazy: prefix `_` of `<script>`
 
 Can lazy execution if `<script>` has prefix `_`.
