@@ -12,11 +12,12 @@ describe 'Queue',->
         expect(codes).toEqual [0]
         done()
 
-  describe '::exec',->
-    it 'echo',(done)->
+  describe '::spawn',->
+    it 'dirty echo',(done)->
       queue= new Queue
       queue.test= yes
-      queue.exec 'echo'
+      queue.spawn "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)'"
       .then (code)->
         expect(code).toBe 0
         done()
+

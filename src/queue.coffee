@@ -3,7 +3,7 @@ Utility= (require './utility').Utility
 
 Promise= require 'bluebird'
 npmPath= require 'npm-path'
-exec= (require 'child_process').exec
+spawn= require 'win-spawn'
 
 # Environment
 npmPath()# Update the process.env
@@ -18,7 +18,7 @@ class Queue extends Utility
 
     @queues=
       @queues.then (codes)=>
-        process= @exec script
+        process= @spawn script
         process.then (code)->
           codes.push code
           codes
@@ -28,24 +28,25 @@ class Queue extends Utility
   then: (fn)->
     @queues.then fn
 
-  exec: (script)->
+  spawn: (script)->
     options=
       cwd: process.cwd()
       env: process.env
-      maxBuffer: 1024*1024* 10# MB
+      stdio: 'inherit'
+    options.stdio= 'ignore' if @test
+
+    [bin,args...]= script.match /\$\(.*?\)|".*?"|'.*?'|[^\s]+/g
 
     @log "Run #{@strong(script)}"
 
     new Promise (resolve)=>
-      child= exec script,options
-      child.stdout.pipe process.stdout
-      child.stderr.pipe process.stderr
+      child= spawn bin,args,options
 
       child.on 'error',(error)=>
         @log @sweat+" Failed #{@strong(script)}. Due to #{error}..."
         resolve 1
 
-      child.on 'close',(code)=>
+      child.on 'exit',(code)=>
         @log "Done #{@strong(script)}. Exit code #{@strong(code)}."
         resolve code
 

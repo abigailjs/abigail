@@ -4,11 +4,14 @@ chalk= require 'chalk'
 pkg= require '../package'
 path= require 'path'
 
+# Private
+elapsed= Date.now()
+
 # Public
 class Utility
   log: (args...)->
-    elapsed= chalk.gray ('     +'+@getElapsed()).slice -8
-    output= [elapsed,@icon].concat args
+    ms= chalk.gray '+ '+(('   '+@getElapsed()).slice -6)
+    output= [ms,@icon].concat args
     
     return output if @test
 
@@ -38,22 +41,31 @@ class Utility
     text+= "\n    $ abigail #{@strong('scripts')} #{@whereabouts('globs')} [#{@strong('scripts')} #{@whereabouts('globs')}] ..."
     text+= "\n  "
     text+= "\n  Example:"
-    text+= "\n    $ #{chalk.inverse('abigail compile "*.coffee"')}"
-    text+= "\n      > #{@icon} Watch #{@whereabouts('*.coffee')} for #{@strong('npm run compile')}"
+    text+= "\n    $ #{chalk.inverse('abigail compile PKG')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['*','src/**','test/**'])} for #{@strong('compile')}"
     text+= "\n      > #{@icon} Run #{@strong('compile')}"
     text+= "\n      > ..."
     text+= "\n  "
-    text+= "\n    $ #{chalk.inverse('abigail test test/**,src/**')}"
-    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
-    text+= "\n      > #{@icon} Run #{@strong('test')}"
+    text+= "\n    $ #{chalk.inverse('abigail _compile PKG')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['*','src/**','test/**'])} for #{@strong('compile')}"
     text+= "\n      > ..."
     text+= "\n  "
-    text+= "\n    $ #{chalk.inverse('abigail test,lint test/**,src/**')}"
-    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
-    text+= "\n      > #{@icon} Begin #{@strong(['test','lint'])} ..."
+    text+= "\n    $ #{chalk.inverse('abigail compile PKG,_src/**')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['*','src/**','test/**','!_src/**'])} for #{@strong('compile')}"
+    text+= "\n      > ..."
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail hint PKG,.jshintrc')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['*','src/**','test/**','.jshintrc'])} for #{@strong('hint')}"
+    text+= "\n      > #{@icon} Run #{@strong('hint')}"
+    text+= "\n      > ..."
+    text+= "\n  "
+    text+= "\n  "
+    text+= "\n    $ #{chalk.inverse('abigail test,hint PKG')}"
+    text+= "\n      > #{@icon} Watch #{@whereabouts(['*','src/**','test/**'])} for #{@strong(['test','hint'])}"
+    text+= "\n      > #{@icon} Begin #{@strong(['test','hint'])} ..."
     text+= "\n      > #{@icon} Run #{@strong('test')}"
     text+= "\n      > ..."
-    text+= "\n      > #{@icon} Run #{@strong('lint')}"
+    text+= "\n      > #{@icon} Run #{@strong('hint')}"
     text+= "\n      > ..."
     text+= "\n  "
     text+= "\n    $ #{chalk.inverse('abigail \'echo cool\' "*.md"')}"
@@ -61,12 +73,6 @@ class Utility
     text+= "\n      > #{@icon} Run #{@strong('echo cool')}"
     text+= "\n      > ..."
     text+= "\n  "
-    text+= "\n    $ #{chalk.inverse('abigail _test test/**,src/**')}"
-    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','src/**'])} for #{@strong('test')}"
-    text+= "\n  "
-    text+= "\n    $ #{chalk.inverse('abigail _test test/**,_src/**')}"
-    text+= "\n      > #{@icon} Watch #{@whereabouts(['test/**','!src/**'])} for #{@strong('test')}"
-    text+= "\n"
 
     @output text
 
@@ -83,16 +89,15 @@ class Utility
   icon: chalk.magenta '@'+chalk.underline(' ')+'@'
   sweat: chalk.magenta ';'
 
-  elapsed: Date.now()
   getElapsed: ->
     suffix= ' ms'
 
-    diff= Date.now()-@elapsed ? 0
-    @elapsed= Date.now()
+    diff= Date.now()-elapsed ? 0
+    elapsed= Date.now()
 
     if diff>1000
       diff= ~~(diff/1000)
-      suffix= 'sec'
+      suffix= '  s'
       if diff>60
         diff= ~~(diff/60)
         suffix= 'min'

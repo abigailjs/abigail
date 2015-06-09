@@ -2,15 +2,15 @@
   "name": "abigail",
   "bin" : "abigail",
   "description": "the Minimal task runner. Enhance your npm-scripts.",
-  "version": "0.1.1-alpha.2",
+  "version": "0.1.1-alpha.4",
 
   "scripts": {
     "start": "jasminetea --timeout 3000 --watch",
     "test": "jasminetea --timeout 3000 --cover --report",
 
-    "prefixture": "'<this is not pipe>' \"|\"",
-    "fixture": "'<this is not pipe>' \"|\"",
-    "postfixture": "'<this is not pipe>' \"|\"",
+    "prefixture": "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)'",
+    "fixture": "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)' | base64",
+    "postfixture": "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)'",
     
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --bare --compile index.coffee",
@@ -27,7 +27,8 @@
     "chalk": "^1.0.0",
     "gaze": "^0.5.1",
     "minimist": "^1.1.0",
-    "npm-path": "^1.0.1"
+    "npm-path": "^1.0.1",
+    "win-spawn": "^2.0.0"
   },
   "devDependencies": {
     "ghooks": "^0.3.2",
