@@ -50,7 +50,10 @@ class Task extends Utility
       @busy= no
 
       if scripts.length>1
-        @log "End #{@strong(scripts)}. Exit code #{@strong(codes)}."
+        if scripts.length is codes.length
+          @log "End #{@strong(scripts)}. Exit code #{@strong(codes)}."
+        else
+          @log "Stop #{@strong(scripts)}. Exit code #{@strong(codes)}."
 
       if @noWatch
         process.exit ~~(1 in codes)

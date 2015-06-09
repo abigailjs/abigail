@@ -125,11 +125,19 @@ $ abigail test *,_node_modules/**
 # ...
 ```
 
-## Force execution: `--force`
+## Force execution: `--force`, `-f`
 
 Ignore the failure. Run the sequential scripts to the end.
 
 ```bash
+$ abigail lint,test,cover
+#+ 188 ms @ @ Use ./package.json
+#
+# +898 ms @ @ Run lint
+# ...
+#+   1  s @ @ Done lint. Exit code 1.
+#+   0 ms @ @ Stop lint, test, cover. Exit code 1.
+
 $ abigail lint,test,cover --force
 #+ 188 ms @ @ Use ./package.json
 #

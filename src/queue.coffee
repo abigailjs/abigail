@@ -24,7 +24,7 @@ class Queue extends Utility
         process= if script.pipe then @exec script else @spawn script
         process.then (code)=>
           codes.push code
-          return Promise.reject codes unless code is 0 or @options.force
+          return Promise.reject codes unless code is 0 or (@options.force or @options.f)
           codes
 
     @push script.post if script.post?
