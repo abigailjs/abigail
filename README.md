@@ -138,6 +138,13 @@ $ abigail "echo foo" test/**
 #    +7 ms @ @ Done echo foo. Exit code 0.
 ```
 
+## Note
+
+Doesn't use the variable deployment & `npm run`.
+Because _abigail prefer priority to speed and compatibility_.
+
+> This matter is better to [onchange](https://www.npmjs.com/package/onchange).
+
 License
 =========================
 [MIT][License]
