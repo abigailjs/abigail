@@ -141,7 +141,7 @@ $ abigail "echo foo" test/**
 ## Note
 
 Doesn't use the variable deployment & `npm run`.
-Because _abigail prefer priority to speed and compatibility_.
+Because _abigail prefer to speed and compatibility_.
 
 > This matter is better to [onchange](https://www.npmjs.com/package/onchange).
 
