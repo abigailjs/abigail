@@ -2,11 +2,15 @@
 Utility= (require './utility').Utility
 
 Promise= require 'bluebird'
-npmPath= (require 'npm-path')()
-{exec,spawn}= require 'child_process'
+npmPath= require 'npm-path'
+exec= (require 'child_process').exec
+spawn= require 'win-spawn'
+
+# Environment
+npmPath()# Update the process.env
 
 class Queue extends Utility
-  constructor: (scripts=[],@PATH=npmPath)->
+  constructor: (scripts=[])->
     @queues= Promise.resolve []
     @push script for script in scripts
 
@@ -29,7 +33,6 @@ class Queue extends Utility
     options=
       cwd: process.cwd()
       env: process.env
-    options.env.PATH= @PATH
 
     @log "Run #{@strong(script)} (using pipe...)"
 
@@ -47,7 +50,6 @@ class Queue extends Utility
       cwd: process.cwd()
       env: process.env
       stdio:'inherit'
-    options.env.PATH= @PATH
     options.stdio= 'ignore' if @test
 
     @log "Run #{@strong(script)}"

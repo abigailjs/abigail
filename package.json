@@ -27,7 +27,8 @@
     "chalk": "^1.0.0",
     "gaze": "^0.5.1",
     "minimist": "^1.1.0",
-    "npm-path": "^1.0.1"
+    "npm-path": "^1.0.1",
+    "win-spawn": "^2.0.0"
   },
   "devDependencies": {
     "ghooks": "^0.3.2",
