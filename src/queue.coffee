@@ -32,6 +32,7 @@ class Queue extends Utility
     options=
       cwd: process.cwd()
       env: process.env
+      maxBuffer: 1024*1024* 10# MB
 
     @log "Run #{@strong(script)}"
 
