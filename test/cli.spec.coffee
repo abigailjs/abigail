@@ -68,8 +68,8 @@ describe 'CLI',->
       expect(arg.globs[1]).toBe 'baz'
 
   describe 'Reserved word `PKG` of `<watch>`',->
-    it '$ abigail test PKG,.jshintrc',->
-      cli= $abigail 'test PKG,.jshintrc'
+    it '$ abigail test PKG,.travis.yml',->
+      cli= $abigail 'test PKG,.travis.yml'
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
@@ -78,6 +78,19 @@ describe 'CLI',->
       expect(arg.globs[0]).toEqual '*'
       expect(arg.globs[1]).toEqual 'src/**'
       expect(arg.globs[2]).toEqual 'test/**'
+      expect(arg.globs[3]).toEqual '.travis.yml'
+
+    it '$ abigail test .travis.yml,PKG',->
+      cli= $abigail 'test .travis.yml,PKG'
+
+      arg= cli.args[0]
+      expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].pipe).toBe false
+      expect(arg.scripts[0].lazy).toBe false
+      expect(arg.globs[0]).toEqual '.travis.yml'
+      expect(arg.globs[1]).toEqual '*'
+      expect(arg.globs[2]).toEqual 'src/**'
+      expect(arg.globs[3]).toEqual 'test/**'
 
   describe 'Lazy script',->
     it '$ abigail _test test/**',->

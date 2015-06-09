@@ -41,14 +41,15 @@ class Abigail extends Utility
       names= minimistArgv[i++].split ','
 
       scripts= (@toScript name for name in names)
-      globs= minimistArgv[i++]?.split ','
-      globs?= []
-      if globs[0] is 'PKG'
-        globs= ['*','src/**','test/**']
+      watch= minimistArgv[i++]?.split ','
+      watch?= []
 
-      globs= 
-        for glob in globs
-          glob.replace /^_/,'!'
+      globs= []
+      for glob in watch
+        if glob is 'PKG'
+          globs= globs.concat ['*','src/**','test/**']
+        else
+          globs.push glob.replace /^_/,'!'
 
       {scripts,globs}
 
