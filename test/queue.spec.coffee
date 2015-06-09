@@ -20,12 +20,3 @@ describe 'Queue',->
       .then (code)->
         expect(code).toBe 0
         done()
-
-  describe '::spawn',->
-    it 'echo',(done)->
-      queue= new Queue
-      queue.test= yes
-      queue.spawn 'echo'
-      .then (code)->
-        expect(code).toBe 0
-        done()
