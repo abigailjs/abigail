@@ -13,7 +13,7 @@ class Utility
     ms= chalk.gray '+ '+(('   '+@getElapsed()).slice -6)
     output= [ms,@icon].concat args
     
-    return output if @test
+    return output if @test or @options?.test
 
     console.log output...
 

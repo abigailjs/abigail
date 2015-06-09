@@ -86,7 +86,7 @@ $ abigail test,lint test/**,src/**
 
 # Options
 
-## Package watch: Reserved word `PKG` of `<watch>`
+## Package watch: Keyword `PKG` of `<watch>`
 
 `PKG` is expanded to `*`,`src/**`,`test/**`.
 
@@ -112,6 +112,28 @@ $ abigail _test test/**,src/**
 # ...
 ```
 
+## Force execution: `--force`
+
+Ignore the failure. Run the sequential scripts to the end.
+
+```bash
+$ abigail lint,test,cover --force
+#+ 188 ms @ @ Use ./package.json
+#
+# +898 ms @ @ Run lint
+# ...
+#+   1  s @ @ Done lint. Exit code 1.
+#
+# +898 ms @ @ Run test
+# ...
+#+   1  s @ @ Done test. Exit code 0.
+#
+# +898 ms @ @ Run cover
+# ...
+#+   1  s @ @ Done cover. Exit code 0.
+#+   0 ms @ @ End lint, test, cover. Exit code 1, 0, 0.
+```
+
 ## Exclude: prefix `_` of `<watch>`
 
 Can omit a file from watch if `<watch>` has prefix `_`.
@@ -123,19 +145,6 @@ $ abigail test *,_node_modules/**
 #  +46 ms @ @ Watch ** and !node_modules/** for test.
 # +898 ms @ @ Run test
 # ...
-```
-
-## Raw script
-
-Can use raw script if undefined in npm-scripts.
-
-```bash
-$ abigail "echo foo" test/**
-#   +47 ms @ @ Use ./package.json
-#   +49 ms @ @ Watch test/cli.spec.coffee for echo foo
-#  +126 ms @ @ Run echo foo
-# foo
-#    +7 ms @ @ Done echo foo. Exit code 0.
 ```
 
 License

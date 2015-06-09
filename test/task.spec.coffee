@@ -6,7 +6,7 @@ path= require 'path'
 # Specs
 describe 'Task',->
   task= new Task
-  task.test= true
+  task.options.test= yes
 
   describe '::toAbsolute',->
     it 'resolved **',->

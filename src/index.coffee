@@ -13,7 +13,7 @@ class Abigail extends Utility
   parse: (argv,stdout=on)->
     @[key]= value for key,value of minimist argv.slice 2
 
-    @version() if @V
+    @version() if @V or @v
     @help() if @_.length is 0
 
     try
@@ -29,7 +29,7 @@ class Abigail extends Utility
     return if @test
     
     @tasks= []
-    @tasks.push new Task scripts,globs,@test for {scripts,globs} in @args
+    @tasks.push new Task scripts,globs,this for {scripts,globs} in @args
 
     singleArgument= @tasks.length is 1 and @tasks[0].globs[0] is undefined
     if singleArgument

@@ -12,7 +12,7 @@ spawn= require 'win-spawn'
 npmPath()# Update the process.env
 
 class Queue extends Utility
-  constructor: (scripts=[])->
+  constructor: (scripts=[],@options={})->
     @queues= Promise.resolve []
     @push script for script in scripts
 
@@ -22,14 +22,18 @@ class Queue extends Utility
     @queues=
       @queues.then (codes)=>
         process= if script.pipe then @exec script else @spawn script
-        process.then (code)->
+        process.then (code)=>
           codes.push code
+          return Promise.reject codes unless code is 0 or @options.force
           codes
 
     @push script.post if script.post?
 
-  then: (fn)->
+    this
+
+  last: (fn)->
     @queues.then fn
+    @queues.catch fn
 
   exec: (script)->
     options=
@@ -41,8 +45,8 @@ class Queue extends Utility
 
     new Promise (resolve)=>
       child= exec script,options
-      child.stdout.pipe process.stdout
-      child.stderr.pipe process.stderr
+      child.stdout.pipe process.stdout unless @options.test
+      child.stderr.pipe process.stderr unless @options.test
 
       child.on 'error',(error)=>
         @log @sweat+" Failed #{@strong(script)}. Due to #{error}..."
@@ -57,7 +61,7 @@ class Queue extends Utility
       cwd: process.cwd()
       env: process.env
       stdio: 'inherit'
-    options.stdio= 'ignore' if @test
+    options.stdio= 'ignore' if @options.test
 
     [bin,args...]= parse script
 

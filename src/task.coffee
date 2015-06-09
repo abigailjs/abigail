@@ -9,7 +9,7 @@ path= require 'path'
 
 # Public
 class Task extends Utility
-  constructor: (@scripts=[],globs=[],@test=false)->
+  constructor: (@scripts=[],globs=[],@options={})->
     @globs= @toAbsolute globs
 
     gaze @globs,(error,@watcher)=>
@@ -45,9 +45,8 @@ class Task extends Utility
     if scripts.length>1
       @log "Begin #{@strong(scripts)} ..."
 
-    queue= new Queue scripts
-    queue.test= yes if @test
-    queue.then (codes)=>
+    queue= new Queue scripts,@options
+    queue.last (codes)=>
       @busy= no
 
       if scripts.length>1
