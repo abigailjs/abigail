@@ -21,8 +21,8 @@ class Abigail extends Utility
       @log "Use #{@json('./package.json')}"
 
     catch
-      @scripts= {}
       @log "Missing #{@json('./package.json')}"
+    @scripts?= {}
 
     @args= @toArgs @_
 
