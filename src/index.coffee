@@ -3,6 +3,7 @@ Utility= (require './utility').Utility
 Task= (require './task').Task
 
 minimist= require 'minimist'
+parse= (require 'shell-quote').parse
 
 path= require 'path'
 fs= require 'fs'
@@ -62,6 +63,10 @@ class Abigail extends Utility
         new String @scripts[name]
       else
         new String name
+
+    script.pipe= no
+    for arg in parse script.toString()
+      script.pipe= yes if typeof arg is 'object'
 
     script.lazy= lazy
     script.raw= name
