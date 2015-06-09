@@ -32,7 +32,8 @@ class Queue extends Utility
     this
 
   last: (fn)->
-    @queues.then fn
+    @queues.then fn,->
+      # BUG? fixed unhandled rejection Error via 27:Promise.reject
     @queues.catch fn
 
   exec: (script)->
