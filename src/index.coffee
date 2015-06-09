@@ -72,7 +72,7 @@ class Abigail extends Utility
     script.raw= name
     if script.raw isnt script.toString() and hook
       script.pre= @toScript 'pre'+name,off if @scripts['pre'+name]?
-      script.post= @toScript 'post'+name,off if @scripts['pre'+name]?
+      script.post= @toScript 'post'+name,off if @scripts['post'+name]?
 
     script
 
