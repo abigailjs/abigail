@@ -112,6 +112,19 @@ $ abigail _test test/**,src/**
 # ...
 ```
 
+## Exclude: prefix `_` of `<watch>`
+
+Can omit a file from watch if `<watch>` has prefix `_`.
+
+```bash
+$ abigail test *,_node_modules/**
+#  +43 ms @ @ Use ./package.json
+#
+#  +46 ms @ @ Watch ** and !node_modules/** for test.
+# +898 ms @ @ Run test
+# ...
+```
+
 ## Force execution: `--force`
 
 Ignore the failure. Run the sequential scripts to the end.
@@ -132,19 +145,6 @@ $ abigail lint,test,cover --force
 # ...
 #+   1  s @ @ Done cover. Exit code 0.
 #+   0 ms @ @ End lint, test, cover. Exit code 1, 0, 0.
-```
-
-## Exclude: prefix `_` of `<watch>`
-
-Can omit a file from watch if `<watch>` has prefix `_`.
-
-```bash
-$ abigail test *,_node_modules/**
-#  +43 ms @ @ Use ./package.json
-#
-#  +46 ms @ @ Watch ** and !node_modules/** for test.
-# +898 ms @ @ Run test
-# ...
 ```
 
 License
