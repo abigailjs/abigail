@@ -38,11 +38,15 @@ class Queue extends Utility
 
     new Promise (resolve)=>
       exec script,options,(error,stdout,stderr)=>
+        
+        console.log stdout
+        console.log stderr
+
         if error?
-          @log @sweat+" Failing #{@strong(script)}. Due to #{error}..."
+          @log @sweat+" Failed #{@strong(script)}."
           resolve 1
         else
-          @log "Done #{@strong(script)}. Stdout/stderr: #{stdout+stderr}"
+          @log "Done #{@strong(script)}."
           resolve 0
 
   spawn: (script)->
@@ -59,7 +63,7 @@ class Queue extends Utility
       
       child= spawn bin,args,options
       child.on 'error',(error)=>
-        @log @sweat+" Failing #{@strong(script)}. Due to #{error}..."
+        @log @sweat+" Failed #{@strong(script)}. Due to #{error}..."
         resolve 1
 
       child.on 'exit',(code)=>

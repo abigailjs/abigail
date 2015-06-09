@@ -2,7 +2,7 @@
   "name": "abigail",
   "bin" : "abigail",
   "description": "the Minimal task runner. Enhance your npm-scripts.",
-  "version": "0.1.0-beta.3",
+  "version": "0.1.0",
 
   "scripts": {
     "start": "jasminetea --timeout 3000 --watch",
