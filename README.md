@@ -3,11 +3,13 @@
 > the Minimal task runner. Enhance your npm-scripts.
 
 ## Installation
+
 ```bash
 $ npm install abigail --global
 ```
 
 # CLI
+
 ```bash
 $ abigail <script> <watch> [<script> <watch>...]
 ```
@@ -82,6 +84,38 @@ $ abigail test,lint test/**,src/**
 #  +14sec @ @ File src/index.coffee changed
 #   +0 ms @ @ Begin test, lint ...
 # ...
+```
+
+## fork and pending
+
+When `abigail` receives a filename, it will attempt to run with a [child_process.fork](https://nodejs.org/api/child_process.html).
+
+If receive a `{abigail:'pending'}` from the task, then leave the task and start the next task.
+
+When the sequential tasks is complete, kill the left task(handled as 0).
+
+```bash
+$ abigail server.js,test
+# +  73 ms @ @ Use ./package.json
+# +   5 ms @ @ Begin server.js, test ...
+# +   4 ms @ @ Run server.js
+# Server running at http://localhost:59798/
+# + 190 ms @ @ Pending server.js.
+# +   1 ms @ @ Run test
+# ...
+# +   2  s @ @ Done test. Exit code 0.
+# +   1 ms @ @ End server.js, test. Exit code 0, 0.
+```
+
+```js
+// server.js
+var express= require('express')
+var app= express()
+app.static(express.static(__dirname+'/test/fixtures'))
+app.listen(59798,function(){
+  console.log('Server running at http://localhost:59798/')
+  process.send({abigail:'pending'})
+})
 ```
 
 # Options

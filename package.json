@@ -2,19 +2,25 @@
   "name": "abigail",
   "bin" : "abigail",
   "description": "the Minimal task runner. Enhance your npm-scripts.",
-  "version": "0.1.1",
+  "version": "0.1.2-alpha",
+
+  "main": "lib",
+  "files": [
+    "lib",
+    "abigail"
+  ],
 
   "scripts": {
     "start": "jasminetea --timeout 3000 --watch",
     "test": "jasminetea --timeout 3000 --cover --report",
 
+    "server": "coffee test/_server.coffee",
     "prefixture": "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)'",
     "fixture": "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)' | base64",
     "postfixture": "echo '<this is not pipe>' $(echo echo) \"|\" echo '$(echo foo)'",
     
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
-    "compile": "coffee --bare --compile index.coffee",
-    "postcompile": "coffee --output lib --bare --compile src"
+    "compile": "coffee --output lib --bare --compile src"
   },
   "config": {
     "ghooks": {
@@ -23,7 +29,7 @@
   },
 
   "dependencies": {
-    "bluebird": "^2.9.27",
+    "bluebird": "^3.0.5",
     "chalk": "^1.0.0",
     "gaze": "^0.5.1",
     "minimist": "^1.1.0",
@@ -32,8 +38,9 @@
     "win-spawn": "^2.0.0"
   },
   "devDependencies": {
+    "express": "^4.13.3",
     "ghooks": "^0.3.2",
-    "jasminetea": "^0.2.1-alpha.2"
+    "jasminetea": "^0.2.1"
   },
   
   "keywords": [

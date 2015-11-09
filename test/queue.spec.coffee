@@ -33,6 +33,19 @@ describe 'Queue',->
         expect(codes).toEqual [0,1,1]
         done()
 
+    it 'server,echo',(done)->
+      serverFile= new String 'test/server.js'
+      serverFile.fork= true
+
+      queue= new Queue
+      queue.options.test= yes
+      queue.options.force= yes
+      queue.push serverFile
+      queue.push 'echo'
+      .last (codes)->
+        expect(codes).toEqual [0,0]
+        done()
+
   describe '::exec',->
     it 'echo',(done)->
       queue= new Queue

@@ -24,6 +24,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual 'src/**'
@@ -35,12 +37,18 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.scripts[1]).toEqual pkg.scripts.compile
+      expect(arg.scripts[1].defined).toBe true
+      expect(arg.scripts[1].fork).toBe false
       expect(arg.scripts[1].pipe).toBe false
       expect(arg.scripts[1].lazy).toBe false
       expect(arg.scripts[2]).toEqual 'beep'
+      expect(arg.scripts[2].defined).toBe false
+      expect(arg.scripts[2].fork).toBe false
       expect(arg.scripts[2].pipe).toBe false
       expect(arg.scripts[2].lazy).toBe true
       expect(arg.globs[0]).toEqual 'src/**'
@@ -52,6 +60,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.globs[0]).toEqual 'src/**'
@@ -59,13 +69,28 @@ describe 'CLI',->
 
       arg= cli.args[1]
       expect(arg.scripts[0]).toEqual pkg.scripts.compile
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.scripts[1]).toEqual 'foo'
+      expect(arg.scripts[1].defined).toBe false
+      expect(arg.scripts[1].fork).toBe false
       expect(arg.scripts[1].pipe).toBe false
       expect(arg.scripts[1].lazy).toBe false
       expect(arg.globs[0]).toEqual 'bar'
       expect(arg.globs[1]).toBe 'baz'
+
+  describe 'Forked task',->
+    it '$ abigail test/server.js',->
+      cli= $abigail 'test/server.js'
+
+      arg= cli.args[0]
+      expect(arg.scripts[0]).toEqual 'test/server.js'
+      expect(arg.scripts[0].defined).toBe false
+      expect(arg.scripts[0].fork).toBe true
+      expect(arg.scripts[0].pipe).toBe false
+      expect(arg.scripts[0].lazy).toBe false
 
   describe 'Reserved word `PKG` of `<watch>`',->
     it '$ abigail test PKG,.travis.yml',->
@@ -73,6 +98,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual '*'
@@ -85,6 +112,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual '.travis.yml'
@@ -98,6 +127,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.globs[0]).toEqual 'src/**'
@@ -108,6 +139,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts.test
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual '**'
@@ -119,6 +152,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual 'raw script'
+      expect(arg.scripts[0].defined).toBe false
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual 'src/**'
@@ -128,6 +163,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual 'raw script'
+      expect(arg.scripts[0].defined).toBe false
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe false
       expect(arg.scripts[0].lazy).toBe true
       expect(arg.globs[0]).toEqual 'src/**'
@@ -138,6 +175,8 @@ describe 'CLI',->
 
       arg= cli.args[0]
       expect(arg.scripts[0]).toEqual pkg.scripts['fixture']
+      expect(arg.scripts[0].defined).toBe true
+      expect(arg.scripts[0].fork).toBe false
       expect(arg.scripts[0].pipe).toBe true
       expect(arg.scripts[0].lazy).toBe false
       expect(arg.globs[0]).toEqual undefined

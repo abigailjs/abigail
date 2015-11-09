@@ -64,6 +64,8 @@ class Abigail extends Utility
       else
         new String name
 
+    script.defined= @scripts[name]?
+    script.fork= fs.existsSync path.join process.cwd(),script.toString()
     script.pipe= no
     for arg in parse script.toString()
       script.pipe= yes if typeof arg is 'object'
