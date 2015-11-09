@@ -86,7 +86,7 @@ $ abigail test,lint test/**,src/**
 # ...
 ```
 
-## fork and pending
+## Fork and pending
 
 When `abigail` receives a filename, it will attempt to run with a [child_process.fork](https://nodejs.org/api/child_process.html).
 
