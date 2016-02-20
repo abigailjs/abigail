@@ -111,7 +111,7 @@ $ abigail server.js,test
 // server.js
 var express= require('express')
 var app= express()
-app.static(express.static(__dirname+'/test/fixtures'))
+app.use(express.static(__dirname+'/test/fixtures'))
 app.listen(59798,function(){
   console.log('Server running at http://localhost:59798/')
   process.send({abigail:'pending'})
