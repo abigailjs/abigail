@@ -1,0 +1,74 @@
+{
+  "name": "abigail",
+  "description": "lightweight, pluggable, a minimal task runnner",
+  "version": "1.0.0-alpha",
+  "main": "lib",
+  "files": [
+    "lib",
+    "abby"
+  ],
+  "bin": {
+    "abby": "abby"
+  },
+  "scripts": {
+    "start": "NODE_PATH=src abigail test PKG",
+    "test": "mocha --compilers js:espower-babel/guess",
+    "lint": "eslint src test",
+    "cover": "npm-run-all cover:*",
+    "cover:test": "nyc --reporter=lcov --reporter=text npm test",
+    "cover:report": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && codeclimate-test-reporter < coverage/lcov.info || echo skip coverage report",
+    "build": "npm-run-all build:*",
+    "build:compile": "babel -V && babel src --out-dir lib",
+    "preecho": "echo foo && sleep .1",
+    "echo": "echo bar && sleep .1 && exit 1",
+    "postecho": "echo baz | base64 && sleep .1 && exit 2"
+  },
+  "dependencies": {
+    "abigail-plugin": "^0.0.7",
+    "abigail-plugin-exit": "^0.0.4",
+    "abigail-plugin-launch": "^0.0.2",
+    "abigail-plugin-log": "^0.0.5",
+    "abigail-plugin-watch": "^0.0.2",
+    "carrack": "^0.0.5",
+    "climb-lookup": "^1.0.0",
+    "cross-spawn": "^2.1.5",
+    "lodash.flattendeep": "^4.1.0",
+    "minimatch": "^3.0.0",
+    "minimist": "^1.2.0",
+    "npm-path": "^1.1.0",
+    "shell-quote": "^1.5.0"
+  },
+  "devDependencies": {
+    "abigail": "^0.1.2",
+    "babel-cli": "^6.6.5",
+    "babel-eslint": "^5.0.0",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-polyfill": "^6.7.2",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "codeclimate-test-reporter": "^0.3.1",
+    "eslint": "2.2.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "espower-babel": "^4.0.1",
+    "mocha": "^2.4.5",
+    "npm-run-all": "^1.5.3",
+    "nyc": "^6.1.1",
+    "power-assert": "^1.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abigailjs/abigail.git"
+  },
+  "keywords": [
+    "abigail",
+    "npm-scripts",
+    "task",
+    "watch"
+  ],
+  "author": "59naga <i59naga@icloud.com> (http://berabou.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abigailjs/abigail/issues"
+  },
+  "homepage": "https://github.com/abigailjs/abigail#readme"
+}

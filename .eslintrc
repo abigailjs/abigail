@@ -1,0 +1,16 @@
+---
+extends: airbnb/base
+parser: babel-eslint
+
+env:
+  node: true
+  mocha: true
+
+rules:
+  valid-jsdoc:
+    - 2
+    - prefer:
+        return: returns
+
+  max-len: 1
+  arrow-body-style: 1

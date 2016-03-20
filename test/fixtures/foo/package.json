@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test1": "echo test1 && exit 0",
+    "test2": "echo test2 && exit 1",
+    "preother": "echo preother && exit 2",
+    "other": "echo other && exit 3",
+    "postother": "echo postother && exit 4"
+  }
+}

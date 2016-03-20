@@ -1,0 +1,3 @@
+# keep the empty
+# (follow the same pattern rules as .gitignore if .npmignore not exists)
+# https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package

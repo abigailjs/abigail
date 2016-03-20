@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+const Abigail = require('./').Abigail;
+
+/*
+* abigail lifecycle (in serial)
+*   parse
+*   attach-plugins
+*   (unless task) -> help exit 1
+*   launch
+*     task-start (in paralell)
+*       script-start
+*       script-end
+*       script-error
+*     task-end
+*   detach-plugins
+*   exit
+*/
+
+const abigail = new Abigail().parse(process.argv.slice(2));
+abigail.emit('initialized')
+.then(() => abigail.emit('attach-plugins'))
+.then(() => abigail.emit('launch', abigail.task))
+.then(() => {
+  if (abigail.listeners('exit').length) {
+    return abigail.emit('detach-plugins')
+    .then(() => abigail.emit('exit'));
+  }
+
+  return process.once('SIGINT', () => {
+    try {
+      abigail.plugins.log.abort();
+    } catch (e) {
+      // ignore
+    }
+
+    abigail.emit('detach-plugins')
+    .then(() => abigail.emit('exit'));
+  });
+})
+;
