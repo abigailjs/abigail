@@ -17,7 +17,7 @@ branches:
 env:
   global:
     # CODECLIMATE_REPO_TOKEN
-    - secure:
+    - secure: eT3axM8ZIUJt6HHKFQP67zQiAJU3IHs0091Y15iy9JZv7YoM5wdAFLnFbhdd4+/k8v7Q4ZAW6UJ7/0irR/gT0e6wrbv4YPGEfBqAJhTA4zfwYKOhaDgjA1YB4ez7y4V237M0hql+xZ5gfpDbtjdvsJ3Dc7WCxumILr7LoMdla/k=
 
 # Language options
 language: node_js
@@ -37,6 +37,6 @@ deploy:
   provider: npm
   email: i59naga@icloud.com
   api_key:
-    secure:
+    secure: fup0t0KFvc2ht2/uWUQ1CdWBtSKOeQYJc3ipN9OxO1z+6HhuAd1ZoXdgb+lX9K2AkSq+F8uVinRyZeZfyDYdhzRG0Y4j2yWjDQNTha+JCChmU2+0nYwKWSB0/AOlBISVy8wCXAuq0RiVuFTNlK9wKxj2IuHjb9WebBq8dJEQLpc=
   on:
     node: 4
