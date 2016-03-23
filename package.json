@@ -31,8 +31,6 @@
     "abigail-plugin-watch": "^0.0.2",
     "carrack": "^0.0.5",
     "climb-lookup": "^1.0.0",
-    "cross-spawn": "^2.1.5",
-    "lodash.flattendeep": "^4.1.0",
     "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
     "npm-path": "^1.1.0",
