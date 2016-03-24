@@ -1,6 +1,6 @@
 {
   "name": "abigail",
-  "description": "lightweight, pluggable, a minimal task runnner",
+  "description": "lightweight, pluggable, a minimal task runner",
   "version": "1.0.0-alpha",
   "main": "lib",
   "files": [

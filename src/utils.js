@@ -67,7 +67,7 @@ export function createSerial(key, scripts) {
 *   task[]             - run in paralell
 *   task[][]           - run in serial
 *   task[][][]         - run in paralell
-*   task[][][].scripts - run in serial ({pre, main, script})
+*   task[][][].scripts - run in serial ({pre, main, post})
 */
 export function parse(argv = [], scripts = {}) {
   const task = [];
