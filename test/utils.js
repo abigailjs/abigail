@@ -133,6 +133,16 @@ describe('utils', () => {
       assert(json.path === null);
       assert(json.data.scripts === undefined);
     });
+
+    it('if json parse failure should throw an exception', () => {
+      let error;
+      try {
+        utils.lookupJson(joinPaths(__dirname, 'fixtures', 'bar'));
+      } catch (e) {
+        error = e;
+      }
+      assert(error.message === 'Unexpected token }');
+    });
   });
 
   describe('.resolvePlugin', () => {

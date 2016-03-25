@@ -106,21 +106,23 @@ export function parse(argv = [], scripts = {}) {
 * @returns {object} information - the lookup result
 */
 export function lookupJson(cwd) {
+  let path;
   try {
-    const path = lookupSync('package.json', { cwd });
-    const dir = dirname(path);
-    const data = JSON.parse(readFileSync(path));
-    const options = data.abigail || {};
-
-    return { path, dir, data, options };
+    path = lookupSync('package.json', { cwd });
   } catch (e) {
-    const path = null;
+    path = null;
     const dir = null;
     const data = {};
     const options = {};
 
     return { path, dir, data, options };
   }
+
+  const dir = dirname(path);
+  const data = JSON.parse(readFileSync(path));
+  const options = data.abigail || {};
+
+  return { path, dir, data, options };
 }
 
 /**
