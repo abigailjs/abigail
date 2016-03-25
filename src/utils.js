@@ -64,9 +64,9 @@ export function createSerial(key, scripts) {
 * @param {string[]} argv - a command line arguments
 * @param {object} packageScripts - a source npm scripts
 * @returns {array} task - the represents the execution order of the script
-*   task[]             - run in paralell
+*   task[]             - run in parallel
 *   task[][]           - run in serial
-*   task[][][]         - run in paralell
+*   task[][][]         - run in parallel
 *   task[][][].scripts - run in serial ({pre, main, post})
 */
 export function parse(argv = [], scripts = {}) {
@@ -76,18 +76,18 @@ export function parse(argv = [], scripts = {}) {
     const serial = [];
 
     arg.split(',').forEach((pattern) => {
-      const paralell = [];
+      const parallel = [];
 
       for (const key in scripts) {
         if (minimatch(key, pattern)) {
-          paralell.push(createSerial(key, scripts));
+          parallel.push(createSerial(key, scripts));
         }
       }
 
-      if (paralell.length === 0) {
+      if (parallel.length === 0) {
         throw new Error(`no scripts found: ${pattern}`);
       } else {
-        serial.push(paralell);
+        serial.push(parallel);
       }
     });
 

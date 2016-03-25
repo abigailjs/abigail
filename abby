@@ -7,7 +7,7 @@ const Abigail = require('./').Abigail;
 *   attach-plugins
 *   (unless task) -> help exit 1
 *   launch
-*     task-start (in paralell)
+*     task-start (in parallel)
 *       script-start
 *       script-end
 *       script-error
