@@ -2,6 +2,8 @@ import AsyncEmitter from 'carrack';
 import minimist from 'minimist';
 import * as utils from './utils';
 
+import { version } from '../package.json';
+
 /**
 * @extends AsyncEmitter
 * @class Abigail
@@ -26,6 +28,11 @@ export default class Abigail extends AsyncEmitter {
   */
   parse(argv, options = {}) {
     const { _: globs, ...cliOptions } = minimist(argv);// eslint-disable-line
+
+    if (cliOptions.version || cliOptions.v || cliOptions.V) {
+      process.stdout.write(`${version}\n`);
+      process.exit(0);
+    }
 
     this.json = utils.lookupJson(options.cwd || process.cwd());
     this.task = utils.parse(globs, this.json.data.scripts);
