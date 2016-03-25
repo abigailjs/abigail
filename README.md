@@ -19,8 +19,6 @@ Abigail
   </a>
 </p>
 
-> lightweight, pluggable, a minimal task runner
-
 Installation
 ---
 ```bash
