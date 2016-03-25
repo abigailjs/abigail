@@ -114,6 +114,11 @@ See also
 * [abigail-plugin-log](https://github.com/abigailjs/abigail-plugin-log#usage)
 * [abigail-plugin-watch](https://github.com/abigailjs/abigail-plugin-watch#usage)
 
+Inspired by
+---
+* [npm-run-all](https://github.com/mysticatea/npm-run-all)
+* [onchange](https://github.com/Qard/onchange)
+
 Development
 ---
 Requirement global
