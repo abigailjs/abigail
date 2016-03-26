@@ -26,7 +26,7 @@
     "abigail-plugin-launch": "^0.0.2",
     "abigail-plugin-log": "^0.0.5",
     "abigail-plugin-watch": "^0.0.4",
-    "carrack": "^0.0.5",
+    "carrack": "^0.1.0",
     "climb-lookup": "^1.0.0",
     "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
