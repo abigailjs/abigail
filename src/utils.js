@@ -1,105 +1,7 @@
-import minimatch from 'minimatch';
+// dependencies
 import { lookupSync } from 'climb-lookup';
 import { dirname } from 'path';
 import { readFileSync } from 'fs';
-
-import Script from './Script';
-
-/**
-* @param {string[]} argv - a command line arguments
-* @returns {string[]} nomarlized - the script globs
-*/
-export function normalize(argv) {
-  const normalized = [];
-
-  let nextSerial = false;
-  argv.forEach((arg) => {
-    const name = arg.replace(/(^,|,$)/, '');
-
-    const existsSerialPrev = arg[0] === ',' && normalized.length && name.length;
-    const canSerialJoin = nextSerial && normalized.length && name.length;
-    if (existsSerialPrev || canSerialJoin) {
-      nextSerial = false;
-      normalized[normalized.length - 1] += `,${name}`;
-      return;
-    }
-
-    if (arg.slice(-1) === ',') {
-      nextSerial = true;
-    }
-    if (name.length === 0) {
-      return;
-    }
-
-    normalized.push(name);
-  });
-
-  return normalized;
-}
-
-/**
-* @param {string} key - a script name
-* @param {object} scripts - a source npm scripts
-* @returns {object} serial - the matched script with pre and post scripts
-*/
-export function createSerial(key, scripts) {
-  const main = new Script(key, scripts[key]);
-
-  const preKey = `pre${key}`;
-  let pre;
-  if (scripts[preKey]) {
-    pre = new Script(preKey, scripts[preKey]);
-  }
-
-  const postKey = `post${key}`;
-  let post;
-  if (scripts[postKey]) {
-    post = new Script(postKey, scripts[postKey]);
-  }
-
-  return { pre, main, post };
-}
-
-/**
-* @param {string[]} argv - a command line arguments
-* @param {object} packageScripts - a source npm scripts
-* @returns {array} task - the represents the execution order of the script
-*   task[]             - run in parallel
-*   task[][]           - run in serial
-*   task[][][]         - run in parallel
-*   task[][][].scripts - run in serial ({pre, main, post})
-*/
-export function parse(argv = [], scripts = {}) {
-  const task = [];
-
-  normalize(argv).forEach((arg) => {
-    const serial = [];
-
-    arg.split(',').forEach((pattern) => {
-      const parallel = [];
-
-      for (const key in scripts) {
-        if (minimatch(key, pattern)) {
-          parallel.push(createSerial(key, scripts));
-        }
-      }
-
-      if (parallel.length === 0) {
-        throw new Error(`no scripts found: ${pattern}`);
-      } else {
-        serial.push(parallel);
-      }
-    });
-
-    if (serial.length === 0) {
-      throw new Error(`no scripts found: ${arg}`);
-    } else {
-      task.push(serial);
-    }
-  });
-
-  return task;
-}
 
 /**
 * @param {string} cwd - a starting position
@@ -112,7 +14,7 @@ export function lookupJson(cwd) {
   } catch (e) {
     path = null;
     const dir = null;
-    const data = {};
+    const data = { scripts: {} };
     const options = {};
 
     return { path, dir, data, options };

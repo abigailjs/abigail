@@ -112,6 +112,7 @@ See also
 * [abigail-plugin-exit](https://github.com/abigailjs/abigail-plugin-exit#usage)
 * [abigail-plugin-launch](https://github.com/abigailjs/abigail-plugin-launch#usage)
 * [abigail-plugin-log](https://github.com/abigailjs/abigail-plugin-log#usage)
+* [abigail-plugin-parse](https://github.com/abigailjs/abigail-plugin-parse#usage)
 * [abigail-plugin-watch](https://github.com/abigailjs/abigail-plugin-watch#usage)
 
 Inspired by

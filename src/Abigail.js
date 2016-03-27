@@ -1,3 +1,4 @@
+// dependencies
 import AsyncEmitter from 'carrack';
 import minimist from 'minimist';
 import * as utils from './utils';
@@ -14,43 +15,43 @@ export default class Abigail extends AsyncEmitter {
   static defaultOptions = {
     plugins: {
       exit: true,
-      log: true,
       launch: true,
+      log: true,
+      parse: true,
       watch: true,
     },
   }
 
   /**
-  * @method parse
+  * @method initialize
   * @param {array} argv - a command line arguments
   * @param {object} options - a abigail options
   * @returns {abigail} this - the self instance
   */
-  parse(argv, options = {}) {
+  initialize(argv, options = {}) {
     const { _: globs, ...cliOptions } = minimist(argv);// eslint-disable-line
-
     if (cliOptions.version || cliOptions.v || cliOptions.V) {
       process.stdout.write(`${version}\n`);
       process.exit(0);
     }
 
-    this.json = utils.lookupJson(options.cwd || process.cwd());
-    this.task = utils.parse(globs, this.json.data.scripts);
-    this.opts = Object.assign(
+    const json = utils.lookupJson(options.cwd || process.cwd());
+    const opts = Object.assign(
       {},
       this.constructor.defaultOptions || {},
-      this.json.options || {},
+      json.options || {},
       options || {},
     );
-    this.pluginOptions = Object.assign(
+    const pluginOptions = Object.assign(
       {},
       this.constructor.defaultOptions.plugins || {},
-      this.json.options.plugins || {},
+      json.options.plugins || {},
       cliOptions || {},
       options.plugins || {},
     );
+    const plugins = utils.loadPlugins(this, pluginOptions);
 
-    this.plugins = utils.loadPlugins(this, this.pluginOptions);
+    this.props = { globs, json, opts, pluginOptions, plugins };
 
     return this;
   }
