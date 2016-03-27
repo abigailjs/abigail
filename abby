@@ -30,7 +30,7 @@ abigail.emit('initialized')
 
   return process.once('SIGINT', () => {
     try {
-      abigail.plugins.log.abort();
+      abigail.props.plugins.log.abort();
     } catch (e) {
       // ignore
     }
