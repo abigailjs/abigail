@@ -5,5 +5,12 @@
   ],
   "plugins": [
     "add-module-exports"
-  ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "espower"
+      ]
+    }
+  }
 }
