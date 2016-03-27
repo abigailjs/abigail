@@ -29,10 +29,8 @@
     "abigail-plugin-watch": "^0.1.0",
     "carrack": "^0.1.0",
     "climb-lookup": "^1.0.0",
-    "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
-    "npm-path": "^1.1.0",
-    "shell-quote": "^1.5.0"
+    "npm-path": "^1.1.0"
   },
   "devDependencies": {
     "abigail": "^0.1.2",
