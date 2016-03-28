@@ -17,7 +17,8 @@
     "cover:test": "nyc --reporter=lcov --reporter=text npm test",
     "cover:report": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && codeclimate-test-reporter < coverage/lcov.info || echo skip coverage report",
     "build": "NODE_ENV=production npm-run-all build:*",
-    "build:compile": "babel -V && babel src --out-dir lib --source-maps"
+    "build:compile": "babel -V && babel src --out-dir lib --source-maps",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "dependencies": {
     "abigail-plugin": "^0.1.1",
@@ -40,6 +41,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.7.2",
     "codeclimate-test-reporter": "^0.3.1",
+    "conventional-changelog-cli": "^1.1.1",
     "eslint": "2.2.0",
     "eslint-config-airbnb": "6.1.0",
     "lodash.flattendeep": "^4.1.0",
