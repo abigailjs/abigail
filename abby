@@ -6,7 +6,7 @@ const Abigail = require('./').Abigail;
 *   initialized
 *   parse
 *   attach-plugins
-*   (unless task) -> help exit 1
+*   (unless task) -> output logo && exit 1
 *   launch
 *     task-start (in parallel)
 *       script-start
@@ -15,6 +15,7 @@ const Abigail = require('./').Abigail;
 *     task-end
 *   detach-plugins
 *   exit
+*   (all expection) -> output trace && exit 1
 */
 
 const abigail = new Abigail().initialize(process.argv.slice(2));
@@ -39,4 +40,7 @@ abigail.emit('initialized')
     .then(() => abigail.emit('exit'));
   });
 })
-;
+.catch((reason) => {
+  console.trace(reason.message); // eslint-disable-line no-console
+  process.exit(1);
+});
