@@ -38,30 +38,30 @@ describe('utils', () => {
   describe('.resolvePlugin', () => {
     it('in long name, it should return the constructor', () => {
       const emitter = new AsyncEmitter;
-      const Plugin = utils.resolvePlugin('abigail-plugin-exit');
+      const Plugin = utils.resolvePlugin('abigail-plugin-parse');
       const plugin = new Plugin(emitter);
-      assert(plugin.name === 'exit');
+      assert(plugin.name === 'parse');
     });
 
     it('in short name, it should return the constructor', () => {
       const emitter = new AsyncEmitter;
-      const Plugin = utils.resolvePlugin('exit');
+      const Plugin = utils.resolvePlugin('parse');
       const plugin = new Plugin(emitter);
-      assert(plugin.name === 'exit');
+      assert(plugin.name === 'parse');
     });
 
     it('if specify a path, should be require and returnes', () => {
       const emitter = new AsyncEmitter;
-      const Plugin = utils.resolvePlugin(require.resolve('abigail-plugin-exit'));
+      const Plugin = utils.resolvePlugin(require.resolve('abigail-plugin-parse'));
       const plugin = new Plugin(emitter);
-      assert(plugin.name === 'exit');
+      assert(plugin.name === 'parse');
     });
 
     it('if specify a constructor to the second argument, it should be returned as it is', () => {
       const emitter = new AsyncEmitter;
-      const Plugin = utils.resolvePlugin(null, require('abigail-plugin-exit'));
+      const Plugin = utils.resolvePlugin(null, require('abigail-plugin-parse'));
       const plugin = new Plugin(emitter);
-      assert(plugin.name === 'exit');
+      assert(plugin.name === 'parse');
     });
   });
 
@@ -69,32 +69,32 @@ describe('utils', () => {
     // eslint-disable-next-line max-len
     it('key of the second argument as a plugin name, should be dependent on the first argument', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { exit: true });
+      const plugins = utils.loadPlugins(emitter, { parse: true });
 
-      assert(plugins.exit.parent === emitter);
+      assert(plugins.parse.parent === emitter);
     });
 
     // eslint-disable-next-line max-len
     it('if specify false of the second argrument as a plugin value, should ignore the plugin', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { exit: false });
+      const plugins = utils.loadPlugins(emitter, { parse: false });
 
-      assert(plugins.exit === undefined);
+      assert(plugins.parse === undefined);
     });
 
     it('if specify value is object, should be a plugin option', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { exit: { foo: 'bar' } });
+      const plugins = utils.loadPlugins(emitter, { parse: { foo: 'bar' } });
 
-      assert(plugins.exit.opts.value === undefined);
-      assert(plugins.exit.opts.foo === 'bar');
+      assert(plugins.parse.opts.value === undefined);
+      assert(plugins.parse.opts.foo === 'bar');
     });
 
     it("if specifed value isn't boolean and object, should be a plugin `value` option", () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { exit: 'guwa-!' });
+      const plugins = utils.loadPlugins(emitter, { parse: 'guwa-!' });
 
-      assert(plugins.exit.opts.value === 'guwa-!');
+      assert(plugins.parse.opts.value === 'guwa-!');
     });
   });
 });
