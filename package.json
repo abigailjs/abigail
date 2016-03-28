@@ -11,9 +11,8 @@
     "abby": "abby"
   },
   "scripts": {
-    "start": "NODE_PATH=src abigail test PKG",
     "test": "mocha --compilers js:babel-register",
-    "lint": "eslint src test",
+    "lint": "eslint src test abby",
     "cover": "npm-run-all cover:*",
     "cover:test": "nyc --reporter=lcov --reporter=text npm test",
     "cover:report": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && codeclimate-test-reporter < coverage/lcov.info || echo skip coverage report",
@@ -33,7 +32,6 @@
     "npm-path": "^1.1.0"
   },
   "devDependencies": {
-    "abigail": "^0.1.2",
     "babel-cli": "^6.6.5",
     "babel-eslint": "^5.0.0",
     "babel-plugin-add-module-exports": "^0.1.2",
