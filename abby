@@ -24,9 +24,9 @@ npmPath();
 
 const abigail = new Abigail().initialize(process.argv.slice(2));
 abigail.emit('initialized')
-.then(() => abigail.emit('parse', abigail.props.globs, abigail.props.json.data.scripts))
+.then(() => abigail.emit('parse'))
 .then(() => abigail.emit('attach-plugins'))
-.then(() => abigail.emit('launch', abigail.props.task))
+.then(() => abigail.emit('launch'))
 .then(() => {
   if (abigail.listeners('exit').length) {
     return abigail.emit('detach-plugins')
