@@ -4,7 +4,7 @@ import assert from 'power-assert';
 import { join as joinPaths } from 'path';
 
 // target
-import { utils } from '../src';
+import * as utils from '../src/utils';
 
 // environment
 const cwd = joinPaths(__dirname, 'fixtures', 'foo');
