@@ -1,3 +1,13 @@
+<a name="1.1.3"></a>
+## [1.1.3](https://github.com/abigailjs/abigail/compare/1.1.3...v1.1.3) (2016-03-29)
+
+
+### Bug Fixes
+
+* uptodate abigail-plugin-parse@0.0.1 (fix #7) ([44b4518](https://github.com/abigailjs/abigail/commit/44b4518)), closes [#7](https://github.com/abigailjs/abigail/issues/7)
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/abigailjs/abigail/compare/v1.0.0...v1.1.2) (2016-03-28)
 
