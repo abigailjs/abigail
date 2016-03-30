@@ -77,6 +77,10 @@ if connecting the script name with a comma, run the script in series.
 ```bash
 abby cover, report
 # +   23 ms @_@ task start cover, report.
+# +    3 ms @_@ script start cover.
+# +  6.3  s @_@ script end cover. exit code 0.
+# +    3 ms @_@ script start report.
+# +  6.3  s @_@ script end report. exit code 0.
 # +  5.1  s @_@ task end cover, report. exit code 0, 0.
 # +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
@@ -105,6 +109,30 @@ abby mytask:*
 # +   87 ms @_@ script end mytask:jade. exit code 0.
 # +   93 ms @_@ script end mytask:babel. exit code 0.
 # +    0 ms @_@ task end mytask:babel, mytask:jade, mytask:stylus. exit code 0, 0, 0.
+```
+
+force execution
+---
+if specify `--launch force`, ignores the error and continues serial execution.
+
+```bash
+abby cover, report
+# +   23 ms @_@ task start cover, report.
+# +    3 ms @_@ script start cover.
+# +  6.3  s @_@ script end cover. exit code 1.
+# +  5.1  s @_@ task end cover. exit code 1.
+# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
+
+abby cover, report --launch force
+# +   23 ms @_@ task start cover, report.
+# +    3 ms @_@ script start cover.
+# ...
+# +  6.3  s @_@ script end cover. exit code 1.
+# +    3 ms @_@ script start report.
+# ...
+# +  198 ms @_@ script end report. exit code 0.
+# +    2 ms @_@ task end cover, report. exit code 1, 0.
+# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
 
 See also
