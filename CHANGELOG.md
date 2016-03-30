@@ -1,10 +1,11 @@
-<a name="1.1.5"></a>
-## [1.1.5](https://github.com/abigailjs/abigail/compare/v1.1.4...v1.1.5) (2016-03-30)
+<a name="1.1.6"></a>
+## [1.1.6](https://github.com/abigailjs/abigail/compare/v1.1.4...v1.1.6) (2016-03-30)
 
 
 ### Bug Fixes
 
 * fix #8, #9 ([6eff1af](https://github.com/abigailjs/abigail/commit/6eff1af)), closes [#8](https://github.com/abigailjs/abigail/issues/8) [#9](https://github.com/abigailjs/abigail/issues/9)
+* **watch:** fix #10 ([487622e](https://github.com/abigailjs/abigail/commit/487622e)), closes [#10](https://github.com/abigailjs/abigail/issues/10)
 
 
 
