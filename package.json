@@ -23,8 +23,8 @@
   "dependencies": {
     "abigail-plugin": "^0.1.2",
     "abigail-plugin-exit": "^0.1.0",
-    "abigail-plugin-launch": "^0.0.4",
-    "abigail-plugin-log": "^0.1.0",
+    "abigail-plugin-launch": "^0.0.5",
+    "abigail-plugin-log": "^0.1.1",
     "abigail-plugin-parse": "^0.0.2",
     "abigail-plugin-watch": "^0.1.0",
     "carrack": "^0.1.0",
