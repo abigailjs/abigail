@@ -22,18 +22,19 @@ npmPath();
 *   (all expection) -> output trace && exit 1
 */
 
+/* eslint-disable prefer-arrow-callback */
 const abigail = new Abigail().initialize(process.argv.slice(2));
 abigail.emit('initialized')
-.then(() => abigail.emit('parse'))
-.then(() => abigail.emit('attach-plugins'))
-.then(() => abigail.emit('launch'))
-.then(() => {
+.then(function () {return abigail.emit('parse');})
+.then(function () {return abigail.emit('attach-plugins');})
+.then(function () {return abigail.emit('launch');})
+.then(function () {
   if (abigail.listeners('exit').length) {
     return abigail.emit('detach-plugins')
-    .then(() => abigail.emit('exit'));
+    .then(function () {return abigail.emit('exit');});
   }
 
-  return process.once('SIGINT', () => {
+  return process.once('SIGINT', function () {
     try {
       abigail.props.plugins.log.abort();
     } catch (e) {
@@ -41,10 +42,10 @@ abigail.emit('initialized')
     }
 
     abigail.emit('detach-plugins')
-    .then(() => abigail.emit('exit'));
+    .then(function () {return abigail.emit('exit');});
   });
 })
-.catch((reason) => {
+.catch(function (reason) {
   console.trace(reason.message); // eslint-disable-line no-console
   process.exit(1);
 });

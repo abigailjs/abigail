@@ -3,14 +3,17 @@
     "es2015",
     "stage-1"
   ],
-  "plugins": [
-    "add-module-exports"
-  ],
   "env": {
     "development": {
       "plugins": [
         "espower"
       ]
+    },
+    "production": {
+      "plugins": [
+        "transform-object-assign",
+        "add-module-exports"
+      ],
     }
   }
 }
