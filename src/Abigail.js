@@ -1,6 +1,7 @@
 // dependencies
 import AsyncEmitter from 'carrack';
 import minimist from 'minimist';
+import deepAssign from 'deep-assign';
 import * as utils from './utils';
 
 import { version } from '../package.json';
@@ -28,11 +29,12 @@ export default class Abigail extends AsyncEmitter {
   * @param {object} options - a abigail options
   * @returns {abigail} this - the self instance
   */
-  initialize(argv, options = {}) {
+  initialize(argv, options = { process }) {
     const { _: globs, ...cliOptions } = minimist(argv);// eslint-disable-line
     if (cliOptions.version || cliOptions.v || cliOptions.V) {
-      process.stdout.write(`${version}\n`);
-      process.exit(0);
+      options.process.stdout.write(`${version}\n`);
+      options.process.exit(0);
+      return this;
     }
 
     const json = utils.lookupJson(options.cwd || process.cwd());
@@ -40,23 +42,13 @@ export default class Abigail extends AsyncEmitter {
       {},
       this.constructor.defaultOptions || {},
       json.options || {},
-      options || {},
     );
 
-    const cliPluginOptions = {};
-    for (const key in cliOptions) {
-      if (cliOptions.hasOwnProperty(key) === false) {
-        continue;
-      }
-      cliPluginOptions[key] = { default: cliOptions[key] };
-    }
-
-    const pluginOptions = Object.assign(
+    const pluginOptions = deepAssign(
       {},
-      this.constructor.defaultOptions.plugins || {},
-      json.options.plugins || {},
-      cliPluginOptions || {},
-      options.plugins || {},
+      utils.resolvePluginOptions(this.constructor.defaultOptions.plugins),
+      utils.resolvePluginOptions(json.options.plugins),
+      utils.resolvePluginOptions(cliOptions),
     );
     const plugins = utils.loadPlugins(this, pluginOptions);
 

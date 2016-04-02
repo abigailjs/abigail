@@ -28,6 +28,41 @@ export function lookupJson(cwd) {
 }
 
 /**
+* @param {object} [args] - a key-value defines
+* @returns {object} pluginOptions - the plugin options
+*/
+export function resolvePluginOptions(args = {}) {
+  const pluginOptions = {};
+
+  for (const key in args) {
+    if (args.hasOwnProperty(key) === false) {
+      continue;
+    }
+    if (args[key] === null || args[key] === undefined) {
+      continue;
+    }
+
+    const fieldValue = args[key];
+    if (typeof fieldValue === 'object') {
+      pluginOptions[key] = fieldValue;
+      continue;
+    }
+
+    const opts = {};
+    if (typeof fieldValue === 'boolean') {
+      opts.enable = fieldValue;
+    }
+    if (typeof fieldValue !== 'boolean') {
+      opts.enable = true;
+      opts.value = fieldValue;
+    }
+    pluginOptions[key] = opts;
+  }
+
+  return pluginOptions;
+}
+
+/**
 * @param {string} name - a plugin name
 * @param {function} [constructor=undefined] - a plugin constructor
 * @returns {function} constructor - the plugin constructor
@@ -60,15 +95,12 @@ export function loadPlugins(parent, options = {}) {
     }
 
     const pluginOpts = options[name];
-    if (pluginOpts === false) {
-      continue;
-    }
-    if (pluginOpts.default === false) {
+    if (pluginOpts.enable === false) {
       continue;
     }
 
     const Plugin = resolvePlugin(name, pluginOpts);
-    const plugin = new Plugin(parent, pluginOpts.default, pluginOpts);
+    const plugin = new Plugin(parent, pluginOpts.value, pluginOpts);
     plugins[plugin.name] = plugin;
   }
 

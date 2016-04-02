@@ -5,5 +5,14 @@
     "preother": "echo preother && exit 2",
     "other": "echo other && exit 3",
     "postother": "echo postother && exit 4"
+  },
+  "abigail": {
+    "plugins": {
+      "parse": false,
+      "watch": {
+        "enable": false,
+        "lazy": true
+      }
+    }
   }
 }

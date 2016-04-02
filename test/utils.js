@@ -4,7 +4,7 @@ import assert from 'power-assert';
 import { join as joinPaths } from 'path';
 
 // target
-import * as utils from '../src/utils';
+import { utils } from '../src';
 
 // environment
 const cwd = joinPaths(__dirname, 'fixtures', 'foo');
@@ -32,6 +32,41 @@ describe('utils', () => {
         error = e;
       }
       assert(error.message === 'Unexpected token }');
+    });
+  });
+
+  describe('.resolvePluginOptions', () => {
+    it('if the value is undefined, it should not return the options', () => {
+      const opts = utils.resolvePluginOptions({ foo: undefined });
+      assert(opts.foo === undefined);
+    });
+
+    it('if the value is boolean, it should be returned as enable', () => {
+      const opts = utils.resolvePluginOptions({ foo: true });
+      assert(opts.foo.enable === true);
+      assert(opts.foo.value === undefined);
+    });
+
+    it('if the value isnt boolean, it should be returned as value', () => {
+      const opts = utils.resolvePluginOptions({ foo: 'bar' });
+      assert(opts.foo.enable === true);
+      assert(opts.foo.value === 'bar');
+    });
+
+    it('if the value is an object, to be returned as it is', () => {
+      let opts;
+
+      opts = utils.resolvePluginOptions({ foo: { enable: true } });
+      assert(opts.foo.enable === true);
+      assert(opts.foo.value === undefined);
+
+      opts = utils.resolvePluginOptions({ foo: { enable: 'baz' } });
+      assert(opts.foo.enable === 'baz');
+      assert(opts.foo.value === undefined);
+
+      opts = utils.resolvePluginOptions({ foo: { value: 'baz' } });
+      assert(opts.foo.enable === undefined);
+      assert(opts.foo.value === 'baz');
     });
   });
 
@@ -66,33 +101,18 @@ describe('utils', () => {
   });
 
   describe('.loadPlugins', () => {
-    it('if specify pluginOpts is false, should be a plugin disable', () => {
+    it('if specify pluginOpts.enable is true, should be a plugin enable', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: false });
-
-      assert(plugins.parse === undefined);
-    });
-
-    it('if specify pluginOpts.default is true, should be a plugin enable', () => {
-      const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: { default: true } });
+      const plugins = utils.loadPlugins(emitter, { parse: { enable: true } });
 
       assert(plugins.parse.parent === emitter);
     });
 
-    it('if specify pluginOpts.default is false, should be a plugin disable', () => {
+    it('if specify pluginOpts.enable is false, should be a plugin disable', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: { default: false } });
+      const plugins = utils.loadPlugins(emitter, { parse: { enable: false } });
 
       assert(plugins.parse === undefined);
-    });
-
-    it('if specify pluginOpts.default isnt boolean, should be a plugin opts', () => {
-      const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: { default: 'foo' } });
-
-      assert(plugins.parse.opts.default === 'foo');
-      assert(plugins.parse.opts.value === 'foo'); // deprecated
     });
   });
 });
