@@ -25,7 +25,7 @@
     "abigail-plugin-exit": "^0.1.0",
     "abigail-plugin-launch": "^0.0.5",
     "abigail-plugin-log": "^0.1.1",
-    "abigail-plugin-parse": "^0.0.2",
+    "abigail-plugin-parse": "^0.1.0",
     "abigail-plugin-watch": "^0.2.0",
     "carrack": "^0.1.0",
     "climb-lookup": "^1.0.0",
