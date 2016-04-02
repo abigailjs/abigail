@@ -63,6 +63,9 @@ export function loadPlugins(parent, options = {}) {
     if (value === false) {
       continue;
     }
+    if (typeof value === 'object' && value.default === false) {
+      continue;
+    }
 
     const Plugin = resolvePlugin(name, value);
     const pluginValue = typeof value !== 'object' ? value : undefined;

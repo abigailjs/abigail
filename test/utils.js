@@ -90,6 +90,13 @@ describe('utils', () => {
       assert(plugins.parse.opts.foo === 'bar');
     });
 
+    it('if specify value.default is false, should be a plugin disable', () => {
+      const emitter = new AsyncEmitter;
+      const plugins = utils.loadPlugins(emitter, { parse: { default: false } });
+
+      assert(plugins.parse === undefined);
+    });
+
     it("if specifed value isn't boolean and object, should be a plugin `value` option", () => {
       const emitter = new AsyncEmitter;
       const plugins = utils.loadPlugins(emitter, { parse: 'guwa-!' });
