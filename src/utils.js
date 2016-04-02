@@ -59,18 +59,13 @@ export function loadPlugins(parent, options = {}) {
       continue;
     }
 
-    const value = options[name];
-    if (value === false) {
-      continue;
-    }
-    if (typeof value === 'object' && value.default === false) {
+    const pluginOpts = options[name];
+    if (pluginOpts.default === false) {
       continue;
     }
 
-    const Plugin = resolvePlugin(name, value);
-    const pluginValue = typeof value !== 'object' ? value : undefined;
-    const pluginOptions = typeof value === 'object' ? value : undefined;
-    const plugin = new Plugin(parent, pluginValue, pluginOptions);
+    const Plugin = resolvePlugin(name, pluginOpts);
+    const plugin = new Plugin(parent, pluginOpts.default, pluginOpts);
     plugins[plugin.name] = plugin;
   }
 

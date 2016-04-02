@@ -66,42 +66,26 @@ describe('utils', () => {
   });
 
   describe('.loadPlugins', () => {
-    // eslint-disable-next-line max-len
-    it('key of the second argument as a plugin name, should be dependent on the first argument', () => {
+    it('if specify pluginOpts.default is true, should be a plugin enable', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: true });
+      const plugins = utils.loadPlugins(emitter, { parse: { default: true } });
 
       assert(plugins.parse.parent === emitter);
     });
 
-    // eslint-disable-next-line max-len
-    it('if specify false of the second argrument as a plugin value, should ignore the plugin', () => {
-      const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: false });
-
-      assert(plugins.parse === undefined);
-    });
-
-    it('if specify value is object, should be a plugin option', () => {
-      const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: { foo: 'bar' } });
-
-      assert(plugins.parse.opts.value === undefined);
-      assert(plugins.parse.opts.foo === 'bar');
-    });
-
-    it('if specify value.default is false, should be a plugin disable', () => {
+    it('if specify pluginOpts.default is false, should be a plugin disable', () => {
       const emitter = new AsyncEmitter;
       const plugins = utils.loadPlugins(emitter, { parse: { default: false } });
 
       assert(plugins.parse === undefined);
     });
 
-    it("if specifed value isn't boolean and object, should be a plugin `value` option", () => {
+    it('if specify pluginOpts.default isnt boolean, should be a plugin opts', () => {
       const emitter = new AsyncEmitter;
-      const plugins = utils.loadPlugins(emitter, { parse: 'guwa-!' });
+      const plugins = utils.loadPlugins(emitter, { parse: { default: 'foo' } });
 
-      assert(plugins.parse.opts.value === 'guwa-!');
+      assert(plugins.parse.opts.default === 'foo');
+      assert(plugins.parse.opts.value === 'foo'); // deprecated
     });
   });
 });

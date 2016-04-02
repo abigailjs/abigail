@@ -42,11 +42,20 @@ export default class Abigail extends AsyncEmitter {
       json.options || {},
       options || {},
     );
+
+    const cliPluginOptions = {};
+    for (const key in cliOptions) {
+      if (cliOptions.hasOwnProperty(key) === false) {
+        continue;
+      }
+      cliPluginOptions[key] = { default: cliOptions[key] };
+    }
+
     const pluginOptions = Object.assign(
       {},
       this.constructor.defaultOptions.plugins || {},
       json.options.plugins || {},
-      cliOptions || {},
+      cliPluginOptions || {},
       options.plugins || {},
     );
     const plugins = utils.loadPlugins(this, pluginOptions);
