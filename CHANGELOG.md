@@ -1,5 +1,5 @@
-<a name="1.3.0"></a>
-# [1.3.0](https://github.com/abigailjs/abigail/compare/v1.2.0...v1.3.0) (2016-04-02)
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/abigailjs/abigail/compare/v1.2.0...v1.3.1) (2016-04-02)
 
 
 ### Bug Fixes
@@ -10,6 +10,7 @@
 
 * **loadPlugins:** change the plugin option only to object ([e5a749d](https://github.com/abigailjs/abigail/commit/e5a749d))
 * add `resolvePluginOptions` ([9f29021](https://github.com/abigailjs/abigail/commit/9f29021))
+* **watch:** add `lazy` option ([c3fcebc](https://github.com/abigailjs/abigail/commit/c3fcebc))
 
 
 ### BREAKING CHANGES
