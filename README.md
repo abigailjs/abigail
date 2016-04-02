@@ -1,4 +1,4 @@
-Abigail
+![Abigail](https://cloud.githubusercontent.com/assets/1548478/14227243/06457ec6-f934-11e5-9b30-a37a13ce1d4e.png)
 ---
 
 <p align="right">
