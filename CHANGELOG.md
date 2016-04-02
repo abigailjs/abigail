@@ -1,11 +1,30 @@
-<a name="1.1.6"></a>
-## [1.1.6](https://github.com/abigailjs/abigail/compare/v1.1.4...v1.1.6) (2016-03-30)
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/abigailjs/abigail/compare/v1.2.0...v1.2.1) (2016-04-02)
+
+
+### Features
+
+* **loadPlugins:** change the plugin option only to object ([e5a749d](https://github.com/abigailjs/abigail/commit/e5a749d))
+
+
+### BREAKING CHANGES
+
+* loadPlugins: remove/add all specs of loadPlugins
+
+
+
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/abigailjs/abigail/compare/v1.1.4...v1.2.0) (2016-04-02)
 
 
 ### Bug Fixes
 
 * fix #8, #9 ([6eff1af](https://github.com/abigailjs/abigail/commit/6eff1af)), closes [#8](https://github.com/abigailjs/abigail/issues/8) [#9](https://github.com/abigailjs/abigail/issues/9)
 * **watch:** fix #10 ([487622e](https://github.com/abigailjs/abigail/commit/487622e)), closes [#10](https://github.com/abigailjs/abigail/issues/10)
+
+### Features
+
+* **rc:** add `value.default` plugin option ([00496a5](https://github.com/abigailjs/abigail/commit/00496a5))
 
 
 
