@@ -1,6 +1,10 @@
-<a name="1.2.1"></a>
-## [1.2.1](https://github.com/abigailjs/abigail/compare/v1.2.0...v1.2.1) (2016-04-02)
+<a name="1.2.2"></a>
+## [1.2.2](https://github.com/abigailjs/abigail/compare/v1.2.0...v1.2.2) (2016-04-02)
 
+
+### Bug Fixes
+
+* **loadPlugins:** package.json abigail/plugins field ([d341b88](https://github.com/abigailjs/abigail/commit/d341b88))
 
 ### Features
 
