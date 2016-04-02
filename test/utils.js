@@ -66,6 +66,13 @@ describe('utils', () => {
   });
 
   describe('.loadPlugins', () => {
+    it('if specify pluginOpts is false, should be a plugin disable', () => {
+      const emitter = new AsyncEmitter;
+      const plugins = utils.loadPlugins(emitter, { parse: false });
+
+      assert(plugins.parse === undefined);
+    });
+
     it('if specify pluginOpts.default is true, should be a plugin enable', () => {
       const emitter = new AsyncEmitter;
       const plugins = utils.loadPlugins(emitter, { parse: { default: true } });

@@ -60,6 +60,9 @@ export function loadPlugins(parent, options = {}) {
     }
 
     const pluginOpts = options[name];
+    if (pluginOpts === false) {
+      continue;
+    }
     if (pluginOpts.default === false) {
       continue;
     }
