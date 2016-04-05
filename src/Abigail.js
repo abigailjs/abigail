@@ -1,6 +1,6 @@
 // dependencies
 import AsyncEmitter from 'carrack';
-import minimist from 'minimist';
+import chopsticks from 'chopsticks';
 import deepAssign from 'deep-assign';
 import * as utils from './utils';
 
@@ -30,7 +30,8 @@ export default class Abigail extends AsyncEmitter {
   * @returns {abigail} this - the self instance
   */
   initialize(argv, options = { process }) {
-    const { _: globs, ...cliOptions } = minimist(argv);// eslint-disable-line
+    // eslint-disable-next-line no-unused-vars
+    const { _: globs, flagCount, ...cliOptions } = chopsticks(argv);
     if (cliOptions.version || cliOptions.v || cliOptions.V) {
       options.process.stdout.write(`${version}\n`);
       options.process.exit(0);

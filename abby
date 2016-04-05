@@ -1,9 +1,5 @@
 #!/usr/bin/env node
-const npmPath = require('npm-path');
 const Abigail = require('./').Abigail;
-
-// update process.env
-npmPath();
 
 /*
 * abigail lifecycle (in serial)
