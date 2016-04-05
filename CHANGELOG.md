@@ -1,3 +1,13 @@
+<a name="1.3.4"></a>
+## [1.3.4](https://github.com/abigailjs/abigail/compare/v1.3.3...v1.3.4) (2016-04-05)
+
+
+### Bug Fixes
+
+* **Object.assign:** `TypeError: undefined is not a function` at v0 ([31714a9](https://github.com/abigailjs/abigail/commit/31714a9))
+
+
+
 <a name="1.3.3"></a>
 ## [1.3.3](https://github.com/abigailjs/abigail/compare/v1.2.0...v1.3.3) (2016-04-02)
 
