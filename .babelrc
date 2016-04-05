@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "transform-object-assign"
+  ],
   "env": {
     "development": {
       "presets": [
@@ -13,9 +16,6 @@
       "presets": [
         "es2015-rollup",
         "stage-1"
-      ],
-      "plugins": [
-        "transform-object-assign"
       ]
     }
   }
