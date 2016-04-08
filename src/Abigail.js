@@ -30,8 +30,12 @@ export default class Abigail extends AsyncEmitter {
   * @returns {abigail} this - the self instance
   */
   initialize(argv, options = { process }) {
-    // eslint-disable-next-line no-unused-vars
-    const { _, sentence, ...cliOptions } = chopsticks(argv, { sentence: true });
+    const {
+      _,
+      sentence,
+      dash: extraPluginNames,
+      ...cliOptions,
+    } = chopsticks(argv, { sentence: true, dash: true });
     if (cliOptions.version || cliOptions.v || cliOptions.V) {
       options.process.stdout.write(`${version}\n`);
       options.process.exit(0);
@@ -50,6 +54,7 @@ export default class Abigail extends AsyncEmitter {
       utils.resolvePluginOptions(this.constructor.defaultOptions.plugins),
       utils.resolvePluginOptions(json.options.plugins),
       utils.resolvePluginOptions(cliOptions),
+      utils.resolvePluginOptions(utils.toPluginOptions(extraPluginNames)),
     );
     const plugins = utils.loadPlugins(this, pluginOptions);
 

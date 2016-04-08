@@ -49,7 +49,6 @@
     "deep-assign": "^2.0.0",
     "eslint": "^2.6.0",
     "eslint-config-airbnb": "^6.2.0",
-    "lodash.flattendeep": "^4.1.0",
     "mocha": "^2.4.5",
     "npm-path": "^1.1.0",
     "npm-run-all": "^1.5.3",

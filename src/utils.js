@@ -1,6 +1,6 @@
 // dependencies
 import { lookupSync } from 'climb-lookup';
-import { dirname } from 'path';
+import { dirname, resolve as resolvePaths } from 'path';
 import { readFileSync } from 'fs';
 
 /**
@@ -72,7 +72,7 @@ export function resolvePlugin(name, constructor) {
     return constructor;
   }
   if (name.match(/^[\w\-]+$/) === null) {
-    return require(name);
+    return require(resolvePaths(process.cwd(), name));
   }
   if (name.match(/^abigail-plugin/)) {
     return require(name);
@@ -105,4 +105,19 @@ export function loadPlugins(parent, options = {}) {
   }
 
   return plugins;
+}
+
+/**
+* ['foo', 'bar.js'] -> {foo: true, 'bar.js': true}
+*
+* @param {string[]} args - a command line arguments
+* @returns {object} pluginOptions
+*/
+export function toPluginOptions(args = []) {
+  return args.reduce((object, arg) =>
+    Object.assign(
+      object, { [arg]: true }
+    ),
+    {},
+  );
 }
