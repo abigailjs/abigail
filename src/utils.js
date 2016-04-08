@@ -106,13 +106,3 @@ export function loadPlugins(parent, options = {}) {
 
   return plugins;
 }
-
-/**
-* ['foo', 'bar.js'] -> {foo: true, 'bar.js': true}
-*
-* @param {string[]} args - a command line arguments
-* @returns {object} pluginOptions
-*/
-export function toPluginOptions(args = []) {
-  return args.reduce((object, arg) => Object.assign(object, { [arg]: true }), {});
-}
