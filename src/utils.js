@@ -114,10 +114,5 @@ export function loadPlugins(parent, options = {}) {
 * @returns {object} pluginOptions
 */
 export function toPluginOptions(args = []) {
-  return args.reduce((object, arg) =>
-    Object.assign(
-      object, { [arg]: true }
-    ),
-    {},
-  );
+  return args.reduce((object, arg) => Object.assign(object, { [arg]: true }), {});
 }
