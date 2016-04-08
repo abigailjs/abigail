@@ -21,6 +21,7 @@ export default {
         'abigail-plugin-log',
         'abigail-plugin-parse',
         'abigail-plugin-watch',
+        'source-map-support',
       ],
     }),
     commonjs(),

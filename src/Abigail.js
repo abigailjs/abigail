@@ -31,7 +31,7 @@ export default class Abigail extends AsyncEmitter {
   */
   initialize(argv, options = { process }) {
     // eslint-disable-next-line no-unused-vars
-    const { _: globs, flagCount, ...cliOptions } = chopsticks(argv);
+    const { _, sentence, ...cliOptions } = chopsticks(argv, { sentence: true });
     if (cliOptions.version || cliOptions.v || cliOptions.V) {
       options.process.stdout.write(`${version}\n`);
       options.process.exit(0);
@@ -53,7 +53,8 @@ export default class Abigail extends AsyncEmitter {
     );
     const plugins = utils.loadPlugins(this, pluginOptions);
 
-    this.props = { globs, json, opts, pluginOptions, plugins };
+    const sentenceWithLowdash = _.length ? sentence.concat([_]) : sentence;
+    this.props = { sentence: sentenceWithLowdash, json, opts, pluginOptions, plugins };
 
     return this;
   }

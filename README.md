@@ -32,7 +32,7 @@ abigail is [npm scripts](https://docs.npmjs.com/misc/scripts) emulator.
 you can succinctly describe the serial execution and watch files.
 
 ```bash
-abby test, lint, cover
+abby test, lint, cover.
 # +    0 ms @_@ use package.json.
 # +    2 ms @_@ plugin enabled exit, log, launch, watch.
 # +   23 ms @_@ task start test, lint, cover.
@@ -75,7 +75,7 @@ serial execution
 if connecting the script name with a comma, run the script in series.
 
 ```bash
-abby cover, report
+abby cover, report.
 # +   23 ms @_@ task start cover, report.
 # +    3 ms @_@ script start cover.
 # +  6.3  s @_@ script end cover. exit code 0.
@@ -116,14 +116,14 @@ force execution
 if specify `--launch force`, ignores the error and continues serial execution.
 
 ```bash
-abby cover, report
+abby cover, report.
 # +   23 ms @_@ task start cover, report.
 # +    3 ms @_@ script start cover.
 # +  6.3  s @_@ script end cover. exit code 1.
 # +  5.1  s @_@ task end cover. exit code 1.
 # +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 
-abby cover, report --launch force
+abby cover, report. --launch force
 # +   23 ms @_@ task start cover, report.
 # +    3 ms @_@ script start cover.
 # ...
