@@ -1,11 +1,22 @@
-<a name="1.3.5"></a>
-## [1.3.5](https://github.com/abigailjs/abigail/compare/v1.3.3...v1.3.5) (2016-04-05)
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/abigailjs/abigail/compare/v1.3.3...v1.4.0) (2016-04-08)
 
 
 ### Bug Fixes
 
+* **array-from:** chopsticks@0.0.1 ([e1d1fda](https://github.com/abigailjs/abigail/commit/e1d1fda))
 * **Object.assign:** `TypeError: undefined is not a function` at v0 ([31714a9](https://github.com/abigailjs/abigail/commit/31714a9))
 * **Object.assign:** fix #11 ([be2d19d](https://github.com/abigailjs/abigail/commit/be2d19d)), closes [#11](https://github.com/abigailjs/abigail/issues/11)
+* **v0:** always transform Object.assign to polyfill ([3f02590](https://github.com/abigailjs/abigail/commit/3f02590))
+
+### Code Refactoring
+
+* **parse:** use chopstick@0.3 ([61ccf86](https://github.com/abigailjs/abigail/commit/61ccf86))
+
+
+### BREAKING CHANGES
+
+* parse: serial execution will support the right-comma only
 
 
 
