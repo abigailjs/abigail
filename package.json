@@ -17,9 +17,8 @@
     "cover:test": "nyc --reporter=lcov --reporter=text npm test",
     "cover:report": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && codeclimate-test-reporter < coverage/lcov.info || echo skip coverage report",
     "build": "cross-env NODE_ENV=production rollup -c",
-    "changelog": "abby changelog:*",
-    "changelog:gh": "conventional-github-releaser -p angular -r 0",
-    "changelog:md": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "postversion": "git push --follow-tags && conventional-github-releaser -p angular -r 0"
   },
   "dependencies": {
     "abigail-plugin": "^0.1.3",
