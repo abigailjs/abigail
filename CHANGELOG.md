@@ -1,3 +1,18 @@
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/abigailjs/abigail/compare/v1.4.1...v1.4.2) (2016-04-08)
+
+
+### Bug Fixes
+
+* **#14:** use `StaticFileFlag` option ([454403e](https://github.com/abigailjs/abigail/commit/454403e))
+
+
+### BREAKING CHANGES
+
+* #14: remove `utils.toPluginOptions`
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/abigailjs/abigail/compare/v1.4.0...v1.4.1) (2016-04-08)
 
