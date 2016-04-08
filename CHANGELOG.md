@@ -1,3 +1,13 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/abigailjs/abigail/compare/v1.4.0...v1.4.1) (2016-04-08)
+
+
+### Features
+
+* **dash:** run argument after dash(`--`) as a plug-in file ([489d42a](https://github.com/abigailjs/abigail/commit/489d42a)), closes [#14](https://github.com/abigailjs/abigail/issues/14)
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/abigailjs/abigail/compare/v1.3.3...v1.4.0) (2016-04-08)
 
