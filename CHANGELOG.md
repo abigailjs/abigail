@@ -1,3 +1,13 @@
+<a name="1.4.3"></a>
+## [1.4.3](https://github.com/abigailjs/abigail/compare/v1.4.2...v1.4.3) (2016-04-09)
+
+
+### Bug Fixes
+
+* space-separated task(_) is not parsed correctly ([1ac50e7](https://github.com/abigailjs/abigail/commit/1ac50e7))
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/abigailjs/abigail/compare/v1.4.1...v1.4.2) (2016-04-08)
 
