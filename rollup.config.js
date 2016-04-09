@@ -1,4 +1,4 @@
-import npm from 'rollup-plugin-npm';
+import nodeResolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
@@ -12,7 +12,7 @@ export default {
   format: 'umd',
   moduleName: pascalCase(require('./package.json').name),
   plugins: [
-    npm({
+    nodeResolve({
       jsnext: true,
       skip: [
         'abigail-plugin',
