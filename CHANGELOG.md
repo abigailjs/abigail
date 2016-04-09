@@ -1,3 +1,14 @@
+<a name="1.6.0-0"></a>
+# [1.6.0-0](https://github.com/abigailjs/abigail/compare/v1.5.0...v1.6.0-0) (2016-04-09)
+
+
+### Features
+
+* **abigail-plugin-parse:** add `raw` option ([f8fc313](https://github.com/abigailjs/abigail/commit/f8fc313))
+* **dash:** add `run with arguments` behavior ([61702e5](https://github.com/abigailjs/abigail/commit/61702e5))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/abigailjs/abigail/compare/v1.5.0-1...v1.5.0) (2016-04-09)
 
