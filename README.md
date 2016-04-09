@@ -135,6 +135,16 @@ abby cover, report. --launch force
 # +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
 
+run with script
+---
+if specify `--`, it run the subsequent arguments as the end of the script.
+
+```bash
+abby test -- --quiet
+# +   23 ms @_@ task start cover, report. (with --quiet)
+# ...
+```
+
 See also
 ---
 * [abigail-plugin-env](https://github.com/abigailjs/abigail-plugin-env#usage)
