@@ -16,6 +16,7 @@ export default {
       jsnext: true,
       skip: [
         'abigail-plugin',
+        'abigail-plugin-env',
         'abigail-plugin-exit',
         'abigail-plugin-launch',
         'abigail-plugin-log',

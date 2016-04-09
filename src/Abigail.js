@@ -15,6 +15,7 @@ export default class Abigail extends AsyncEmitter {
   // @property defaultOptions
   static defaultOptions = {
     plugins: {
+      env: false,
       exit: true,
       launch: true,
       log: true,

@@ -137,6 +137,7 @@ abby cover, report. --launch force
 
 See also
 ---
+* [abigail-plugin-env](https://github.com/abigailjs/abigail-plugin-env#usage)
 * [abigail-plugin-exit](https://github.com/abigailjs/abigail-plugin-exit#usage)
 * [abigail-plugin-launch](https://github.com/abigailjs/abigail-plugin-launch#usage)
 * [abigail-plugin-log](https://github.com/abigailjs/abigail-plugin-log#usage)
