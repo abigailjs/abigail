@@ -1,3 +1,9 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/abigailjs/abigail/compare/v1.6.0-0...v1.6.0) (2016-04-09)
+
+
+
+
 <a name="1.6.0-0"></a>
 # [1.6.0-0](https://github.com/abigailjs/abigail/compare/v1.5.0...v1.6.0-0) (2016-04-09)
 
