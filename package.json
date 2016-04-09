@@ -26,7 +26,7 @@
     "abigail-plugin-exit": "^0.1.1",
     "abigail-plugin-launch": "^0.0.7",
     "abigail-plugin-log": "^0.2.1",
-    "abigail-plugin-parse": "^0.2.1",
+    "abigail-plugin-parse": "^0.3.0",
     "abigail-plugin-watch": "^0.2.0",
     "source-map-support": "^0.4.0"
   },
