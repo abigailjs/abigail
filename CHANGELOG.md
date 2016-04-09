@@ -1,3 +1,13 @@
+<a name="1.5.0-1"></a>
+# [1.5.0-1](https://github.com/abigailjs/abigail/compare/v1.5.0-0...v1.5.0-1) (2016-04-09)
+
+
+### Features
+
+* **log:** follow the `initialized lifecycle` ([37d6c7d](https://github.com/abigailjs/abigail/commit/37d6c7d))
+
+
+
 <a name="1.5.0-0"></a>
 # [1.5.0-0](https://github.com/abigailjs/abigail/compare/v1.4.3...v1.5.0-0) (2016-04-09)
 
