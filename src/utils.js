@@ -29,9 +29,11 @@ export function lookupJson(cwd) {
 
 /**
 * @param {object} [args] - a key-value defines
+* @param {boolean} [options] - a extra behaviors
+* @param {boolean} [options.enableIfObject=false] - if true and fieldValue is object, plugin to enable
 * @returns {object} pluginOptions - the plugin options
 */
-export function resolvePluginOptions(args = {}) {
+export function resolvePluginOptions(args = {}, options = { enableIfObject: false }) {
   const pluginOptions = {};
 
   for (const key in args) {
@@ -44,6 +46,9 @@ export function resolvePluginOptions(args = {}) {
 
     const fieldValue = args[key];
     if (typeof fieldValue === 'object') {
+      if (options.enableIfObject) {
+        fieldValue.enable = true;
+      }
       pluginOptions[key] = fieldValue;
       continue;
     }

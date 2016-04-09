@@ -53,7 +53,7 @@ export default class Abigail extends AsyncEmitter {
       {},
       utils.resolvePluginOptions(this.constructor.defaultOptions.plugins),
       utils.resolvePluginOptions(json.options.plugins),
-      utils.resolvePluginOptions(cliOptions),
+      utils.resolvePluginOptions(cliOptions, { enableIfObject: true }),
     );
     const plugins = utils.loadPlugins(this, pluginOptions);
 
