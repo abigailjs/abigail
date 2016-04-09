@@ -1,3 +1,18 @@
+<a name="1.5.0-0"></a>
+# [1.5.0-0](https://github.com/abigailjs/abigail/compare/v1.4.3...v1.5.0-0) (2016-04-09)
+
+
+### Bug Fixes
+
+* **launch:** fix abigailjs/abigail-plugin-launch#2 ([7adb94d](https://github.com/abigailjs/abigail/commit/7adb94d)), closes [abigailjs/abigail-plugin-launch#2](https://github.com/abigailjs/abigail-plugin-launch/issues/2)
+
+### Features
+
+* **env:** add builtin-plugin `env` ([7ebc92d](https://github.com/abigailjs/abigail/commit/7ebc92d))
+* **syntax:** add subarg syntax ([94a37a1](https://github.com/abigailjs/abigail/commit/94a37a1))
+
+
+
 <a name="1.4.3"></a>
 ## [1.4.3](https://github.com/abigailjs/abigail/compare/v1.4.2...v1.4.3) (2016-04-09)
 

@@ -1,7 +1,7 @@
 {
   "name": "abigail",
   "description": "lightweight, pluggable, a minimal task runner. using your npm-scripts.",
-  "version": "1.4.3",
+  "version": "1.5.0-0",
   "main": "lib",
   "files": [
     "lib",
