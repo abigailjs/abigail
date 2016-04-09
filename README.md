@@ -141,7 +141,7 @@ if specify `--`, it run the subsequent arguments as the end of the script.
 
 ```bash
 abby test -- --quiet
-# +   23 ms @_@ task start cover, report. (with --quiet)
+# +   23 ms @_@ task start test. (with --quiet)
 # ...
 ```
 
