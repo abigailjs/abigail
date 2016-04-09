@@ -55,7 +55,10 @@ export default class Abigail extends AsyncEmitter {
     );
     const plugins = utils.loadPlugins(this, pluginOptions);
 
-    const sentenceWithLowdash = _.length ? sentence.concat([_]) : sentence;
+    // ['a','b','c'] -> [['a'],['b'],['c']]
+    const parallel = _.map((task) => [task]);
+
+    const sentenceWithLowdash = _.length ? sentence.concat(parallel) : sentence;
     this.props = { sentence: sentenceWithLowdash, json, opts, pluginOptions, plugins };
 
     return this;
