@@ -33,6 +33,7 @@ export default class Abigail extends AsyncEmitter {
   initialize(argv, options = { process }) {
     const { _, sentence, ...cliOptions } = chopsticks(argv, {
       sentence: true,
+      nest: true,
       alias: { version: ['v', 'V'] },
     });
     if (cliOptions.version) {
