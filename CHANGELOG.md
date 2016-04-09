@@ -1,3 +1,13 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/abigailjs/abigail/compare/v1.5.0-1...v1.5.0) (2016-04-09)
+
+
+### Features
+
+* enable plugin using (subarg or dots syntax) ([8275ade](https://github.com/abigailjs/abigail/commit/8275ade))
+
+
+
 <a name="1.5.0-1"></a>
 # [1.5.0-1](https://github.com/abigailjs/abigail/compare/v1.5.0-0...v1.5.0-1) (2016-04-09)
 
