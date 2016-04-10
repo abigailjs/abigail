@@ -1,3 +1,13 @@
+<a name="1.6.1"></a>
+## [1.6.1](https://github.com/abigailjs/abigail/compare/v1.6.0...v1.6.1) (2016-04-10)
+
+
+### Bug Fixes
+
+* **raw:** the end of the period of the deleted shell command (fix #15) ([fe7e10a](https://github.com/abigailjs/abigail/commit/fe7e10a)), closes [#15](https://github.com/abigailjs/abigail/issues/15)
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/abigailjs/abigail/compare/v1.6.0-0...v1.6.0) (2016-04-09)
 
@@ -170,15 +180,6 @@
 * hide the pass/fail message ([fb55202](https://github.com/abigailjs/abigail/commit/fb55202))
 * **abby:** fix #6 ([5a4e33d](https://github.com/abigailjs/abigail/commit/5a4e33d)), closes [#6](https://github.com/abigailjs/abigail/issues/6)
 * **abigail-plugin-launch:** uptodate 0.0.3 ([833bd3e](https://github.com/abigailjs/abigail/commit/833bd3e))
-
-### Code Refactoring
-
-* move parse functions to abigail-plugin-parse ([86c6676](https://github.com/abigailjs/abigail/commit/86c6676))
-
-
-### BREAKING CHANGES
-
-* rename all properties to `this.props`
 
 
 
