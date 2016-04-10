@@ -41,7 +41,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.7.2",
     "carrack": "^0.1.0",
-    "chopsticks": "^0.5.1",
+    "chopsticks": "^0.5.2",
     "climb-lookup": "^1.0.0",
     "codeclimate-test-reporter": "^0.3.1",
     "conventional-changelog-cli": "^1.1.1",
