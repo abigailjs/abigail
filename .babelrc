@@ -6,10 +6,8 @@
     "development": {
       "presets": [
         "es2015",
-        "stage-1"
-      ],
-      "plugins": [
-        "espower"
+        "stage-1",
+        "power-assert"
       ]
     },
     "production": {
