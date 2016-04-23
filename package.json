@@ -11,10 +11,10 @@
     "abby": "abby"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-register",
+    "test": "mocha",
     "lint": "eslint src test abby",
     "cover": "npm-run-all cover:*",
-    "cover:test": "nyc --reporter=lcov --reporter=text npm test",
+    "cover:test": "nyc --reporter=lcov --reporter=text mocha",
     "cover:report": "npm-if TRAVIS \"codeclimate-test-reporter < coverage/lcov.info\"",
     "build": "cross-env NODE_ENV=production rollup -c",
     "postversion": "git push --follow-tags && conventional-github-releaser -p angular -r 0"
