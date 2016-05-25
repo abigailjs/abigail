@@ -37,16 +37,14 @@ abby test, lint, cover.
 # +    2 ms @_@ plugin enabled exit, log, launch, watch.
 # +   23 ms @_@ task start test, lint, cover.
 # +    0 ms @_@ task end test, lint, cover. exit code 0, 0, 0.
-# +    0 ms @_@ ... watch at src/**/*.js, test/**/*.js.
+# +    0 ms @_@ cheers for good work.
 ```
 
 in addition, makes it easy to change the settings using optional arguments.
 
 ```bash
-abby test --no-watch
-# +    2 ms @_@ task start test.
-# +  2.4  s @_@ task end test. exit code 0.
-# +    0 ms @_@ cheers for good work.
+abby test --no-log
+# ...
 > _
 ```
 
@@ -100,30 +98,27 @@ abby babel jade stylus
 
 glob execution
 ---
-if specify glob the script name, run the matching scripts in parallel.
+if specify glob the script name, run the matching scripts in **serial**.
 
 ```bash
 abby mytask:*
 # ...
 # +  133 ms @_@ script end mytask:stylus. exit code 0.
+# +    0 ms @_@ script start mytask:jade. exit code 0.
+# ...
 # +   87 ms @_@ script end mytask:jade. exit code 0.
+# +    0 ms @_@ script start mytask:babel. exit code 0.
+# ...
 # +   93 ms @_@ script end mytask:babel. exit code 0.
 # +    0 ms @_@ task end mytask:babel, mytask:jade, mytask:stylus. exit code 0, 0, 0.
 ```
 
-force execution
+bail execution
 ---
-if specify `--launch force`, ignores the error and continues serial execution.
+if specify `--launch bail`, ignores the error and continues serial execution.
 
 ```bash
 abby cover, report.
-# +   23 ms @_@ task start cover, report.
-# +    3 ms @_@ script start cover.
-# +  6.3  s @_@ script end cover. exit code 1.
-# +  5.1  s @_@ task end cover. exit code 1.
-# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
-
-abby cover, report. --launch force
 # +   23 ms @_@ task start cover, report.
 # +    3 ms @_@ script start cover.
 # ...
@@ -132,6 +127,13 @@ abby cover, report. --launch force
 # ...
 # +  198 ms @_@ script end report. exit code 0.
 # +    2 ms @_@ task end cover, report. exit code 1, 0.
+# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
+
+abby cover, report. --launch bail
+# +   23 ms @_@ task start cover, report.
+# +    3 ms @_@ script start cover.
+# +  6.3  s @_@ script end cover. exit code 1.
+# +  5.1  s @_@ task end cover. exit code 1.
 # +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
 

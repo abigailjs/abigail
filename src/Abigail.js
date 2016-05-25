@@ -20,7 +20,7 @@ export default class Abigail extends AsyncEmitter {
       launch: true,
       log: true,
       parse: true,
-      watch: true,
+      watch: false,
     },
   }
 
