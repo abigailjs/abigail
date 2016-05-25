@@ -36,12 +36,12 @@ export function lookupJson(cwd) {
 export function resolvePluginOptions(args = {}, options = { enableIfObject: false }) {
   const pluginOptions = {};
 
-  for (const key in args) {
+  Object.keys(args).forEach(key => {
     if (args.hasOwnProperty(key) === false) {
-      continue;
+      return;
     }
     if (args[key] === null || args[key] === undefined) {
-      continue;
+      return;
     }
 
     const fieldValue = args[key];
@@ -50,7 +50,7 @@ export function resolvePluginOptions(args = {}, options = { enableIfObject: fals
         fieldValue.enable = true;
       }
       pluginOptions[key] = fieldValue;
-      continue;
+      return;
     }
 
     const opts = {};
@@ -62,7 +62,7 @@ export function resolvePluginOptions(args = {}, options = { enableIfObject: fals
       opts.value = fieldValue;
     }
     pluginOptions[key] = opts;
-  }
+  });
 
   return pluginOptions;
 }
@@ -94,20 +94,20 @@ export function resolvePlugin(name, constructor) {
 export function loadPlugins(parent, options = {}) {
   const plugins = {};
 
-  for (const name in options) {
+  Object.keys(options).forEach(name => {
     if (options.hasOwnProperty(name) === false) {
-      continue;
+      return;
     }
 
     const pluginOpts = options[name];
     if (pluginOpts.enable === false) {
-      continue;
+      return;
     }
 
     const Plugin = resolvePlugin(name, pluginOpts);
     const plugin = new Plugin(parent, pluginOpts.value, pluginOpts);
     plugins[plugin.name] = plugin;
-  }
+  });
 
   return plugins;
 }
