@@ -29,7 +29,7 @@ Usage
 ---
 
 abigail is [npm scripts](https://docs.npmjs.com/misc/scripts) emulator.
-you can succinctly describe the serial execution and watch files.
+you can succinctly describe the serial run-script and watch files.
 
 ```bash
 abby test, lint, cover.
@@ -68,9 +68,9 @@ abby test
 # ... watch at *, src/**/*.jsx, test/**/*.jsx.
 ```
 
-serial execution
+serial run-script
 ---
-if connecting the script name with a comma, run the script in series.
+if connecting the script name with a comma, run the script in serial.
 
 ```bash
 abby cover, report.
@@ -83,7 +83,7 @@ abby cover, report.
 # +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
 
-parallel execution
+parallel run-script
 ---
 unless connecting the script name with a comma, run the script in parallel.
 
@@ -96,7 +96,7 @@ abby babel jade stylus
 # +    0 ms @_@ task end babel, jade, stylus. exit code 0, 0, 0.
 ```
 
-glob execution
+glob run-script
 ---
 if specify glob the script name, run the matching scripts in **serial**.
 
@@ -113,9 +113,9 @@ abby mytask:*
 # +    0 ms @_@ task end mytask:babel, mytask:jade, mytask:stylus. exit code 0, 0, 0.
 ```
 
-bail execution
+bail run-script
 ---
-if specify `--launch bail`, ignores the error and continues serial execution.
+if specify `--launch bail`, to strict serial run-script(not ignore the error and continues).
 
 ```bash
 abby cover, report.
