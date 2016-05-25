@@ -31,11 +31,10 @@ before_script:
   - npm prune
 script:
   - npm run cover
+  - npm run build
   - npm run lint
 
 # Npm publish options
-before_deploy:
-  - npm run build
 deploy:
   skip_cleanup: true # keep the devDependencies
   provider: npm
