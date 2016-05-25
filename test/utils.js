@@ -1,6 +1,6 @@
 // dependencies
 import AsyncEmitter from 'carrack';
-import assert from 'power-assert';
+import assert from 'assert';
 import { join as joinPaths } from 'path';
 
 // target
