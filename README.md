@@ -142,8 +142,18 @@ run with script
 if specify `--`, it run the subsequent arguments as the end of the script.
 
 ```bash
-abby test -- --quiet
-# +   23 ms @_@ task start test. (with --quiet)
+abby cover:* -- --quiet
+# +   23 ms @_@ task start cover:test. (with --quiet)
+# ...
+```
+
+if the locally use, use the double quote(`""`).
+
+```bash
+abby cant-quiet-task "cover:* -- --quiet"
+# +   23 ms @_@ task start cant-quiet-task, cover:test.
+# +    3 ms @_@ script start cant-quiet-task.
+# +    3 ms @_@ script start cover:test. (with  --quiet)
 # ...
 ```
 
