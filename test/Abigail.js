@@ -17,6 +17,7 @@ const createProcess = () => ({
   stdout: {
     write: sinon.spy(),
   },
+  chdir: () => {},
 });
 
 // specs

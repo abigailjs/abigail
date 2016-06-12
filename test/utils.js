@@ -31,7 +31,7 @@ describe('utils', () => {
       } catch (e) {
         error = e;
       }
-      assert(error.message === 'Unexpected token }');
+      assert(error.message.match(/^Unexpected token }/));
     });
   });
 
