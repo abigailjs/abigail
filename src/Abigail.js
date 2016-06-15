@@ -50,7 +50,9 @@ export default class Abigail extends AsyncEmitter {
       json.options || {},
     );
 
-    options.process.chdir(json.dir);
+    if (json.dir) {
+      options.process.chdir(json.dir);
+    }
 
     const pluginOptions = deepAssign(
       {},
