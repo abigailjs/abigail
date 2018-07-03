@@ -72,28 +72,28 @@ describe('utils', () => {
 
   describe('.resolvePlugin', () => {
     it('in long name, it should return the constructor', () => {
-      const emitter = new AsyncEmitter;
+      const emitter = new AsyncEmitter();
       const Plugin = utils.resolvePlugin('abigail-plugin-parse');
       const plugin = new Plugin(emitter);
       assert(plugin.name === 'parse');
     });
 
     it('in short name, it should return the constructor', () => {
-      const emitter = new AsyncEmitter;
+      const emitter = new AsyncEmitter();
       const Plugin = utils.resolvePlugin('parse');
       const plugin = new Plugin(emitter);
       assert(plugin.name === 'parse');
     });
 
     it('if specify a path, should be require and returnes', () => {
-      const emitter = new AsyncEmitter;
+      const emitter = new AsyncEmitter();
       const Plugin = utils.resolvePlugin(require.resolve('abigail-plugin-parse'));
       const plugin = new Plugin(emitter);
       assert(plugin.name === 'parse');
     });
 
     it('if specify a constructor to the second argument, it should be returned as it is', () => {
-      const emitter = new AsyncEmitter;
+      const emitter = new AsyncEmitter();
       const Plugin = utils.resolvePlugin(null, require('abigail-plugin-parse'));
       const plugin = new Plugin(emitter);
       assert(plugin.name === 'parse');
@@ -102,14 +102,14 @@ describe('utils', () => {
 
   describe('.loadPlugins', () => {
     it('if specify pluginOpts.enable is true, should be a plugin enable', () => {
-      const emitter = new AsyncEmitter;
+      const emitter = new AsyncEmitter();
       const plugins = utils.loadPlugins(emitter, { parse: { enable: true } });
 
       assert(plugins.parse.parent === emitter);
     });
 
     it('if specify pluginOpts.enable is false, should be a plugin disable', () => {
-      const emitter = new AsyncEmitter;
+      const emitter = new AsyncEmitter();
       const plugins = utils.loadPlugins(emitter, { parse: { enable: false } });
 
       assert(plugins.parse === undefined);

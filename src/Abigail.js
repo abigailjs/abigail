@@ -31,7 +31,9 @@ export default class Abigail extends AsyncEmitter {
   * @returns {abigail} this - the self instance
   */
   initialize(argv, options = { process }) {
-    const { _, sentence, dash: scriptSuffixes, ...cliOptions } = chopsticks(argv, {
+    const {
+      _, sentence, dash: scriptSuffixes, ...cliOptions
+    } = chopsticks(argv, {
       sentence: true,
       nest: true,
       dash: true,
@@ -63,10 +65,12 @@ export default class Abigail extends AsyncEmitter {
     const plugins = utils.loadPlugins(this, pluginOptions);
 
     // ['a','b','c'] -> [['a'],['b'],['c']]
-    const parallel = _.map((task) => [task]);
+    const parallel = _.map(task => [task]);
 
     const sentenceWithLowdash = _.length ? sentence.concat(parallel) : sentence;
-    this.props = { sentence: sentenceWithLowdash, json, scriptSuffixes, opts, pluginOptions, plugins };
+    this.props = {
+      sentence: sentenceWithLowdash, json, scriptSuffixes, opts, pluginOptions, plugins,
+    };
 
     return this;
   }

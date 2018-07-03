@@ -27,28 +27,28 @@ import Abigail from './Abigail';
 export default (argv, options = {}) => {
   const abigail = new Abigail(options).initialize(argv);
   abigail.emit('initialized')
-  .then(() => abigail.emit('parse'))
-  .then(() => abigail.emit('attach-plugins'))
-  .then(() => abigail.emit('launch'))
-  .then(() => {
-    if (abigail.listeners('exit').length) {
-      return abigail.emit('detach-plugins')
-      .then(() => abigail.emit('exit'));
-    }
-
-    return process.once('SIGINT', () => {
-      try {
-        abigail.props.plugins.log.abort();
-      } catch (e) {
-        // ignore
+    .then(() => abigail.emit('parse'))
+    .then(() => abigail.emit('attach-plugins'))
+    .then(() => abigail.emit('launch'))
+    .then(() => {
+      if (abigail.listeners('exit').length) {
+        return abigail.emit('detach-plugins')
+          .then(() => abigail.emit('exit'));
       }
 
-      abigail.emit('detach-plugins')
-      .then(() => abigail.emit('exit'));
+      return process.once('SIGINT', () => {
+        try {
+          abigail.props.plugins.log.abort();
+        } catch (e) {
+        // ignore
+        }
+
+        abigail.emit('detach-plugins')
+          .then(() => abigail.emit('exit'));
+      });
+    })
+    .catch((reason) => {
+      console.trace(reason.message); // eslint-disable-line no-console
+      process.exit(1);
     });
-  })
-  .catch((reason) => {
-    console.trace(reason.message); // eslint-disable-line no-console
-    process.exit(1);
-  });
 };

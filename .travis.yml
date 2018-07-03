@@ -23,12 +23,8 @@ env:
 language: node_js
 node_js:
   - 0
-  - 4
-  - 5
-before_install:
-  - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
-before_script:
-  - npm prune
+  - 6
+  - 10
 script:
   - npm run cover
   - npm run build
@@ -42,4 +38,4 @@ deploy:
   api_key:
     secure: fup0t0KFvc2ht2/uWUQ1CdWBtSKOeQYJc3ipN9OxO1z+6HhuAd1ZoXdgb+lX9K2AkSq+F8uVinRyZeZfyDYdhzRG0Y4j2yWjDQNTha+JCChmU2+0nYwKWSB0/AOlBISVy8wCXAuq0RiVuFTNlK9wKxj2IuHjb9WebBq8dJEQLpc=
   on:
-    node: 4
+    node: 6

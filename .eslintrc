@@ -1,5 +1,6 @@
 ---
-extends: airbnb/base
+extends:
+  - airbnb-base
 parser: babel-eslint
 
 env:
@@ -15,4 +16,7 @@ rules:
   max-len: 1
   arrow-body-style: 1
 
-  global-require: 0
+  global-require: 1
+  import/no-extraneous-dependencies: 1
+  import/no-dynamic-require: 1
+  prefer-destructuring: 1

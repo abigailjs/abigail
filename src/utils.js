@@ -17,14 +17,18 @@ export function lookupJson(cwd) {
     const data = { scripts: {} };
     const options = {};
 
-    return { path, dir, data, options };
+    return {
+      path, dir, data, options,
+    };
   }
 
   const dir = dirname(path);
   const data = JSON.parse(readFileSync(path));
   const options = data.abigail || {};
 
-  return { path, dir, data, options };
+  return {
+    path, dir, data, options,
+  };
 }
 
 /**
@@ -36,8 +40,8 @@ export function lookupJson(cwd) {
 export function resolvePluginOptions(args = {}, options = { enableIfObject: false }) {
   const pluginOptions = {};
 
-  Object.keys(args).forEach(key => {
-    if (args.hasOwnProperty(key) === false) {
+  Object.keys(args).forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(args, key) === false) {
       return;
     }
     if (args[key] === null || args[key] === undefined) {
@@ -76,7 +80,7 @@ export function resolvePlugin(name, constructor) {
   if (typeof constructor === 'function') {
     return constructor;
   }
-  if (name.match(/^[\w\-]+$/) === null) {
+  if (name.match(/^[\w-]+$/) === null) {
     return require(resolvePaths(process.cwd(), name));
   }
   if (name.match(/^abigail-plugin/)) {
@@ -94,8 +98,8 @@ export function resolvePlugin(name, constructor) {
 export function loadPlugins(parent, options = {}) {
   const plugins = {};
 
-  Object.keys(options).forEach(name => {
-    if (options.hasOwnProperty(name) === false) {
+  Object.keys(options).forEach((name) => {
+    if (Object.prototype.hasOwnProperty.call(options, name) === false) {
       return;
     }
 
