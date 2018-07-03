@@ -40,7 +40,7 @@
     "babel-preset-power-assert": "^2.0.0",
     "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.26.0",
-    "carrack": "0.5",
+    "carrack": "^0.5.0",
     "chopsticks": "^0.6.0",
     "climb-lookup": "^1.0.0",
     "codeclimate-test-reporter": "^0.5.0",

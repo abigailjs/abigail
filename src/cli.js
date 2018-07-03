@@ -26,14 +26,14 @@ import Abigail from './Abigail';
 */
 export default (argv, options = {}) => {
   const abigail = new Abigail(options).initialize(argv);
-  abigail.emit('initialized')
-    .then(() => abigail.emit('parse'))
-    .then(() => abigail.emit('attach-plugins'))
-    .then(() => abigail.emit('launch'))
+  abigail.emitParallel('initialized')
+    .then(() => abigail.emitParallel('parse'))
+    .then(() => abigail.emitParallel('attach-plugins'))
+    .then(() => abigail.emitParallel('launch'))
     .then(() => {
       if (abigail.listeners('exit').length) {
-        return abigail.emit('detach-plugins')
-          .then(() => abigail.emit('exit'));
+        return abigail.emitParallel('detach-plugins')
+          .then(() => abigail.emitParallel('exit'));
       }
 
       return process.once('SIGINT', () => {
@@ -43,8 +43,8 @@ export default (argv, options = {}) => {
         // ignore
         }
 
-        abigail.emit('detach-plugins')
-          .then(() => abigail.emit('exit'));
+        abigail.emitParallel('detach-plugins')
+          .then(() => abigail.emitParallel('exit'));
       });
     })
     .catch((reason) => {
