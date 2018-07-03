@@ -48,7 +48,7 @@ export default (argv, options = {}) => {
       });
     })
     .catch((reason) => {
-      console.trace(reason.message); // eslint-disable-line no-console
+      console.log(reason.stack); // eslint-disable-line no-console
       process.exit(1);
     });
 };
