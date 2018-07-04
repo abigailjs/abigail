@@ -20,13 +20,13 @@
     "postversion": "git push --follow-tags && conventional-github-releaser -p angular -r 0"
   },
   "dependencies": {
-    "abigail-plugin": "^0.1.3",
-    "abigail-plugin-env": "^0.0.0",
-    "abigail-plugin-exit": "^0.1.2",
-    "abigail-plugin-launch": "^0.1.0",
-    "abigail-plugin-log": "^0.3.0",
-    "abigail-plugin-parse": "^0.7.0",
-    "abigail-plugin-watch": "^0.2.0",
+    "abigail-plugin": "^0.1",
+    "abigail-plugin-env": "^0.0",
+    "abigail-plugin-exit": "^0.1",
+    "abigail-plugin-launch": "^0.1",
+    "abigail-plugin-log": "^0.3",
+    "abigail-plugin-parse": "^0.7",
+    "abigail-plugin-watch": "^0.2",
     "source-map-support": "^0.5.6"
   },
   "devDependencies": {
