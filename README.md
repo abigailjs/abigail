@@ -23,13 +23,15 @@ Installation
 ---
 ```bash
 npm install abigail --global
+# or
+yarn global add abigail
 ```
 
 Usage
 ---
 
 abigail is [npm scripts](https://docs.npmjs.com/misc/scripts) emulator.
-you can succinctly describe the serial run-script and watch files.
+You can succinctly describe the serial run-script and watch files.
 
 ```bash
 abby test, lint, cover.
@@ -40,7 +42,7 @@ abby test, lint, cover.
 # +    0 ms @_@ cheers for good work.
 ```
 
-in addition, makes it easy to change the settings using optional arguments.
+In addition, makes it easy to change the settings using optional arguments.
 
 ```bash
 abby test --no-log
@@ -57,7 +59,7 @@ or specify package.json `abigail` field.
   },
   "abigail": {
     "plugins": {
-      "watch": "*,src/**/*.jsx,test/**/*.jsx"
+      "watch": "{*,src/**/*.jsx,test/**/*.jsx}"
     }
   }
 }
@@ -65,12 +67,11 @@ or specify package.json `abigail` field.
 
 ```bash
 abby test
-# ... watch at *, src/**/*.jsx, test/**/*.jsx.
 ```
 
-serial run-script
+Serial run-script
 ---
-if connecting the script name with a comma, run the script in serial.
+If connecting the script name with a comma, run the script in serial.
 
 ```bash
 abby cover, report.
@@ -80,12 +81,11 @@ abby cover, report.
 # +    3 ms @_@ script start report.
 # +  6.3  s @_@ script end report. exit code 0.
 # +  5.1  s @_@ task end cover, report. exit code 0, 0.
-# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
 
-parallel run-script
+Parallel run-script
 ---
-unless connecting the script name with a comma, run the script in parallel.
+Unless connecting the script name with a comma, run the script in parallel.
 
 ```bash
 abby babel jade stylus
@@ -96,9 +96,47 @@ abby babel jade stylus
 # +    0 ms @_@ task end babel, jade, stylus. exit code 0, 0, 0.
 ```
 
-glob run-script
+Run binary script
 ---
-if specify glob the script name, run the matching scripts in **serial**.
+Cause abigail is know path of the local-installed, Can run the bin of `node_modules/.bin/` instead of missing script.
+
+```bash
+abby flow
+# ...
+# +    8 ms @_@; Error: spawn flow ENOENT
+# ...
+
+npm install flow-bin
+abby flow
+# ...
+# No errors!
+# ...
+```
+
+See detail is to [abigail-parse-plugin](https://github.com/abigailjs/abigail-plugin-parse#abigail-parse-plugin).
+
+Continuous script
+---
+Can run scirpt continuously using the builtin `--watch` plugin.
+
+```bash
+abby test --watch
+# ...
+# +  1.0  s @_@ task end test. exit code 0.
+# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
+
+abby flow --watch '{src,test}/**/*.js'
+# ...
+# No errors!
+# +  113 ms @_@ task end flow. exit code 0.
+# +    0 ms @_@ ... watch at {src,test}/**/*.js.
+```
+
+See detail is to [abigail-plugin-watch](https://github.com/abigailjs/abigail-plugin-watch#abigail-watch-plugin).
+
+Glob run-script
+---
+If specify glob the script name, run the matching scripts in **serial**.
 
 ```bash
 abby mytask:*
@@ -113,9 +151,9 @@ abby mytask:*
 # +    0 ms @_@ task end mytask:babel, mytask:jade, mytask:stylus. exit code 0, 0, 0.
 ```
 
-bail run-script
+Bail run-script
 ---
-if specify `--launch bail`, to strict serial run-script(not ignore the error and continues).
+If specify `--launch bail`, to strict serial run-script(not ignore the error and continues).
 
 ```bash
 abby cover, report.
@@ -127,17 +165,15 @@ abby cover, report.
 # ...
 # +  198 ms @_@ script end report. exit code 0.
 # +    2 ms @_@ task end cover, report. exit code 1, 0.
-# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 
 abby cover, report. --launch bail
 # +   23 ms @_@ task start cover, report.
 # +    3 ms @_@ script start cover.
 # +  6.3  s @_@ script end cover. exit code 1.
 # +  5.1  s @_@ task end cover. exit code 1.
-# +    1 ms @_@ ... watch at src/**/*.js, test/**/*.js.
 ```
 
-run with script
+Run with script
 ---
 if specify `--`, it run the subsequent arguments as the end of the script.
 
@@ -147,7 +183,7 @@ abby cover:* -- --quiet
 # ...
 ```
 
-if the locally use, use the double quote(`""`).
+If the locally use, use the double quote(`""`).
 
 ```bash
 abby cant-quiet-task "cover:* -- --quiet"
