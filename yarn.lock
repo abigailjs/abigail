@@ -179,11 +179,11 @@ abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-abigail-plugin-env@^0.0.0:
+abigail-plugin-env@^0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/abigail-plugin-env/-/abigail-plugin-env-0.0.0.tgz#b7a0bc3a65957a59027063c16691b3ce26233568"
 
-abigail-plugin-exit@^0.1.2:
+abigail-plugin-exit@^0.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/abigail-plugin-exit/-/abigail-plugin-exit-0.1.2.tgz#cffb340ac8ec8ad324939f6f07a6b197a2ff4fb0"
   dependencies:
@@ -191,33 +191,33 @@ abigail-plugin-exit@^0.1.2:
     lodash.flattendeep "^4.1.0"
     string-raw "^1.0.0"
 
-abigail-plugin-launch@^0.1.0:
+abigail-plugin-launch@^0.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/abigail-plugin-launch/-/abigail-plugin-launch-0.1.2.tgz#9a81f5a0171ea5d39d783558d01511f7829baad0"
   dependencies:
     bluebird "^3.3.4"
     npm-run-script "^0.0.4"
 
-abigail-plugin-log@^0.3.0:
+abigail-plugin-log@^0.3:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/abigail-plugin-log/-/abigail-plugin-log-0.3.1.tgz#d4dba0dce74440fb1877bafb15967e044cdb54b2"
   dependencies:
     chalk "^1.1.1"
     lodash.flattendeep "^4.1.0"
 
-abigail-plugin-parse@^0.7.0:
+abigail-plugin-parse@^0.7:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/abigail-plugin-parse/-/abigail-plugin-parse-0.7.2.tgz#7b9ac202ec04a8396b5a9f747516f7abf8a0c35d"
 
-abigail-plugin-watch@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/abigail-plugin-watch/-/abigail-plugin-watch-0.2.0.tgz#f697dc0fea4f8df58558c31b039b6151d755939d"
+abigail-plugin-watch@^0.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/abigail-plugin-watch/-/abigail-plugin-watch-0.2.2.tgz#5bd6a83ce41eaed01317f349d471519fcaa2df54"
   dependencies:
     bluebird "^3.3.4"
-    chalk "^1.1.1"
+    chalk "^2.4.1"
     gaze "^1.0.0"
 
-abigail-plugin@^0.1.3:
+abigail-plugin@^0.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/abigail-plugin/-/abigail-plugin-0.1.3.tgz#474f9c6258063f6912d5d18d627588bb6f548b48"
   dependencies:
@@ -1307,12 +1307,11 @@ caniuse-lite@^1.0.30000844:
   version "1.0.30000861"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000861.tgz#a32bb9607c34e4639b497ff37de746fc8a160410"
 
-carrack@0.5:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/carrack/-/carrack-0.5.0.tgz#d8ce373a5d89d55dc22dc10213b74e219b9ecee9"
+carrack@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/carrack/-/carrack-0.3.0.tgz#6f8b2cfb3023ae5c8e75e81dd166a281468898d3"
   dependencies:
     bluebird "^3.0.1"
-    throat "^2.0.2"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -1338,6 +1337,14 @@ chalk@^1.1.1, chalk@^1.1.3:
 chalk@^2.0.0, chalk@^2.1.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
+  dependencies:
+    ansi-styles "^3.2.1"
+    escape-string-regexp "^1.0.5"
+    supports-color "^5.3.0"
+
+chalk@^2.4.1:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   dependencies:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
@@ -2104,7 +2111,7 @@ esutils@^2.0.2:
 
 event-stream@~3.3.0:
   version "3.3.4"
-  resolved "http://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
+  resolved "https://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
   dependencies:
     duplexer "~0.1.1"
     from "~0"
@@ -4183,8 +4190,8 @@ q@^1.4.1, q@^1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
 
 qs@~6.3.0:
-  version "6.3.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.3.tgz#645c23bd6def4d552f258f0aadfeea6fd57f5a86"
 
 query-string@^5.0.1:
   version "5.1.1"
@@ -4985,10 +4992,6 @@ text-extensions@^1.0.0:
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
-
-throat@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/throat/-/throat-2.0.2.tgz#a9fce808b69e133a632590780f342c30a6249b02"
 
 through2@^2.0.0, through2@^2.0.2:
   version "2.0.3"
